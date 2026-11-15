@@ -152,3 +152,4 @@ footer a:hover { color: var(--text); }
 
 :focus-visible { outline: 3px solid var(--yellow); outline-offset: 3px; border-radius: 6px; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .btn { transition: none; } }
+.doc h3 { font-size: 1.12rem; margin: 22px 0 6px; scroll-margin-top: 80px; }
