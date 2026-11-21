@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Privacy Policy - Gali Cricket Chase 3D</title>
-<meta name="description" content="How Gali Cricket Chase 3D uses data: what stays on your phone, Online Duel, analytics, ads, purchases, and how to delete your data.">
+<meta name="description" content="How Gali Cricket Chase 3D uses data: what stays on your phone, online data from older versions, analytics, ads, purchases, and how to delete your data.">
 <meta name="theme-color" content="#07111f">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
@@ -28,41 +28,22 @@
 </header>
 <main id="main" class="doc">
 <h1>Privacy Policy</h1>
-<p class="muted">Gali Cricket Chase 3D (Android package <code>com.galicricket.chase3d</code>)<br>Last updated: 15 November 2026</p>
+<p class="muted">Gali Cricket Chase 3D (Android package <code>com.galicricket.chase3d</code>)<br>Last updated: 21 November 2026</p>
 
 <p>This policy explains, in plain words, what information the game Gali Cricket Chase 3D ("the game", "we", "us") uses and why. We built the game so that it needs as little data as possible.</p>
 
-<nav class="toc" aria-label="Contents"><b>Contents</b><ol><li><a href="#s1">Your game on your phone</a></li><li><a href="#s2">Online Duel, Live 1v1 and leaderboards (only if you use them)</a></li><li><a href="#s3">Game analytics and crash reports (Google Firebase)</a></li><li><a href="#s4">Advertising (Google AdMob)</a></li><li><a href="#s5">In-app purchases (Google Play Billing)</a></li><li><a href="#s6">Sharing a challenge or scorecard</a></li><li><a href="#s7">We do not sell your data</a></li><li><a href="#s8">Permissions the app uses</a></li><li><a href="#s9">Children</a></li><li><a href="#s10">Data retention and deletion</a></li><li><a href="#delete">Delete your data</a></li><li><a href="#s12">Security</a></li><li><a href="#s13">Contact</a></li><li><a href="#s14">Changes to this policy</a></li></ol></nav>
+<nav class="toc" aria-label="Contents"><b>Contents</b><ol><li><a href="#s1">Your game on your phone</a></li><li><a href="#s2">Online data from older versions</a></li><li><a href="#s3">Game analytics and crash reports (Google Firebase)</a></li><li><a href="#s4">Advertising (Google AdMob)</a></li><li><a href="#s5">In-app purchases (Google Play Billing)</a></li><li><a href="#s6">Rating the game</a></li><li><a href="#s7">We do not sell your data</a></li><li><a href="#s8">Permissions the app uses</a></li><li><a href="#s9">Children</a></li><li><a href="#s10">Data retention and deletion</a></li><li><a href="#delete">Delete your data</a></li><li><a href="#s12">Security</a></li><li><a href="#s13">Contact</a></li><li><a href="#s14">Changes to this policy</a></li></ol></nav>
 <h2 id="s1">1. Your game on your phone</h2>
-<p>There is no sign-up and no password. Your progress (levels, coins, kits, bats, gear, look, Season Pass, settings and the names you type) is saved on your device. Uninstalling the game or clearing its app data deletes it. If Android backup is on for your phone, Android may include this game data in your Google account backup (you can turn that off in your phone's backup settings).</p>
+<p>There is no sign-up and no password. Your progress (holes played, stars, coins, marbles, kids, bats, caps, trails, dances and settings) is saved on your device. Uninstalling the game or clearing its app data deletes it. If Android backup is on for your phone, Android may include this game data in your Google account backup (you can turn that off in your phone's backup settings).</p>
 
-<h2 id="s2">2. Online Duel, Live 1v1 and leaderboards (only if you use them)</h2>
-<p>If you open <strong>Online Duel</strong>, the game signs you in <strong>anonymously</strong> with Google Firebase Authentication. This creates a random player ID; it is not linked to your name, email, phone number or Google account. To run duels and the leaderboard, the game then stores on Google Cloud Firestore (servers in Mumbai, India):</p>
-<ul>
-  <li>the <strong>player name</strong> and optional <strong>team name</strong> you choose (other players can see them);</li>
-  <li>your <strong>rating, rank, wins, duels played and best score</strong> (shown on the leaderboard);</li>
-  <li>your finished duel innings (the 12-ball seed, runs and wickets), so other players can play against your score;</li>
-  <li>results of other players who played against your score (who, their score and the rating change), which are removed once your game has read them.</li>
-</ul>
-<p>Names are checked against a list of insults before they are used. If you never open Online Duel, nothing of this is created.</p>
-<p><strong>Delete it at any time:</strong> Online Duel &gt; <em>Delete my online data</em> removes your profile, your innings and your results from the server and forgets the anonymous ID on your phone. You can also email us (section 12) and we will delete it.</p>
-
-<h3 id="live">Live 1v1</h3>
-<p>If you play <strong>Live 1v1</strong> (a Super Over against another player at the same time), the game uses the same anonymous player ID and Google Firebase Realtime Database (servers in the United States). It stores:</p>
-<ul>
-  <li><strong>while you look for a match:</strong> your player name, your live rating, the coin stake you chose and the time. This is removed as soon as a match starts or you stop looking;</li>
-  <li><strong>for a match with a friend:</strong> a six-letter room code. It is removed when your friend joins or you cancel;</li>
-  <li><strong>during a match</strong>, in a match room only you and the other player can read: both player names and live ratings, the coin stake (Free, 100 or 200 game coins), whether each batter is left- or right-handed, every ball bowled (line, length, type), every shot played (runs, out or not, direction, lofted or not, timing), short connection signals every few seconds, the quick reactions you send (three preset emotes, no free text) and the final score. Your game deletes the room once an hour has passed, the next time you or the other player opens Live 1v1;</li>
-  <li><strong>the live leaderboard:</strong> your player name, live rating, live wins and live matches played. Other players can see it;</li>
-  <li><strong>if you report a player:</strong> your anonymous ID, theirs, the match and the reason you picked (rude name, cheating or something else). Your game deletes the report after 90 days.</li>
-</ul>
-<p>Players you block are remembered only on your phone. There is no chat and no voice. If you never open Live 1v1, nothing of this is created.</p>
-<p><strong>Delete it at any time:</strong> <em>Delete my online data</em> also removes your live leaderboard row, your place in the queue, finished match rooms and your reports.</p>
+<h2 id="s2">2. Online data from older versions</h2>
+<p>From version 3.0 (Chhoti Duniya) the game has <strong>no online play</strong>: it does not sign you in, and it sends nothing to our servers.</p>
+<p>Versions before 3.0 had <strong>Online Duel</strong>, <strong>Live 1v1</strong> and leaderboards. If you used them, our Google Firebase servers (in the United States) may still hold what those versions stored under a random anonymous player ID: the player name and team name you chose, your online scores, ratings and results, and any reports you made. This is not linked to your email, phone number or Google account. You can have it deleted at any time (see <a href="#delete">Delete your data</a>).</p>
 
 <h2 id="s3">3. Game analytics and crash reports (Google Firebase)</h2>
 <p>To see which parts of the game are played, and to find and fix crashes (especially on low-end phones), the Android app uses <strong>Google Analytics for Firebase</strong> and <strong>Firebase Crashlytics</strong>. They may collect:</p>
 <ul>
-  <li>app activity: screens and game events such as a match ended (mode, runs, win/loss), a level finished, a duel or live match played, an item bought with coins or a purchase completed;</li>
+  <li>app activity: screens and game events such as a hole started or finished (hole, shots, stars), a race or the tutorial finished, an item bought with coins or a purchase completed;</li>
   <li>an app-instance ID and, where allowed, the Advertising ID;</li>
   <li>device and app information (model, Android and WebView version, language, app version, approximate country from the IP address);</li>
   <li>crash logs and error messages from the game, with the graphics setting and the phone's graphics chip name.</li>
@@ -82,19 +63,17 @@
 <p>How Google uses data from apps that use its services: <a href="https://policies.google.com/technologies/partner-sites">policies.google.com/technologies/partner-sites</a></p>
 
 <h2 id="s5">5. In-app purchases (Google Play Billing)</h2>
-<p>Optional purchases (Remove Ads, Starter Pack, coin packs and the Season Pass) are processed entirely by Google Play. We never see or store your card or payment details. Google Play tells the game only whether a purchase was successful so it can unlock the item, and the game can restore items that last (Remove Ads, Starter Pack, Coin Doubler). Coin packs and the Season Pass are used up when bought: a Season Pass covers the season it was bought in. Google's privacy policy: <a href="https://policies.google.com/privacy">policies.google.com/privacy</a></p>
+<p>Optional purchases (Remove Ads, Starter Pack, First Pack, coin packs and the Coin Doubler) are processed entirely by Google Play. We never see or store your card or payment details. Google Play tells the game only whether a purchase was successful so it can unlock the item, and the game can restore items that last (Remove Ads, Starter Pack, First Pack, Coin Doubler). Coin packs are used up when bought. Google's privacy policy: <a href="https://policies.google.com/privacy">policies.google.com/privacy</a></p>
 
-<h2 id="s6">6. Sharing a challenge or scorecard</h2>
-<p>If you tap Share, the game creates a short text (and, for the scorecard, an image) with your score and a challenge code and passes it to the app you choose (for example WhatsApp) using Android's share sheet. We do not receive it.</p>
-
-<p>After a good match the game may ask Google Play to show its rating card (Google Play In-App Review). Google decides whether it appears, and your rating goes to Google Play, not to us.</p>
+<h2 id="s6">6. Rating the game</h2>
+<p>After a good hole the game may ask Google Play to show its rating card (Google Play In-App Review). Google decides whether it appears, and your rating goes to Google Play, not to us.</p>
 
 <h2 id="s7">7. We do not sell your data</h2>
 <p>We do not sell, rent or trade any personal information. We do not collect contacts, photos, files, messages, microphone, camera or precise location.</p>
 
 <h2 id="s8">8. Permissions the app uses</h2>
 <ul>
-  <li><strong>Internet / network state</strong> - for ads, purchases, Online Duel, analytics and crash reports.</li>
+  <li><strong>Internet / network state</strong> - for ads, purchases, analytics and crash reports. The game itself plays offline.</li>
   <li><strong>Advertising ID (AD_ID)</strong> - used by AdMob for ads and by Google Analytics for Firebase.</li>
   <li><strong>Billing</strong> - for Google Play in-app purchases.</li>
   <li><strong>Vibrate</strong> - for haptic feedback during play.</li>
@@ -106,8 +85,7 @@
 <h2 id="s10">10. Data retention and deletion</h2>
 <ul>
   <li>Game data on your phone: until you clear the app's data or uninstall the game.</li>
-  <li>Online Duel data and the live leaderboard: until you delete it in the game (Online Duel &gt; Delete my online data) or ask us to (see <a href="#delete">Delete your data</a>).</li>
-  <li>Live 1v1 queue entry and friend codes: until a match starts, your friend joins or you stop. Live match rooms: deleted by the game once an hour has passed. Reports you make: 90 days.</li>
+  <li>Online data from versions before 3.0: until you ask us to delete it (see <a href="#delete">Delete your data</a>).</li>
   <li>Analytics event data: 14 months. Crash reports: up to 90 days.</li>
   <li>Ads and purchases data held by Google: under Google's policies; you can manage it at <a href="https://myaccount.google.com/">myaccount.google.com</a>.</li>
 </ul>
@@ -115,14 +93,13 @@
 <h2 id="delete">11. Delete your data</h2>
 <p>You can have your Gali Cricket Chase 3D data deleted at any time:</p>
 <ul>
-  <li><b>In the game:</b> Online Duel &gt; <b>Delete my online data</b>. This removes your player profile (name, team, rating, wins, best score), your saved innings and the results linked to them, and your Live 1v1 leaderboard row, finished live match rooms and reports from our servers straight away, and forgets the anonymous player ID on your phone.</li>
-  <li><b>Without the game</b> (for example, if you uninstalled it): email <a href="mailto:galigamesstudio@outlook.com?subject=Delete%20my%20data%20-%20Gali%20Cricket%20Chase%203D">galigamesstudio@outlook.com</a> with the subject "Delete my data - Gali Cricket Chase 3D" and the player name you used in Online Duel. We delete the matching Online Duel data within 30 days and reply when it is done.</li>
+  <li><b>Online data from older versions:</b> email <a href="mailto:galigamesstudio@outlook.com?subject=Delete%20my%20data%20-%20Gali%20Cricket%20Chase%203D">galigamesstudio@outlook.com</a> with the subject "Delete my data - Gali Cricket Chase 3D" and the player name you used in Online Duel. We delete the matching online data within 30 days and reply when it is done.</li>
   <li><b>Data on your phone:</b> uninstall the game or clear its app data in Android settings.</li>
 </ul>
 <p>Analytics and crash data are not linked to your name and are deleted automatically after the periods in section 10. Ads, purchases and Advertising ID data are held by Google; you can manage or delete them in your Google account and Android settings.</p>
 
 <h2 id="s12">12. Security</h2>
-<p>All data the game sends (Online Duel, Live 1v1, analytics, crash reports, ads and purchases) travels over encrypted connections (HTTPS). Server rules allow each player to change only their own Online Duel data, and only the two players in a live match can read or write its room.</p>
+<p>All data the game sends (analytics, crash reports, ads and purchases) travels over encrypted connections (HTTPS). For online data from older versions, server rules allow each player to change only their own Online Duel data, and only the two players in a live match can read or write its room.</p>
 
 <h2 id="s13">13. Contact</h2>
 <p>Questions, or a request to delete your data: <a href="mailto:galigamesstudio@outlook.com">galigamesstudio@outlook.com</a></p>
