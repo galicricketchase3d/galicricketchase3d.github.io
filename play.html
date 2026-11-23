@@ -404,12 +404,12 @@ body.enter .bigplay{animation:rise .5s cubic-bezier(.2,1.5,.4,1) both 1.05s}
 /* Portraits use the same colours, hair and jersey numbers as the course models. */
 .kid .ic{background:var(--shirt);position:relative;overflow:hidden}
 .kid-portrait{position:absolute;width:34px;height:36px;left:50%;bottom:0;transform:translateX(-50%)}
-.kid-portrait i{position:absolute;width:22px;height:22px;left:6px;top:1px;background:var(--skin);border-radius:48% 48% 45% 45%}
+.kid-portrait i{position:absolute;width:18px;height:23px;left:8px;top:1px;background:var(--skin);border-radius:44% 44% 40% 40%}
 .kid-portrait i:before{content:"";position:absolute;inset:-3px -1px 9px;background:var(--hair);border-radius:50% 50% 18% 18%}
-.kid-portrait i:after{content:"";position:absolute;top:11px;left:5px;width:3px;height:3px;border-radius:50%;background:#20152b;box-shadow:9px 0 #20152b}
-.kid-portrait b{position:absolute;bottom:-1px;left:1px;right:1px;border:2px solid var(--trim);border-radius:8px 8px 2px 2px;background:var(--shirt);color:#191326;font:900 11px/11px system-ui,sans-serif}
+.kid-portrait i:after{content:"";position:absolute;top:11px;left:4px;width:2px;height:2px;border-radius:50%;background:#20152b;box-shadow:8px 0 #20152b}
+.kid-portrait b{position:absolute;bottom:-1px;left:1px;right:1px;border:2px solid var(--trim);border-radius:8px 8px 2px 2px;background:var(--shirt);color:#fbecd5;font:900 11px/11px system-ui,sans-serif}
 .hair-pony i{box-shadow:8px -2px 0 -3px var(--hair)}
-.hair-spiky i:before{clip-path:polygon(0 52%,14% 34%,25% 0,39% 26%,61% 0,69% 25%,86% 12%,100% 65%,98% 100%,0 88%)}
+.portrait-beard i{border-bottom:5px solid var(--hair)}
 .hair-side i:before{transform:rotate(-15deg);border-radius:80% 30% 65% 12%}
 .hair-plaits i{box-shadow:9px 5px 0 -5px var(--hair),-9px 5px 0 -5px var(--hair)}
 .hair-bun i{box-shadow:4px -10px 0 -4px var(--hair)}
@@ -1581,15 +1581,15 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
     jadoo:   { name: 'Magic Bat',     price: 15000, pow: 1.15, ctl: 1.2,  spin: 1.4,  rev: true, col: 0x18c08b, tape: 0x0d4a3a },
     golden:  { name: 'Golden Bat',    price: -1,    pow: 1.15, ctl: 1.2,  spin: 1.3,  rev: true, col: 0xffc21a, tape: 0x8a5a00 }   // Starter Pack only
   };
-  // kids: colours (skin, shirt, shorts, hair) and one small strength
+  // Playable roster. Stable IDs keep purchased characters and save slots compatible.
   var KIDS = {
-    munna: { style: 'short', num: 7, name: 'Max', price: 0,    skin: 0xc98a5e, shirt: 0xff5a3c, shorts: 0x2b4a8a, hair: 0x1d1410, shoe: 0x2f6bff, stripe: 0xffd23f, perk: null, perkTxt: 'All-rounder' },
-    pinky: { style: 'pony', head: [0.62, 0.65, 0.67], num: 10, name: 'Zara', price: 2000, skin: 0xe0a77d, shirt: 0xff7ac3, shorts: 0x5a2b8a, hair: 0x2a1a12, shoe: 0xffffff, stripe: 0xffe14a, perk: { ctl: 1.12 }, perkTxt: 'Sharper timing' },
-    chotu: { style: 'spiky', head: [0.70, 0.59, 0.66], num: 3, name: 'Kai', price: 2500, skin: 0xb07448, shirt: 0x2ee59d, shorts: 0x14533e, hair: 0x120c08, shoe: 0xff5a3c, stripe: 0xffffff, perk: { spin: 1.15 }, perkTxt: 'More curve' },
-    guddu: { style: 'side', head: [0.59, 0.67, 0.68], num: 18, name: 'Leo', price: 3500, skin: 0xd49a6a, shirt: 0xffd23f, shorts: 0x7a3e12, hair: 0x2b1b10, shoe: 0x2b2b2b, stripe: 0xff5a3c, perk: { pow: 1.1 }, perkTxt: 'Stronger hits' },
-    sweety:{ style: 'plaits', head: [0.71, 0.60, 0.68], num: 5, name: 'Mia', price: 4500, skin: 0xe8b48c, shirt: 0x7a4dff, shorts: 0xffffff, hair: 0x3a1f10, shoe: 0xff7ac3, stripe: 0xffd23f, perk: { ctl: 1.08, spin: 1.08 }, perkTxt: 'Timing + curve' },
-    bunty: { style: 'side', head: [0.72, 0.64, 0.68], num: 45, name: 'Diego', price: 6000, skin: 0xa86b40, shirt: 0x1fb5ff, shorts: 0x0b2f55, hair: 0x0a0705, shoe: 0xffd23f, stripe: 0xffffff, perk: { pow: 1.07, ctl: 1.07 }, perkTxt: 'Power + timing' },
-    chanda:{ style: 'bun', head: [0.66, 0.64, 0.65], num: 9, name: 'Aiko', price: 8000, skin: 0xd8a070, shirt: 0xff9a1f, shorts: 0x1f7a3a, hair: 0x251409, shoe: 0x2ee59d, stripe: 0x7a3e12, perk: { pow: 1.06, ctl: 1.06, spin: 1.06 }, perkTxt: 'A bit of everything' }
+    munna: { style: 'short', beard: true, num: 7, name: 'Max', price: 0,    skin: 0xc98a5e, shirt: 0x20434b, shorts: 0x1b3038, hair: 0x1d1410, shoe: 0xe7ddd0, stripe: 0xedaa55, perk: null, perkTxt: 'All-rounder' },
+    pinky: { style: 'pony', fit: 'lean', num: 10, name: 'Zara', price: 2000, skin: 0xe0a77d, shirt: 0x244a51, shorts: 0x1b3038, hair: 0x2a1a12, shoe: 0xe8e1d4, stripe: 0xedaa55, perk: { ctl: 1.12 }, perkTxt: 'Sharper timing' },
+    chotu: { style: 'short', fit: 'lean', num: 3, name: 'Kai', price: 2500, skin: 0xb07448, shirt: 0x2e5552, shorts: 0x223138, hair: 0x120c08, shoe: 0xd5dcda, stripe: 0xe7ba5e, perk: { spin: 1.15 }, perkTxt: 'More curve' },
+    guddu: { style: 'side', beard: true, num: 18, name: 'Leo', price: 3500, skin: 0xd49a6a, shirt: 0x30434b, shorts: 0x222b34, hair: 0x2b1b10, shoe: 0xddd4c1, stripe: 0xe19a53, perk: { pow: 1.1 }, perkTxt: 'Stronger hits' },
+    sweety:{ style: 'plaits', fit: 'lean', num: 5, name: 'Mia', price: 4500, skin: 0xe8b48c, shirt: 0x2e4555, shorts: 0x292e3b, hair: 0x3a1f10, shoe: 0xe2dbd0, stripe: 0xe6a953, perk: { ctl: 1.08, spin: 1.08 }, perkTxt: 'Timing + curve' },
+    bunty: { style: 'side', beard: true, num: 45, name: 'Diego', price: 6000, skin: 0xa86b40, shirt: 0x254650, shorts: 0x1e2c35, hair: 0x0a0705, shoe: 0xd5deda, stripe: 0xd9aa62, perk: { pow: 1.07, ctl: 1.07 }, perkTxt: 'Power + timing' },
+    chanda:{ style: 'bun', fit: 'lean', num: 9, name: 'Aiko', price: 8000, skin: 0xd8a070, shirt: 0x285659, shorts: 0x20333a, hair: 0x251409, shoe: 0xe3e0d4, stripe: 0xcf9b5c, perk: { pow: 1.06, ctl: 1.06, spin: 1.06 }, perkTxt: 'A bit of everything' }
   };
   var CAPS = {
     none:    { name: 'No cap',       price: 0 },
@@ -1725,7 +1725,7 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
 </script>
 <script>
 /* Chhoti Duniya: the 3D look. Toy-like shapes made in code (no model files): the course, the giant household things
-   around it, the target, the ball and the chibi kids. One renderer for the whole app. */
+   around it, the target, the ball and the Street Pro cricketers. One renderer for the whole app. */
 (function (root) {
   'use strict';
   var G = root.G = root.G || {};
@@ -2115,7 +2115,7 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
     backdrop(world, b); G.Decor.dress(world, b, S.course); addBirds(world, b);
     (hole.pieces || []).forEach(function (p) {
       if (p.t === 'zone') addZone(p);
-      else if (p.t === 'fielder') { var fi = S.fielders.length % 3, k = makeKid({ skin: [0xc98a5e, 0xa86b40, 0xe0a77d][fi], shirt: [0x2ee59d, 0xffd23f, 0x37b6ff][fi], shorts: 0x333344, hair: 0x1a1208, stripe: 0xffffff, shoe: [0xff5a3c, 0x2f6bff, 0xffffff][fi], style: ['spiky', 'side', 'short'][fi], num: [11, 7, 23][fi] }, { cap: fi === 1 ? 'none' : 'cap' }); k.userData.f = p; S.course.add(k); S.fielders.push(k); }
+      else if (p.t === 'fielder') { var fi = S.fielders.length % 3, k = makeKid({ skin: [0xc98a5e, 0xa86b40, 0xe0a77d][fi], shirt: [0x2ee59d, 0xffd23f, 0x37b6ff][fi], shorts: 0x333344, hair: 0x1a1208, stripe: 0xffffff, shoe: [0xff5a3c, 0x2f6bff, 0xffffff][fi], style: ['short', 'side', 'short'][fi], num: [11, 7, 23][fi] }, { cap: fi === 1 ? 'none' : 'cap' }); k.userData.f = p; S.course.add(k); S.fielders.push(k); }
       else addPiece(p);
     });
     addTarget(hole.target, world.id === 'snow');
@@ -2184,80 +2184,190 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
     if (S.kites) S.kites.forEach(function (k) { if (!k.parent) return; var i = k.userData.kite; k.rotation.z = Math.PI / 4 + Math.sin(t * 1.3 + i) * 0.25; k.position.y += Math.sin(t * 0.9 + i * 2) * 0.004; });
   }
 
-  /* ---------- cartoon cricketers ---------- */
+  /* ---------- Street Pro cricketers ---------- */
+  function ellipsoid(parent, material, center, size, seg, cast) {
+    var piece = mesh(new THREE.SphereGeometry(1, seg, Math.max(5, Math.floor(seg / 2))), material, cast);
+    piece.position.set(center[0], center[1], center[2]);
+    piece.scale.set(size[0], size[1], size[2]);
+    parent.add(piece);
+    return piece;
+  }
+
+  function partBox(parent, material, center, size) {
+    var piece = mesh(new THREE.BoxGeometry(size[0], size[1], size[2]), material);
+    piece.position.set(center[0], center[1], center[2]);
+    parent.add(piece);
+    return piece;
+  }
+
+  var jerseyNumbers = {};
+  function jerseyNumber(number) {
+    if (!jerseyNumbers[number]) {
+      var map = shared(canvasTex(64, 64, function (ctx, w, h) {
+        ctx.fillStyle = '#f6edd8';
+        ctx.font = '900 43px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(String(number), w / 2, h / 2 + 2);
+      }));
+      jerseyNumbers[number] = shared(new THREE.MeshBasicMaterial({ map: map, transparent: true, depthWrite: false }));
+    }
+    return jerseyNumbers[number];
+  }
+
+  function buildHead(torso, c, cap, skin, hair, seg, detailed) {
+    var head = new THREE.Group(), lean = c.fit === 'lean';
+    head.position.set(0, 0.555, 0.012);
+    head.scale.set(lean ? 0.43 : 0.47, lean ? 0.47 : 0.49, lean ? 0.44 : 0.46);
+    torso.add(head);
+    var profile = [[0, -0.224], [0.10, -0.222], [0.167, -0.188], [0.204, -0.125], [0.209, -0.054], [0.217, 0.046], [0.212, 0.122], [0.158, 0.2], [0.083, 0.226], [0, 0.231]];
+    var face = mesh(new THREE.LatheGeometry(profile.map(function (p) { return new THREE.Vector2(p[0], p[1]); }), seg), skin, true);
+    face.scale.z = lean ? 0.87 : 0.9;
+    head.add(face);
+    var scalp = ellipsoid(head, hair, [0, 0.102, -0.025], [0.222, 0.153, 0.192], seg, true);
+    scalp.rotation.x = 0.2;
+    var fringe = ellipsoid(head, hair, [-0.041, 0.174, 0.075], [0.163, 0.071, 0.145], seg, true);
+    fringe.rotation.z = c.style === 'side' ? -0.27 : -0.1;
+    if (c.style === 'pony' || c.style === 'plaits' || c.style === 'bun') {
+      var tied = c.style === 'bun', tail = ellipsoid(head, hair, [tied ? 0 : 0.137, tied ? 0.15 : -0.055, -0.207], [0.079, tied ? 0.086 : 0.20, 0.086], seg, true);
+      tail.rotation.set(0.4, 0, tied ? 0 : 0.32);
+      if (detailed && !tied) ellipsoid(head, mat(c.stripe), [0.09, 0.075, -0.224], [0.059, 0.017, 0.055], 8);
+    } else if (detailed) {
+      var wave = ellipsoid(head, hair, [0.064, 0.179, 0.012], [0.115, 0.068, 0.167], seg);
+      wave.rotation.z = 0.22;
+    }
+    if (c.beard) {
+      var jaw = [[0.086, -0.225], [0.107, -0.223], [0.173, -0.188], [0.209, -0.125], [0.213, -0.084]];
+      var beard = mesh(new THREE.LatheGeometry(jaw.map(function (p) { return new THREE.Vector2(p[0], p[1]); }), seg, -1.18, 2.36), mat(0x413028));
+      beard.scale.z = face.scale.z;
+      head.add(beard);
+    }
+
+    var eyes = [], brows = [];
+    [-1, 1].forEach(function (side) {
+      ellipsoid(head, skin, [side * 0.209, -0.025, -0.012], [0.033, 0.058, 0.036], 8);
+      var eye = new THREE.Group();
+      eye.position.set(side * 0.085, 0.016, 0.178);
+      eye.rotation.y = side * 0.18;
+      head.add(eye);
+      eyes.push(eye);
+      ellipsoid(eye, mat(0xe6d8c3), [0, 0, 0], [0.042, 0.019, 0.012], 8);
+      ellipsoid(eye, mat(0x292119), [0, 0, 0.01], [0.015, 0.016, 0.007], 8);
+      var brow = partBox(head, hair, [side * 0.086, 0.054, 0.181], [0.072, 0.013, 0.014]);
+      brows.push(brow);
+    });
+    ellipsoid(head, skin, [0, -0.034, 0.193], [0.034, 0.051, 0.042], 8);
+    var mouth = ellipsoid(head, mat(c.beard ? 0x724a39 : 0x76473c), [0, -0.114, c.beard ? 0.189 : 0.176], [0.042, 0.009, 0.011], 8);
+    capOn(head, cap);
+    return { head: head, eyes: eyes, brows: brows, mouth: mouth };
+  }
+
   function makeKid(c, o) {
     o = o || {};
-    var k = new THREE.Group(), seg = low() ? 10 : 18;
-    var skin = mat(c.skin), shirt = mat(c.shirt), shorts = mat(c.shorts), hair = mat(c.hair), white = mat(0xf4f9ff);
-    var hips = new THREE.Group(); hips.position.y = 0.47; k.add(hips);
-    var legs = [];
-    [-1, 1].forEach(function (s) {
-      var leg = new THREE.Group(); leg.position.set(s * 0.09, 0, 0); leg.scale.y = 1.36; hips.add(leg);
-      var th = mesh(new THREE.CylinderGeometry(0.065, 0.06, 0.2, 8), shorts, true); th.position.y = -0.08; leg.add(th);
-      var sh = mesh(new THREE.CylinderGeometry(0.05, 0.05, 0.16, 8), skin, true); sh.position.y = -0.22; leg.add(sh);
-      var ft = mesh(new THREE.BoxGeometry(0.12, 0.07, 0.18), mat(c.shoe || 0xffffff), true); ft.position.set(0, -0.31, 0.03); leg.add(ft);
-      var sole = mesh(new THREE.BoxGeometry(0.125, 0.022, 0.198), white); sole.position.set(0, -0.334, 0.036); leg.add(sole);
-      var toe = mesh(new THREE.SphereGeometry(0.06, 8, 5), ft.material); toe.scale.set(1, 0.52, 0.75); toe.position.set(0, -0.307, 0.104); leg.add(toe);
-      var lace = mesh(new THREE.BoxGeometry(0.07, 0.008, 0.024), white); lace.position.set(0, -0.27, 0.045); leg.add(lace);
-      var sock = mesh(new THREE.CylinderGeometry(0.052, 0.052, 0.05, 8), mat(0xffffff)); sock.position.y = -0.27; leg.add(sock);
-      legs.push(leg);
+    var k = new THREE.Group(), detailed = !low(), seg = detailed ? 16 : 10, lean = c.fit === 'lean';
+    var skin = mat(c.skin), shirt = mat(c.shirt), trousers = mat(c.shorts), hair = mat(c.hair);
+    var trim = mat(c.stripe || 0xe9a246), white = mat(0xece5d6), glove = mat(0xe1e6e3), panel = mat(0x17282d);
+    var hips = new THREE.Group();
+    hips.position.y = 0.55;
+    k.add(hips);
+    ellipsoid(hips, trousers, [0, -0.008, 0], [0.146, 0.059, 0.074], seg, true);
+    var legs = [], knees = [];
+    [-1, 1].forEach(function (side) {
+      var leg = new THREE.Group(), knee = new THREE.Group();
+      leg.position.x = side * 0.083;
+      knee.position.y = -0.245;
+      hips.add(leg); leg.add(knee);
+      var thigh = mesh(new THREE.CylinderGeometry(0.072, 0.056, 0.25, seg), trousers, true);
+      thigh.position.y = -0.113; thigh.scale.z = 0.92; leg.add(thigh);
+      var shin = mesh(new THREE.CylinderGeometry(0.056, 0.040, 0.245, seg), trousers, true);
+      shin.position.y = -0.109; shin.scale.z = 0.94; knee.add(shin);
+      if (detailed) {
+        var seam = partBox(leg, trim, [side * 0.061, -0.11, 0.032], [0.009, 0.18, 0.012]);
+        seam.rotation.z = side * -0.063;
+        ellipsoid(knee, panel, [0, -0.059, 0.037], [0.046, 0.056, 0.022], 8);
+      }
+      var shoe = ellipsoid(knee, mat(c.shoe || 0xe0ddcc), [0, -0.248, 0.035], [0.058, 0.044, 0.097], seg, true);
+      shoe.rotation.x = 0.12;
+      ellipsoid(knee, white, [0, -0.284, 0.038], [0.061, 0.021, 0.1], 10);
+      if (detailed) partBox(knee, panel, [0, -0.215, 0.052], [0.063, 0.009, 0.028]);
+      legs.push(leg); knees.push(knee);
     });
-    var torso = new THREE.Group(); torso.scale.y = 1.2; hips.add(torso);
-    var body = mesh(new THREE.CylinderGeometry(0.15, 0.17, 0.3, seg), shirt, true); body.position.y = 0.15; body.scale.x = 1.16; torso.add(body);
-    var belt = mesh(new THREE.CylinderGeometry(0.172, 0.172, 0.04, seg), shorts); belt.position.y = 0.005; torso.add(belt);
-    if (c.num) { var nt = canvasTex(64, 64, function (cx, w, h) { cx.clearRect(0, 0, w, h); cx.fillStyle = '#ffffff'; cx.font = 'bold 44px sans-serif'; cx.textAlign = 'center'; cx.textBaseline = 'middle'; cx.fillText(String(c.num), w / 2, h / 2 + 2); });
-      var num = new THREE.Mesh(new THREE.PlaneGeometry(0.16, 0.16), new THREE.MeshBasicMaterial({ map: nt, transparent: true, depthWrite: false })); num.position.set(0, 0.17, -0.168); num.rotation.y = Math.PI; torso.add(num); }
-    var stripe = mesh(new THREE.CylinderGeometry(0.157, 0.162, 0.055, seg), mat(c.stripe || 0xffffff)); stripe.position.y = 0.17; stripe.scale.x = 1.15; torso.add(stripe);
-    var collar = mesh(new THREE.TorusGeometry(0.1, 0.022, 6, 14), mat(c.stripe || 0xffffff)); collar.rotation.x = Math.PI / 2; collar.position.y = 0.33; torso.add(collar);
-    var chest = mesh(new THREE.SphereGeometry(0.15, seg, 8, 0, Math.PI * 2, 0, Math.PI / 2), shirt); chest.position.y = 0.3; chest.scale.x = 1.18; torso.add(chest);
-    var head = new THREE.Group(), shape = c.head || [0.66, 0.60, 0.68]; head.position.y = 0.48; head.scale.set(shape[0], shape[1], shape[2]); torso.add(head);
-    var hd = mesh(new THREE.SphereGeometry(0.23, seg, 14), skin, true); head.add(hd);
-    var hr = mesh(new THREE.SphereGeometry(0.24, seg, 10, 0, Math.PI * 2, 0, Math.PI * 0.45), hair); hr.rotation.x = -0.25; hr.position.y = 0.01; head.add(hr);
-    [-1, 1].forEach(function (sd) { var ear = mesh(new THREE.SphereGeometry(0.05, 8, 6), skin); ear.position.set(sd * 0.225, -0.02, 0); ear.scale.set(0.6, 1, 1); head.add(ear); });
-    var eyes = [], brows = [];
-    [-1, 1].forEach(function (s) {
-      var eg = new THREE.Group(); eg.position.set(s * 0.08, 0.02, 0.2); head.add(eg); eyes.push(eg);
-      var wh = mesh(new THREE.SphereGeometry(0.042, 10, 8), mat(0xffffff)); wh.scale.set(1, 0.86, 0.5); eg.add(wh);
-      var e = mesh(new THREE.SphereGeometry(0.03, 10, 8), mat(0x2a1a10)); e.position.z = 0.016; e.scale.set(0.88, 0.91, 0.6); eg.add(e);
-      var w = mesh(new THREE.SphereGeometry(0.01, 6, 4), mat(0xffffff)); w.position.set(0.01, 0.014, 0.034); eg.add(w);
-      var br = mesh(new THREE.BoxGeometry(0.07, 0.014, 0.02), hair); br.position.set(s * 0.085, 0.085, 0.205); br.rotation.z = -s * 0.12; head.add(br); brows.push(br);
+
+    var torso = new THREE.Group();
+    hips.add(torso);
+    var outline = [[0, 0.02], [lean ? 0.13 : 0.143, 0.02], [lean ? 0.119 : 0.132, 0.13], [lean ? 0.153 : 0.177, 0.32], [lean ? 0.157 : 0.180, 0.388], [0.082, 0.437], [0, 0.438]];
+    var jersey = mesh(new THREE.LatheGeometry(outline.map(function (p) { return new THREE.Vector2(p[0], p[1]); }), seg), shirt, true);
+    jersey.scale.z = lean ? 0.66 : 0.61;
+    torso.add(jersey);
+    ellipsoid(torso, skin, [0, 0.467, 0.01], [0.052, 0.079, 0.052], seg, true);
+    var collar = mesh(new THREE.TorusGeometry(0.062, 0.009, 5, seg), trim);
+    collar.rotation.x = Math.PI / 2;
+    collar.position.set(0, 0.435, 0.009);
+    torso.add(collar);
+    partBox(torso, trim, [0, 0.386, 0.098], [0.013, 0.075, 0.018]);
+    var shoulderWidth = lean ? 0.164 : 0.184;
+    var crest = partBox(torso, trim, [-0.079, 0.337, 0.099], [0.031, 0.039, 0.011]);
+    crest.rotation.z = Math.PI / 4;
+    if (c.num) {
+      var number = new THREE.Mesh(new THREE.PlaneGeometry(0.173, 0.176), jerseyNumber(c.num));
+      number.position.set(0, 0.288, -0.111);
+      number.rotation.y = Math.PI;
+      torso.add(number);
+    }
+    var face = buildHead(torso, c, o.cap || 'none', skin, hair, seg, detailed);
+    var arms = new THREE.Group(), armL = [];
+    arms.position.y = 0.347;
+    torso.add(arms);
+    [-1, 1].forEach(function (side) {
+      var arm = new THREE.Group();
+      arm.position.set(side * shoulderWidth, 0, 0);
+      ellipsoid(torso, shirt, [side * shoulderWidth, 0.347, 0], [0.052, 0.063, 0.055], seg, true);
+      if (detailed) {
+        var piping = partBox(torso, trim, [side * shoulderWidth * 0.84, 0.39, 0.059], [0.069, 0.012, 0.012]);
+        piping.rotation.z = side * -0.38;
+      }
+      arms.add(arm);
+      if (!o.bat) {
+        var sleeve = mesh(new THREE.CylinderGeometry(0.055, 0.047, 0.142, seg), shirt, true);
+        sleeve.position.y = -0.058; arm.add(sleeve);
+        var forearm = mesh(new THREE.CylinderGeometry(0.040, 0.028, 0.18, seg), skin, true);
+        forearm.position.y = -0.205; arm.add(forearm);
+        ellipsoid(arm, skin, [0, -0.306, 0.01], [0.039, 0.049, 0.034], 8);
+      }
+      armL.push(arm);
     });
-    var nose = mesh(new THREE.SphereGeometry(0.022, 8, 6), skin); nose.position.set(0, -0.025, 0.228); nose.scale.set(1, 0.8, 0.8); head.add(nose);
-    var mouth = mesh(new THREE.TorusGeometry(0.04, 0.009, 4, 12, Math.PI), mat(0x7a2a1a)); mouth.rotation.z = Math.PI; mouth.position.set(0, -0.075, 0.212); head.add(mouth);
-    hairStyle(head, c.style || 'short', hair);
-    [-1, 1].forEach(function (s) { var cheek = mesh(new THREE.SphereGeometry(0.03, 6, 4), mat(0xff8a8a, { op: 0.22 })); cheek.position.set(s * 0.13, -0.04, 0.18); head.add(cheek); });
-    capOn(head, o.cap || 'none');
-    var arms = new THREE.Group(); arms.position.y = 0.26; torso.add(arms);   // both arms swing together around this
-    var armL = [];
-    [-1, 1].forEach(function (s) {
-      var a = new THREE.Group(); a.position.set(s * 0.195, 0, 0); arms.add(a);
-      var sl = mesh(new THREE.CylinderGeometry(0.058, 0.052, 0.11, 8), shirt, true); sl.position.y = -0.04; a.add(sl);
-      var cuff = mesh(new THREE.CylinderGeometry(0.056, 0.056, 0.02, 8), mat(c.stripe || 0xffffff)); cuff.position.y = -0.095; a.add(cuff);
-      var up = mesh(new THREE.CylinderGeometry(0.038, 0.034, 0.15, 8), skin, true); up.position.y = -0.17; a.add(up);
-      var hand = mesh(new THREE.SphereGeometry(0.05, 8, 6), skin, true); hand.position.y = -0.25; hand.scale.set(1, 0.9, 1.1); a.add(hand);
-      armL.push(a);
-    });
+
     var bat = null, grip = [];
     if (o.bat) {
-      var B = G.BATS[o.bat] || G.BATS.gali; bat = new THREE.Group();
-      var blade = mesh(new THREE.BoxGeometry(0.145, 0.37, 0.043), mat(B.col), true); blade.position.y = -0.303; bat.add(blade);
-      var tp = mesh(new THREE.BoxGeometry(0.105, 0.062, 0.046), mat(B.tape)); tp.position.y = -0.198; bat.add(tp);
-      var hdl = mesh(new THREE.CylinderGeometry(0.018, 0.018, 0.16, 6), mat(B.tape)); hdl.position.y = -0.06; bat.add(hdl);
-      var face = mesh(new THREE.BoxGeometry(0.095, 0.12, 0.045), mat(B.tape));
-      face.position.y = -0.275; bat.add(face);
-      bat.position.set(0.02, -0.22, 0.20); arms.add(bat);
+      var B = G.BATS[o.bat] || G.BATS.gali;
+      bat = new THREE.Group();
+      var blade = partBox(bat, mat(B.col), [0, -0.319, 0], [0.135, 0.386, 0.039]);
+      blade.castShadow = detailed;
+      partBox(bat, mat(B.tape), [0, -0.230, 0.022], [0.093, 0.087, 0.007]);
+      var handle = mesh(new THREE.CylinderGeometry(0.016, 0.019, 0.16, 8), mat(B.tape));
+      handle.position.y = -0.06;
+      bat.add(handle);
+      bat.position.set(0.02, -0.26, 0.20);
+      arms.add(bat);
       armL.forEach(function (arm, i) {
         var side = i === 0 ? -1 : 1;
-        arm.visible = false;
-        var fist = mesh(new THREE.BoxGeometry(0.07, 0.055, 0.065), skin, true);
-        fist.position.set(side * 0.013, -0.025 - i * 0.063, 0); bat.add(fist);
-        var upper = mesh(new THREE.CylinderGeometry(0.042, 0.052, 1, 8), shirt, true);
-        var lower = mesh(new THREE.CylinderGeometry(0.036, 0.044, 1, 8), skin, true);
+        var fist = new THREE.Group();
+        fist.position.set(side * 0.014, -0.027 - i * 0.063, 0);
+        bat.add(fist);
+        ellipsoid(fist, glove, [0, 0, 0.005], [0.043, 0.032, 0.038], 10, true);
+        if (detailed) {
+          partBox(fist, panel, [0, 0.013, 0.038], [0.060, 0.010, 0.006]);
+          partBox(fist, trim, [0, -0.017, 0.039], [0.064, 0.009, 0.008]);
+        }
+        var upper = mesh(new THREE.CylinderGeometry(0.040, 0.052, 1, 8), shirt, true);
+        var lower = mesh(new THREE.CylinderGeometry(0.028, 0.036, 1, 8), skin, true);
         arms.add(upper); arms.add(lower);
-        grip.push({ shoulder: arm.position, fist: fist, gripPoint: fist.position.clone(), upper: upper, lower: lower, elbow: new V3(), wrist: new V3(), direction: new V3(), side: side });
+        var cuff = mesh(new THREE.CylinderGeometry(0.041, 0.041, 0.031, 8), trim);
+        lower.add(cuff); cuff.position.y = 0.325;
+        grip.push({ anchor: new V3(arm.position.x, arms.position.y, 0), shoulder: new V3(), fist: fist, gripPoint: fist.position.clone(), upper: upper, lower: lower, elbow: new V3(), wrist: new V3(), torsoPoint: new V3(), direction: new V3(), side: side });
       });
     }
-    k.userData = { hips: hips, legs: legs, torso: torso, head: head, arms: arms, armL: armL, bat: bat, grip: grip, eyes: eyes, brows: brows, mouth: mouth, t: 0, blink: 2 + Math.random() * 3 };
+    k.userData = { hips: hips, legs: legs, knees: knees, torso: torso, head: face.head, arms: arms, armL: armL, bat: bat, grip: grip, eyes: face.eyes, brows: face.brows, mouth: face.mouth, blink: 2 + Math.random() * 3 };
     return k;
   }
   var armUp = new V3(0, 1, 0);
@@ -2270,7 +2380,11 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
   function poseGrip(u, name, k) {
     if (!u.bat) return;
     u.bat.updateMatrix();
+    u.arms.updateMatrix();
+    if (!u.inverseArms) u.inverseArms = new THREE.Matrix4();
+    u.inverseArms.copy(u.arms.matrix).invert();
     u.grip.forEach(function (arm) {
+      arm.shoulder.copy(arm.anchor).applyMatrix4(u.inverseArms);
       if (name === 'selfToss' && arm.side === 1) {
         if (arm.fist.parent !== u.arms) u.arms.add(arm.fist);
         arm.fist.position.set(0.08 - k * 0.08, -0.30 + k * 0.22, 0.27 + k * 0.09);
@@ -2282,22 +2396,17 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
       }
       arm.elbow.copy(arm.shoulder).lerp(arm.wrist, 0.48);
       arm.elbow.x += arm.side * 0.083;
-      arm.elbow.z -= 0.063;
+      arm.elbow.z -= 0.045;
+      // Keep the crossing elbow in front of the chest during forward grips.
+      arm.torsoPoint.copy(arm.wrist).applyMatrix4(u.arms.matrix);
+      if (arm.torsoPoint.z > 0.10 && arm.torsoPoint.x * arm.side < 0) {
+        arm.torsoPoint.copy(arm.elbow).applyMatrix4(u.arms.matrix);
+        arm.torsoPoint.z = Math.max(0.14, arm.torsoPoint.z);
+        arm.elbow.copy(arm.torsoPoint).applyMatrix4(u.inverseArms);
+      }
       armSegment(arm.upper, arm.shoulder, arm.elbow, arm.direction);
       armSegment(arm.lower, arm.elbow, arm.wrist, arm.direction);
     });
-  }
-  // hair: short (a tuft), spiky, side (a fringe), pony (a ponytail), plaits (two plaits), bun
-  function hairStyle(head, st, hair) {
-    function add(geo, x, y, z, rx, ry, rz) { var m = mesh(geo, hair); m.position.set(x, y, z); m.rotation.set(rx || 0, ry || 0, rz || 0); head.add(m); return m; }
-    if (st === 'spiky') { for (var i = 0; i < 6; i++) { var a = -0.9 + i * 0.36; add(new THREE.ConeGeometry(0.055, 0.15, 5), Math.sin(a) * 0.14, 0.22 - Math.abs(a) * 0.04, Math.cos(a) * 0.07 - 0.02, -0.3 + Math.cos(a) * 0.5, 0, -Math.sin(a) * 0.8); } }
-    else if (st === 'side') { add(new THREE.SphereGeometry(0.12, 10, 6, 0, Math.PI * 2, 0, Math.PI / 2), 0.07, 0.15, 0.13, 0.9, 0, -0.5).scale.set(1.3, 0.5, 1); }
-    else if (st === 'pony') { add(new THREE.SphereGeometry(0.07, 8, 6), 0, 0.1, -0.22); add(new THREE.ConeGeometry(0.065, 0.24, 8), 0, -0.04, -0.27, -0.35, 0, 0).rotation.x = Math.PI - 0.35; add(new THREE.TorusGeometry(0.04, 0.014, 6, 10), 0, 0.07, -0.24, 0.4, 0, 0).material = mat(0xff3b7a); }
-    else if (st === 'plaits') { [-1, 1].forEach(function (s) { for (var j = 0; j < 3; j++) add(new THREE.SphereGeometry(0.045 - j * 0.006, 8, 6), s * 0.2, -0.06 - j * 0.07, -0.08); var r = add(new THREE.SphereGeometry(0.03, 6, 4), s * 0.2, -0.27, -0.08); r.material = mat(0xffd23f); }); }
-    else if (st === 'bun') { add(new THREE.SphereGeometry(0.09, 10, 8), 0, 0.23, -0.1); }
-    else { add(new THREE.ConeGeometry(0.06, 0.14, 6), 0.05, 0.25, 0.1, 0.5, 0, -0.4); }
-    // a fringe over the forehead for every style
-    add(new THREE.SphereGeometry(0.235, 12, 6, Math.PI * 0.12, Math.PI * 0.76, Math.PI * 0.12, Math.PI * 0.2), 0, 0.0, 0.0, -0.1, 0, 0);
   }
   function capOn(head, id) {
     var old = head.getObjectByName('cap'); if (old) disposeObject(old);
@@ -2313,7 +2422,7 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
   /* poses. name: idle / back / swing (k 0..1) / follow / toss (k) / run / catch / dance-<id> */
   // every pose is reached smoothly from the last one (no snapping); the fast swing blends quicker
   function joints(u) {
-    if (!u.J) { u.J = [u.hips.rotation, u.torso.rotation, u.arms.rotation, u.head.rotation, u.legs[0].rotation, u.legs[1].rotation, u.armL[0].rotation, u.armL[1].rotation]; if (u.bat) u.J.push(u.bat.rotation); }
+    if (!u.J) { u.J = [u.hips.rotation, u.torso.rotation, u.arms.rotation, u.head.rotation, u.legs[0].rotation, u.legs[1].rotation, u.knees[0].rotation, u.knees[1].rotation, u.armL[0].rotation, u.armL[1].rotation]; if (u.bat) u.J.push(u.bat.rotation); }
     return u.J;
   }
   function pose(kid, name, k, t, dt) {
@@ -2333,20 +2442,21 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
       u.blink -= d; var sh = u.blink < 0.12 ? 0.15 : 1; if (u.blink < 0) u.blink = 2 + Math.random() * 3.5;
       var happy = name.indexOf('dance-') === 0 || name === 'catch', sad = name === 'sad';
       u.eyes.forEach(function (e) { e.scale.y = sad ? 0.7 : happy ? sh * 0.85 : sh; });
-      u.brows.forEach(function (b, i) { var s = i ? 1 : -1; b.position.y = happy ? 0.1 : sad ? 0.075 : name === 'back' || name === 'stance' ? 0.078 : 0.085; b.rotation.z = sad ? s * 0.35 : name === 'back' || name === 'stance' ? -s * 0.3 : -s * 0.12; });
-      u.mouth.rotation.z = sad ? 0 : Math.PI; u.mouth.position.y = sad ? -0.1 : -0.075; u.mouth.scale.set(happy ? 1.3 : 1, happy ? 1.6 : 1, 1);
+      u.brows.forEach(function (b, i) { var s = i ? 1 : -1; b.position.y = happy ? 0.067 : 0.054; b.rotation.z = sad ? -s * 0.27 : name === 'back' || name === 'stance' ? s * 0.19 : s * 0.1; });
+      u.mouth.scale.x = happy ? 0.052 : 0.042; u.mouth.scale.y = happy ? 0.016 : 0.009;
     }
   }
   function poseRaw(u, name, k, t) {
-    u.hips.position.y = 0.47; u.hips.rotation.set(0, 0, 0); u.torso.rotation.set(0, 0, 0); u.arms.rotation.set(0, 0, 0); u.head.rotation.set(0, 0, 0);
+    u.hips.position.y = 0.55; u.hips.rotation.set(0, 0, 0); u.torso.rotation.set(0, 0, 0); u.arms.rotation.set(0, 0, 0); u.head.rotation.set(0, 0, 0);
     u.legs[0].rotation.set(0, 0, 0); u.legs[1].rotation.set(0, 0, 0); u.armL[0].rotation.set(0, 0, 0); u.armL[1].rotation.set(0, 0, 0);
+    u.knees[0].rotation.x = 0; u.knees[1].rotation.x = 0;
     if (u.bat) u.bat.rotation.set(0, 0, 0);
     if (name === 'idle' || name === 'stance') {
       var b = Math.sin(t * 2.4) * 0.012; u.hips.position.y += b;
       if (u.bat) { u.armL[0].rotation.x = -0.5; u.armL[1].rotation.x = -0.5; u.arms.rotation.z = 0.15; u.arms.rotation.y = 0.25; u.bat.rotation.x = -0.38; u.torso.rotation.y = 0.15; }
       else { u.armL[0].rotation.z = 0.15; u.armL[1].rotation.z = -0.15; }
       u.head.rotation.y = name === 'stance' ? -0.9 : Math.sin(t * 0.7) * 0.2;
-      if (name === 'idle' && u.bat) { u.arms.rotation.z = 0.58; u.bat.rotation.z = 0.48; }
+      if (name === 'idle' && u.bat) { u.arms.rotation.z = 0.14; u.bat.rotation.z = 0.16; }
     } else if (name === 'back' || name === 'swing' || name === 'follow') {
       // arms around the body: +1.5 behind, -2.2 through and past
       var s = name === 'back' ? 0 : name === 'follow' ? 1 : k, e = s < 0.5 ? 2 * s * s : 1 - Math.pow(-2 * s + 2, 2) / 2;
@@ -2364,9 +2474,9 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
     } else if (name === 'toss') {
       u.armL[1].rotation.x = -0.6 + k * 2.2; u.armL[0].rotation.z = 0.2; u.torso.rotation.x = 0.15 - k * 0.2;
     } else if (name === 'run') {
-      var r = Math.sin(t * 14); u.legs[0].rotation.x = r * 0.7; u.legs[1].rotation.x = -r * 0.7; u.armL[0].rotation.x = -r * 0.8; u.armL[1].rotation.x = r * 0.8; u.hips.position.y += Math.abs(r) * 0.03;
+      var r = Math.sin(t * 14); u.legs[0].rotation.x = r * 0.7; u.legs[1].rotation.x = -r * 0.7; u.knees[0].rotation.x = Math.max(0, -r) * 0.8; u.knees[1].rotation.x = Math.max(0, r) * 0.8; u.armL[0].rotation.x = -r * 0.8; u.armL[1].rotation.x = r * 0.8; u.hips.position.y += Math.abs(r) * 0.03;
     } else if (name === 'ready') {   // a fielder waiting: knees bent, hands out, a small sway
-      var sw = Math.sin(t * 2.2); u.hips.position.y -= 0.03; u.legs[0].rotation.x = -0.25; u.legs[1].rotation.x = -0.25; u.torso.rotation.x = 0.28;
+      var sw = Math.sin(t * 2.2); u.hips.position.y -= 0.03; u.legs[0].rotation.x = -0.25; u.legs[1].rotation.x = -0.25; u.knees[0].rotation.x = 0.37; u.knees[1].rotation.x = 0.37; u.torso.rotation.x = 0.28;
       u.armL[0].rotation.x = -1.0; u.armL[1].rotation.x = -1.0; u.armL[0].rotation.z = 0.25; u.armL[1].rotation.z = -0.25; u.hips.rotation.z = sw * 0.04; u.head.rotation.x = -0.2;
     } else if (name === 'catch') {
       u.armL[0].rotation.x = -2.8; u.armL[1].rotation.x = -2.8; u.armL[0].rotation.z = 0.3; u.armL[1].rotation.z = -0.3; u.hips.position.y += Math.abs(Math.sin(t * 9)) * 0.12;
@@ -3335,19 +3445,18 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
     var distance = compact ? 7.2 : 5.4;
     SC.S.cam.position.set(Math.sin(a) * distance, 2.0, 6 + Math.cos(a) * distance);
     SC.S.cam.lookAt(0, compact ? 0.25 : 0.45, 6);
-    var mv = SH.preview ? (SH.preview.dance ? 'dance-' + SH.preview.dance : SH.preview.bat ? 'swing' : 'idle') : view === 'kids' || view === 'shop' ? 'idle' : (Math.floor(SH.t / 4) % 3 === 2 ? 'dance-' + G.SAVE.g.eq.dance : 'idle');
+    var mv = SH.preview ? (SH.preview.dance ? 'dance-' + SH.preview.dance : SH.preview.bat ? 'swing' : 'idle') : 'idle';
     SC.pose(SH.kid, mv, SH.preview && SH.preview.bat ? Math.min(1, SH.t % 2) : 0, SH.t); SH.kid.rotation.y = -0.24 + Math.sin(SH.t * 0.4) * 0.34; SC.menuStageTick(SH.t);
     if (SH.preview && SH.preview.trail && G.TRAILS[SH.preview.trail].col != null) {
       SC.trailPush(0.9 * Math.cos(SH.t * 4), 0.32, 6 + 0.9 * Math.sin(SH.t * 4), G.TRAILS[SH.preview.trail].col);
     }
-    // the first home of a session: the camera swoops down and the kid drops onto the stage with a bounce
+    // Ease the camera into the first home view while the batter holds a grounded stance.
     if (SH.enter != null) {
-      SH.enter += dt; var k = Math.min(1, SH.enter / 1.5), e = 1 - Math.pow(1 - k, 3), c = SC.S.cam;
-      c.position.set(c.position.x * e, 2.0 + (1 - e) * 7, 6 + (c.position.z - 6) * e + (1 - e) * 9); c.lookAt(0, 0.45 + (1 - e) * 0.6, 6);
-      var dk = (SH.enter - 0.45) / 0.45, y = dk < 0 ? 6 : dk < 1 ? 6 * (1 - dk * dk) : Math.abs(Math.sin((dk - 1) * 5)) * 0.25 * Math.max(0, 1 - (dk - 1) * 1.2);
-      SH.kid.position.y = y; if (dk >= 1 && dk < 1.08 && !SH.landed) { SH.landed = true; G.sfx('bounce'); SC.burst(0, 0.1, 6, [0xffd23f, 0xffffff, 0xff7ac3], 14, 2); }
-      if (dk < 1) SC.pose(SH.kid, 'catch', 0, SH.t);
-      if (SH.enter > 2.4) { SH.enter = null; SH.kid.position.y = 0; }
+      SH.enter += dt;
+      var ease = Math.pow(1 - Math.min(1, SH.enter / 1.25), 3), c = SC.S.cam;
+      c.position.y += ease * 2.3; c.position.z += ease * 3.0;
+      c.lookAt(0, (compact ? 0.25 : 0.45) + ease * 0.25, 6);
+      if (SH.enter >= 1.25) SH.enter = null;
     }
   }
   function refreshKid() { if (SH.on) showcase(true); }
@@ -3377,7 +3486,7 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
   /* ---------- home ---------- */
   function home() {
     view = 'home'; G.Play.quit(); hudOff(); showcase(true); G.musicLevel(0.45);
-    if (!home.entered) { home.entered = true; if (!G.SAVE.set.lowMotion) { SH.enter = 0; SH.landed = false; document.body.classList.add('enter'); setTimeout(function () { document.body.classList.remove('enter'); }, 2200); } }
+    if (!home.entered) { home.entered = true; if (!G.SAVE.set.lowMotion) { SH.enter = 0; document.body.classList.add('enter'); setTimeout(function () { document.body.classList.remove('enter'); }, 2200); } }
     var S = G.SAVE, nh = nextHole(), D = S.g.daily, dk = dayKey(), dailyDone = D.day === dk && D.best > 0, T = S.g.tiffin, w = G.WORLDS[nh.world], st = worldStars(nh.world);
     show(topbar() +
       '<div class="title"><div class="t1">' + t('Bat &amp; Tin') + '</div><div class="t2">' + t('CRICKET GOLF') + '</div></div>' +
@@ -3633,7 +3742,7 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
     var list = Object.keys(K).map(function (id) {
       var k = K[id], own = S.g.owned.kid.indexOf(id) >= 0, eq = S.g.eq.kid === id;
       var btn = eq ? '<button class="btn sm ghost" disabled>' + t('Playing') + '</button>' : own ? '<button class="btn sm" data-eq="' + id + '">' + t('Pick') + '</button>' : '<button class="btn sm buy' + (S.coins < k.price ? ' poor' : '') + '" data-buy="' + id + '">🪙 ' + fmt(k.price) + '</button>';
-      return '<div class="item kid' + (eq ? ' eq' : '') + '"><button class="ic" data-preview="' + id + '" aria-label="Preview ' + esc(k.name) + '" style="--shirt:' + hex(k.shirt) + ';--skin:' + hex(k.skin) + ';--hair:' + hex(k.hair) + ';--trim:' + hex(k.stripe) + '"><span aria-hidden="true" class="kid-portrait hair-' + k.style + '"><i></i><b>' + k.num + '</b></span></button><div class="nm"><b>' + esc(k.name) + '</b><small>' + esc(t(k.perkTxt)) + '</small></div>' + btn + '</div>';
+      return '<div class="item kid' + (eq ? ' eq' : '') + '"><button class="ic" data-preview="' + id + '" aria-label="Preview ' + esc(k.name) + '" style="--shirt:' + hex(k.shirt) + ';--skin:' + hex(k.skin) + ';--hair:' + hex(k.hair) + ';--trim:' + hex(k.stripe) + '"><span aria-hidden="true" class="kid-portrait hair-' + k.style + (k.beard ? ' portrait-beard' : '') + '"><i></i><b>' + k.num + '</b></span></button><div class="nm"><b>' + esc(k.name) + '</b><small>' + esc(t(k.perkTxt)) + '</small></div>' + btn + '</div>';
     }).join('');
     show(topbar() + '<div class="sheet low"><h2 class="sh">' + t('Squad') + '</h2><div class="list">' + list + '</div></div>' + tabs('kids'), 'kids', withTabs({ set: settings }));
     bindPreviews('kid', kids);
