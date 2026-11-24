@@ -1,0 +1,11 @@
+3D models used in the game (all CC0 1.0 Universal: free for any use, no attribution required)
+
+- chars/*.glb, anims.glb: KayKit Character Pack: Adventurers 1.0 by Kay Lousberg (kaylousberg.com).
+  Weapons, shields, capes and hats removed; animations reduced to the ones the game uses.
+- kitchen.glb: KayKit Restaurant Bits 1.0 by Kay Lousberg (kaylousberg.com). A selection merged into one file.
+
+vendor/gltf-loader.js: three.js r149 GLTFLoader and SkeletonUtils (MIT License, three.js authors), bundled for the
+global THREE build.
+- furniture.glb: KayKit Furniture Bits 1.0 by Kay Lousberg (CC0). A selection merged into one file.
+- city.glb: KayKit City Builder Bits 1.0 by Kay Lousberg (CC0). A selection merged into one file.
+- proto.glb: KayKit Prototype Bits 1.0 by Kay Lousberg (CC0). A selection merged into one file.
