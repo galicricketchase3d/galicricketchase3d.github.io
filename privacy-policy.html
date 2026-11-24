@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Privacy Policy - Gali Cricket Chase 3D</title>
-<meta name="description" content="How Gali Cricket Chase 3D uses data: what stays on your phone, online data from older versions, analytics, ads, purchases, and how to delete your data.">
+<meta name="description" content="How Gali Cricket Chase 3D uses data: what stays on your phone, the Live 1v1 Arena, analytics, ads, purchases, and how to delete your data.">
 <meta name="theme-color" content="#07111f">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
@@ -28,17 +28,23 @@
 </header>
 <main id="main" class="doc">
 <h1>Privacy Policy</h1>
-<p class="muted">Gali Cricket Chase 3D (Android package <code>com.galicricket.chase3d</code>)<br>Last updated: 21 November 2026</p>
+<p class="muted">Gali Cricket Chase 3D (Android package <code>com.galicricket.chase3d</code>)<br>Last updated: 24 November 2026</p>
 
-<p>This policy explains, in plain words, what information the game Gali Cricket Chase 3D ("the game", "we", "us") uses and why. We built the game so that it needs as little data as possible.</p>
+<p>This policy explains, in plain words, what information the game Bat &amp; Tin: Cricket Golf, formerly Gali Cricket Chase 3D ("the game", "we", "us") uses and why. We built the game so that it needs as little data as possible.</p>
 
-<nav class="toc" aria-label="Contents"><b>Contents</b><ol><li><a href="#s1">Your game on your phone</a></li><li><a href="#s2">Online data from older versions</a></li><li><a href="#s3">Game analytics and crash reports (Google Firebase)</a></li><li><a href="#s4">Advertising (Google AdMob)</a></li><li><a href="#s5">In-app purchases (Google Play Billing)</a></li><li><a href="#s6">Rating the game</a></li><li><a href="#s7">We do not sell your data</a></li><li><a href="#s8">Permissions the app uses</a></li><li><a href="#s9">Children and the age question</a></li><li><a href="#s10">Data retention and deletion</a></li><li><a href="#delete">Delete your data</a></li><li><a href="#s12">Security</a></li><li><a href="#s13">Contact</a></li><li><a href="#s14">Changes to this policy</a></li></ol></nav>
+<nav class="toc" aria-label="Contents"><b>Contents</b><ol><li><a href="#s1">Your game on your phone</a></li><li><a href="#s2">Live 1v1 Arena and shared challenges</a></li><li><a href="#s3">Game analytics and crash reports (Google Firebase)</a></li><li><a href="#s4">Advertising (Google AdMob)</a></li><li><a href="#s5">In-app purchases (Google Play Billing)</a></li><li><a href="#s6">Rating the game</a></li><li><a href="#s7">We do not sell your data</a></li><li><a href="#s8">Permissions the app uses</a></li><li><a href="#s9">Age</a></li><li><a href="#s10">Data retention and deletion</a></li><li><a href="#delete">Delete your data</a></li><li><a href="#s12">Security</a></li><li><a href="#s13">Contact</a></li><li><a href="#s14">Changes to this policy</a></li></ol></nav>
 <h2 id="s1">1. Your game on your phone</h2>
 <p>There is no sign-up and no password. Your progress (holes played, stars, coins, marbles, kids, bats, caps, trails, dances and settings) is saved on your device. Uninstalling the game or clearing its app data deletes it. If Android backup is on for your phone, Android may include this game data in your Google account backup (you can turn that off in your phone's backup settings).</p>
 
-<h2 id="s2">2. Online data from older versions</h2>
-<p>From version 3.0 (Chhoti Duniya) the game has <strong>no online play</strong>: it does not sign you in, and it sends nothing to our servers.</p>
-<p>Versions before 3.0 had <strong>Online Duel</strong>, <strong>Live 1v1</strong> and leaderboards. If you used them, our Google Firebase servers (in the United States) may still hold what those versions stored under a random anonymous player ID: the player name and team name you chose, your online scores, ratings and results, and any reports you made. This is not linked to your email, phone number or Google account. You can have it deleted at any time (see <a href="#delete">Delete your data</a>).</p>
+<h2 id="s2">2. Live 1v1 Arena and shared challenges (only if you use them)</h2>
+<p>Most of the game works offline and sends nothing to our servers. Only if you open the <strong>Live 1v1 Arena</strong> or a recorded-rival challenge, the game:</p>
+<ul>
+  <li>signs you in <strong>anonymously</strong> with Google Firebase Authentication, which creates a random player ID (not linked to your name, email, phone number or Google account);</li>
+  <li>sends that ID and your Arena moves to our game server, which runs on <strong>Cloudflare Workers</strong>. The server keeps: your Arena Coins balance (free play money that cannot be bought, sold or cashed out), the day you last claimed free Arena Coins, your place in the match queue, and each match (both players' random IDs, the course, every shot and its result, the winner and the times);</li>
+  <li>keeps the <strong>30 most recent winning finishes</strong> (the winner's random ID, the course, the score and the final shot) so other players can replay them as a "recorded rival" or open them from a shared link. Older ones are deleted automatically.</li>
+</ul>
+<p>There are no names, no chat, no voice and no photos in the Arena. Other players see only the shots and the result. Cloudflare and Google process your IP address to deliver the service (see their privacy policies: <a href="https://www.cloudflare.com/privacypolicy/">cloudflare.com/privacypolicy</a>, <a href="https://policies.google.com/privacy">policies.google.com/privacy</a>).</p>
+<p><strong>Older versions:</strong> versions before 3.0 had Online Duel, Live 1v1 and leaderboards stored in Google Firebase. That data stays until you ask us to delete it.</p>
 
 <h2 id="s3">3. Game analytics and crash reports (Google Firebase)</h2>
 <p>To see which parts of the game are played, and to find and fix crashes (especially on low-end phones), the Android app uses <strong>Google Analytics for Firebase</strong> and <strong>Firebase Crashlytics</strong>. They may collect:</p>
@@ -73,26 +79,21 @@
 
 <h2 id="s8">8. Permissions the app uses</h2>
 <ul>
-  <li><strong>Internet / network state</strong> - for ads, purchases, analytics and crash reports. The game itself plays offline.</li>
+  <li><strong>Internet / network state</strong> - for the Live 1v1 Arena, ads, purchases, analytics and crash reports. The rest of the game plays offline.</li>
   <li><strong>Advertising ID (AD_ID)</strong> - used by AdMob for ads and by Google Analytics for Firebase.</li>
   <li><strong>Billing</strong> - for Google Play in-app purchases.</li>
   <li><strong>Vibrate</strong> - for haptic feedback during play.</li>
 </ul>
 
-<h2 id="s9">9. Children and the age question</h2>
-<p>The game is made for everyone, children included. The first time it opens it asks how old you are, on a neutral screen (the answer is kept only on your phone). We use the answer only to make the game right for your age:</p>
-<ul>
-  <li><strong>Under 13:</strong> Google Analytics for Firebase is turned off, so no game events are sent. Ads are requested as <em>child-directed</em> (Google's "tag for child-directed treatment"), with a maximum content rating of General, are never personalised, and the Advertising ID is not used for them. Ads come only from Google AdMob, which takes part in Google Play's Families Ads Program.</li>
-  <li><strong>13 to 15:</strong> ads are requested as for a user under the age of consent, so they are not personalised.</li>
-  <li><strong>All ages:</strong> Google Analytics never collects the Advertising ID. There is no chat, no account and no way to share personal information with other players.</li>
-</ul>
-<p>Crash reports (Firebase Crashlytics) are sent for every age so that we can fix crashes; they contain technical information about the crash and the device, not your name or contact details.</p>
-<p>In-app purchases go through Google Play, where parents can require approval for purchases (Google Play parental controls / Family Link). If you are a parent and believe your child has given us personal information, email us and we will delete it.</p>
+<h2 id="s9">9. Age</h2>
+<p>The game is for players aged <strong>13 and over</strong>. The first time it opens it asks your age on a neutral screen; the answer is kept only on your phone. If the answer is under 13, the game does not continue. We do not knowingly collect personal information from children under 13. If you believe a child has used the game, contact us and we will delete their data.</p>
+<p>For players aged 13 to 15, ads are requested as for a user under the age of consent, so they are not personalised. Google Analytics never collects the Advertising ID, and it stays off until the age has been answered.</p>
 
 <h2 id="s10">10. Data retention and deletion</h2>
 <ul>
   <li>Game data on your phone: until you clear the app's data or uninstall the game.</li>
-  <li>Online data from versions before 3.0: until you ask us to delete it (see <a href="#delete">Delete your data</a>).</li>
+  <li>Arena data (your random player ID, Arena Coins balance and matches): until you ask us to delete it (see <a href="#delete">Delete your data</a>). Recorded winning finishes: only the 30 most recent are kept.</li>
+  <li>Online data from versions before 3.0: until you ask us to delete it.</li>
   <li>Analytics event data: 14 months. Crash reports: up to 90 days.</li>
   <li>Ads and purchases data held by Google: under Google's policies; you can manage it at <a href="https://myaccount.google.com/">myaccount.google.com</a>.</li>
 </ul>
@@ -100,13 +101,13 @@
 <h2 id="delete">11. Delete your data</h2>
 <p>You can have your Gali Cricket Chase 3D data deleted at any time:</p>
 <ul>
-  <li><b>Online data from older versions:</b> email <a href="mailto:galigamesstudio@outlook.com?subject=Delete%20my%20data%20-%20Gali%20Cricket%20Chase%203D">galigamesstudio@outlook.com</a> with the subject "Delete my data - Gali Cricket Chase 3D" and the player name you used in Online Duel. We delete the matching online data within 30 days and reply when it is done.</li>
+  <li><b>Arena data, and online data from older versions:</b> email <a href="mailto:galigamesstudio@outlook.com?subject=Delete%20my%20data%20-%20Gali%20Cricket%20Chase%203D">galigamesstudio@outlook.com</a> with the subject "Delete my data - Gali Cricket Chase 3D" and, if you can, the date you last played the Arena (or the player name you used in the old Online Duel). We delete the matching online data within 30 days and reply when it is done.</li>
   <li><b>Data on your phone:</b> uninstall the game or clear its app data in Android settings.</li>
 </ul>
 <p>Analytics and crash data are not linked to your name and are deleted automatically after the periods in section 10. Ads, purchases and Advertising ID data are held by Google; you can manage or delete them in your Google account and Android settings.</p>
 
 <h2 id="s12">12. Security</h2>
-<p>All data the game sends (analytics, crash reports, ads and purchases) travels over encrypted connections (HTTPS). For online data from older versions, server rules allow each player to change only their own Online Duel data, and only the two players in a live match can read or write its room.</p>
+<p>All data the game sends (Arena, analytics, crash reports, ads and purchases) travels over encrypted connections (HTTPS). For online data from older versions, server rules allow each player to change only their own Online Duel data, and only the two players in a live match can read or write its room.</p>
 
 <h2 id="s13">13. Contact</h2>
 <p>Questions, or a request to delete your data: <a href="mailto:galigamesstudio@outlook.com">galigamesstudio@outlook.com</a></p>
