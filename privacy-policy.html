@@ -28,7 +28,7 @@
 </header>
 <main id="main" class="doc">
 <h1>Privacy Policy</h1>
-<p class="muted">Bat &amp; Tin: Cricket Golf, formerly Gali Cricket Chase 3D (Android package <code>com.galicricket.chase3d</code>)<br>Last updated: 24 November 2026</p>
+<p class="muted">Bat &amp; Tin: Cricket Golf, formerly Gali Cricket Chase 3D (Android package <code>com.galicricket.chase3d</code>)<br>Last updated: 25 November 2026</p>
 
 <p>This policy explains, in plain words, what information the game Bat &amp; Tin: Cricket Golf, formerly Gali Cricket Chase 3D ("the game", "we", "us") uses and why. We built the game so that it needs as little data as possible.</p>
 
@@ -37,13 +37,15 @@
 <p>There is no sign-up and no password. Your progress (holes played, stars, coins, marbles, kids, bats, caps, trails, dances and settings) is saved on your device. Uninstalling the game or clearing its app data deletes it. If Android backup is on for your phone, Android may include this game data in your Google account backup (you can turn that off in your phone's backup settings).</p>
 
 <h2 id="s2">2. Live 1v1 Arena and shared challenges (only if you use them)</h2>
-<p>Most of the game works offline and sends nothing to our servers. Only if you open the <strong>Live 1v1 Arena</strong> or a recorded-rival challenge, the game:</p>
+<p>Most of the game works offline and sends nothing to our servers. Only if you open the <strong>Live 1v1 Arena</strong>, a recorded-rival challenge or the <strong>Weekly Cup leaderboard</strong>, the game:</p>
 <ul>
   <li>signs you in <strong>anonymously</strong> with Google Firebase Authentication, which creates a random player ID (not linked to your name, email, phone number or Google account);</li>
   <li>sends that ID and your Arena moves to our game server, which runs on <strong>Cloudflare Workers</strong>. The server keeps: your Arena Coins balance (free play money that cannot be bought, sold or cashed out), the day you last claimed free Arena Coins, your place in the match queue, and each match (both players' random IDs, the course, every shot and its result, the winner and the times);</li>
+  <li>sends your <strong>game name</strong> and the <strong>cricketer you picked</strong>. The game name is made by the game from two words of a fixed list and a number (for example "Swift Tiger 42"); you can only pick another one from the same list, never type your own, so it cannot contain your real name. Your opponent sees this game name and cricketer;</li>
+  <li>if you finish a <strong>Weekly Cup</strong>, sends your best score for that week. The leaderboard shows the 20 best scores with their game names and cricketers, and keeps the 100 best of each week;</li>
   <li>keeps the <strong>30 most recent winning finishes</strong> (the winner's random ID, the course, the score and the final shot) so other players can replay them as a "recorded rival" or open them from a shared link. Older ones are deleted automatically.</li>
 </ul>
-<p>There are no names, no chat, no voice and no photos in the Arena. Other players see only the shots and the result. Cloudflare and Google process your IP address to deliver the service (see their privacy policies: <a href="https://www.cloudflare.com/privacypolicy/">cloudflare.com/privacypolicy</a>, <a href="https://policies.google.com/privacy">policies.google.com/privacy</a>).</p>
+<p>There is no chat, no voice, no photos and no typed names in the Arena. Other players see only your game name, your cricketer, the shots and the result. Cloudflare and Google process your IP address to deliver the service (see their privacy policies: <a href="https://www.cloudflare.com/privacypolicy/">cloudflare.com/privacypolicy</a>, <a href="https://policies.google.com/privacy">policies.google.com/privacy</a>).</p>
 <p><strong>Older versions:</strong> versions before 3.0 had Online Duel, Live 1v1 and leaderboards stored in Google Firebase. That data stays until you ask us to delete it.</p>
 
 <h2 id="s3">3. Game analytics and crash reports (Google Firebase)</h2>
@@ -101,7 +103,7 @@
 <h2 id="delete">11. Delete your data</h2>
 <p>You can have your game data deleted at any time:</p>
 <ul>
-  <li><b>In the game:</b> Settings &gt; <b>Delete my Arena data</b>. This removes your Arena player (random ID, Arena Coins balance), your recorded winning finishes and your finished matches from our server, and forgets the anonymous ID on your phone. A match in progress counts as a loss.</li>
+  <li><b>In the game:</b> Settings &gt; <b>Delete my Arena data</b>. This removes your Arena player (random ID, game name, cricketer, Arena Coins balance), your Weekly Cup leaderboard entries, your recorded winning finishes and your finished matches from our server, and forgets the anonymous ID on your phone. A match in progress counts as a loss.</li>
   <li><b>Arena data, and online data from older versions, by email:</b> email <a href="mailto:galigamesstudio@outlook.com?subject=Delete%20my%20data%20-%20Bat%20and%20Tin">galigamesstudio@outlook.com</a> with the subject "Delete my data - Bat and Tin" and, if you can, the date you last played the Arena (or the player name you used in the old Online Duel). We delete the matching online data within 30 days and reply when it is done.</li>
   <li><b>Data on your phone:</b> uninstall the game or clear its app data in Android settings.</li>
 </ul>

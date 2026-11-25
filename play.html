@@ -497,6 +497,69 @@ button:focus-visible,a:focus-visible{outline:3px solid #7146e1;outline-offset:3p
 .homegrow.norails .rails{display:none}
 .homegrow.tight .rail:nth-child(n+2){display:none}
 .coin{display:inline-block;width:1.15em;height:1.15em;vertical-align:-0.2em;object-fit:contain}.chip i .coin{width:22px;height:22px;vertical-align:middle}
+/* Live 1v1: the VS screen */
+#vs{position:absolute;left:0;right:0;top:0;bottom:0;z-index:25;display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column;-webkit-align-items:center;align-items:center;-webkit-justify-content:center;justify-content:center;background:radial-gradient(circle at 50% 45%,rgba(122,63,208,.85),rgba(20,6,50,.92));pointer-events:none;-webkit-transition:opacity .45s;transition:opacity .45s;-webkit-animation:vsIn .35s ease-out;animation:vsIn .35s ease-out}
+#vs.out{opacity:0}
+#vs .vs-band{display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;width:100%;max-width:440px;-webkit-justify-content:space-around;justify-content:space-around}
+#vs .vs-p{width:38%;text-align:center;color:#fff;-webkit-animation:vsL .5s cubic-bezier(.2,1.4,.4,1) both;animation:vsL .5s cubic-bezier(.2,1.4,.4,1) both}
+#vs .vs-p.p1{-webkit-animation-name:vsR;animation-name:vsR}
+#vs .vs-av{display:block;width:104px;height:104px;margin:0 auto 10px;border-radius:28px;border:4px solid #fff;overflow:hidden;box-shadow:0 8px 0 rgba(0,0,0,.3)}
+#vs .p0 .vs-av{border-color:#37b6ff}#vs .p1 .vs-av{border-color:#ff4a6e}
+#vs .vs-av img{width:118%;height:118%;margin:10% 0 0 -9%;object-fit:cover;object-position:50% 0}
+#vs .vs-p b{display:block;font:800 20px/1.1 "GCC Head",system-ui;font-style:italic;text-shadow:0 2px 0 rgba(0,0,0,.4)}
+#vs .vs-p small{display:block;font-weight:800;opacity:.8;margin-top:2px}
+#vs .vs-p.me b:after{content:" (you)";font-size:13px;opacity:.85}
+#vs .vs-mid{font:800 54px "GCC Head",Impact,system-ui;font-style:italic;color:var(--y);-webkit-text-stroke:2px var(--ink);text-shadow:0 5px 0 var(--ink);-webkit-animation:vsPop .5s cubic-bezier(.2,1.8,.4,1) .25s both;animation:vsPop .5s cubic-bezier(.2,1.8,.4,1) .25s both}
+#vs .vs-sub{margin-top:26px;color:#fff;font-weight:900;font-size:15px;background:rgba(0,0,0,.35);border-radius:14px;padding:6px 14px}
+@-webkit-keyframes vsIn{from{opacity:0}}@keyframes vsIn{from{opacity:0}}
+@-webkit-keyframes vsL{from{-webkit-transform:translateX(-120%)}}@keyframes vsL{from{transform:translateX(-120%)}}
+@-webkit-keyframes vsR{from{-webkit-transform:translateX(120%)}}@keyframes vsR{from{transform:translateX(120%)}}
+@-webkit-keyframes vsPop{from{-webkit-transform:scale(0)}}@keyframes vsPop{from{transform:scale(0)}}
+@media (prefers-reduced-motion:reduce){#vs,#vs *{-webkit-animation:none!important;animation:none!important}}
+/* Live 1v1: searching */
+.radar{position:relative;width:120px;height:120px;margin:6px auto 4px}
+.radar i{position:absolute;left:0;top:0;right:0;bottom:0;border-radius:50%;border:3px solid rgba(55,182,255,.8);-webkit-animation:radar 1.8s ease-out infinite;animation:radar 1.8s ease-out infinite}
+.radar i+i{-webkit-animation-delay:.9s;animation-delay:.9s}
+.radar .me-av{position:absolute;left:50%;top:50%;width:64px;height:64px;margin:-32px 0 0 -32px;border-radius:20px;overflow:hidden;background:#fff;border:3px solid #37b6ff;box-shadow:0 4px 0 rgba(0,0,0,.25)}
+.radar .me-av img{width:118%;height:118%;margin:10% 0 0 -9%;object-fit:cover;object-position:50% 0}
+.srch-t{font:800 26px "GCC Head",system-ui;margin:2px 0 6px;opacity:.9}
+@-webkit-keyframes radar{0%{-webkit-transform:scale(.45);opacity:1}100%{-webkit-transform:scale(1.25);opacity:0}}
+@keyframes radar{0%{transform:scale(.45);opacity:1}100%{transform:scale(1.25);opacity:0}}
+@media (prefers-reduced-motion:reduce){.radar i{-webkit-animation:none!important;animation:none!important}}
+/* Squad faces and shop art rendered from the 3D models */
+.item.kid .ic .kid-face{position:relative;display:block;width:100%;height:100%;border-radius:inherit;overflow:hidden;background:var(--shirt)}
+.item.kid .ic .kid-face img{width:118%;height:118%;margin:8% 0 0 -9%;object-fit:cover;object-position:50% 0}
+.item.kid .ic .kid-face b{position:absolute;right:2px;bottom:1px;font:800 11px "GCC Head",system-ui;color:#fff;background:rgba(20,6,50,.7);border-radius:6px;padding:0 4px}
+.gcard .art .shop-art{max-width:78%;max-height:84%;object-fit:contain;-webkit-filter:drop-shadow(0 4px 3px rgba(20,6,50,.3));filter:drop-shadow(0 4px 3px rgba(20,6,50,.3))}
+.boxart{width:1.4em;height:1.4em;object-fit:contain;vertical-align:middle}.boxart.big{display:block;width:96px;height:80px;margin:-4px auto 4px}.tbox i .boxart.big{width:120px;height:100px}
+/* daily missions and profile */
+.miss .mrow{display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;text-align:left;background:var(--soft,#f3efff);border-radius:16px;padding:10px 10px 10px 14px;margin:8px 0}
+.miss .mrow.done{background:#fff6cf;box-shadow:0 0 0 2px #ffcb2f inset}
+.miss .mrow.got{opacity:.65}
+.miss .mtx{-webkit-flex:1;flex:1;margin-right:8px}
+.miss .mtx b{display:block;font-size:14px;font-weight:900}
+.miss .mbar{display:block;height:8px;border-radius:4px;background:rgba(0,0,0,.1);margin:6px 0 2px;overflow:hidden}
+.miss .mbar i{display:block;height:100%;border-radius:4px;background:linear-gradient(90deg,#2ee59d,#22c25e)}
+.miss .mtx small{font-weight:800;opacity:.7;font-size:11px}
+.miss .mok{font:800 22px "GCC Head",system-ui;color:#22c25e;width:44px;text-align:center}
+.pfl .pfl-av{display:block;width:96px;height:96px;margin:0 auto 8px;border-radius:28px;overflow:hidden;border:4px solid #fff;box-shadow:0 6px 0 rgba(0,0,0,.2)}
+.pfl .pfl-av img{width:118%;height:118%;margin:8% 0 0 -9%;object-fit:cover;object-position:50% 0}
+.pfl h2{margin:4px 0 0}
+.lvbar.wide{display:block;width:70%;height:8px;margin:6px auto 12px;border-radius:4px;background:rgba(0,0,0,.12);overflow:hidden}.lvbar.wide i{display:block;height:100%;background:linear-gradient(90deg,#a98bff,#7a3fd0)}
+.pfl .pgrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:6px 0 12px}
+.pfl .pcell{background:var(--soft,#f3efff);border-radius:14px;padding:8px 4px}
+.pfl .pcell b{display:block;font:800 22px "GCC Head",system-ui}
+.pfl .pcell small{font-size:10.5px;font-weight:800;opacity:.75}
+/* Weekly Cup leaderboard */
+.lb{max-height:46vh;overflow-y:auto;margin:6px 0 10px;text-align:left}
+.lbrow{display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;background:var(--soft);border-radius:14px;padding:6px 10px;margin:5px 0}
+.lbrow.me{background:#fff6cf;box-shadow:0 0 0 2px #ffcb2f inset}
+.lbrow em{font:800 16px "GCC Head",system-ui;font-style:normal;width:26px;text-align:center}
+.lbrow .lbav{width:34px;height:34px;border-radius:11px;overflow:hidden;background:#fff;margin:0 8px;-webkit-flex-shrink:0;flex-shrink:0}
+.lbrow .lbav img{width:118%;height:118%;margin:8% 0 0 -9%;object-fit:cover;object-position:50% 0}
+.lbrow b{-webkit-flex:1;flex:1;font-size:14px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lbrow i{font:800 18px "GCC Head",system-ui;font-style:normal}
+.login.age .age-cast{display:block;width:100%;max-width:360px;margin:-6px auto 2px;height:auto;pointer-events:none}@media (max-height:640px){.login.age .age-cast{max-width:240px}}
 
 </style>
 <style>
@@ -1661,8 +1724,8 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
     chotu: { model: 'knight', style: 'short', fit: 'lean', num: 3, name: 'Kai', price: 2500, skin: 0xb07448, shirt: 0x2e5552, shorts: 0x223138, hair: 0x120c08, shoe: 0xd5dcda, stripe: 0xe7ba5e, perk: { spin: 1.15 }, perkTxt: 'More curve' },
     guddu: { model: 'barbarian', style: 'side', beard: true, num: 18, name: 'Leo', price: 3500, skin: 0xd49a6a, shirt: 0x30434b, shorts: 0x222b34, hair: 0x2b1b10, shoe: 0xddd4c1, stripe: 0xe19a53, perk: { pow: 1.1 }, perkTxt: 'Stronger hits' },
     sweety:{ model: 'rogue_hooded', style: 'plaits', fit: 'lean', num: 5, name: 'Mia', price: 4500, skin: 0xe8b48c, shirt: 0x2e4555, shorts: 0x292e3b, hair: 0x3a1f10, shoe: 0xe2dbd0, stripe: 0xe6a953, perk: { ctl: 1.08, spin: 1.08 }, perkTxt: 'Timing + curve' },
-    bunty: { model: 'barbarian', style: 'side', beard: true, num: 45, name: 'Diego', price: 6000, skin: 0xa86b40, shirt: 0x254650, shorts: 0x1e2c35, hair: 0x0a0705, shoe: 0xd5deda, stripe: 0xd9aa62, perk: { pow: 1.07, ctl: 1.07 }, perkTxt: 'Power + timing' },
-    chanda:{ model: 'mage', style: 'bun', fit: 'lean', num: 9, name: 'Aiko', price: 8000, skin: 0xd8a070, shirt: 0x285659, shorts: 0x20333a, hair: 0x251409, shoe: 0xe3e0d4, stripe: 0xcf9b5c, perk: { pow: 1.06, ctl: 1.06, spin: 1.06 }, perkTxt: 'A bit of everything' }
+    bunty: { model: 'barbarian', sig: 'pagdi', style: 'side', beard: true, num: 45, name: 'Diego', price: 6000, skin: 0xa86b40, shirt: 0x254650, shorts: 0x1e2c35, hair: 0x0a0705, shoe: 0xd5deda, stripe: 0xd9aa62, perk: { pow: 1.07, ctl: 1.07 }, perkTxt: 'Power + timing' },
+    chanda:{ model: 'mage', sig: 'cap', style: 'bun', fit: 'lean', num: 9, name: 'Aiko', price: 8000, skin: 0xd8a070, shirt: 0x285659, shorts: 0x20333a, hair: 0x251409, shoe: 0xe3e0d4, stripe: 0xcf9b5c, perk: { pow: 1.06, ctl: 1.06, spin: 1.06 }, perkTxt: 'A bit of everything' }
   };
   var CAPS = {
     none:    { name: 'No cap',       price: 0 },
@@ -2233,6 +2296,18 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
     var lab = new THREE.Mesh(new THREE.ConeGeometry(0.09, 0.18, 4), new THREE.MeshBasicMaterial({ color: col })); lab.rotation.x = Math.PI; lab.position.y = 0.45; b.add(lab);
     S.ghosts.push(b); return b;
   }
+  // a name above a player (Live 1v1): a small rounded label that always faces the camera
+  function nameTag(text, col) {
+    var tex = canvasTex(256, 64, function (c, w, h) {
+      c.font = '800 30px "GCC Head", system-ui, sans-serif'; var tw = Math.min(w - 8, c.measureText(text).width + 34);
+      c.fillStyle = 'rgba(20,6,50,0.78)'; var x = (w - tw) / 2, r = 22;
+      c.beginPath(); c.moveTo(x + r, 8); c.arcTo(x + tw, 8, x + tw, 56, r); c.arcTo(x + tw, 56, x, 56, r); c.arcTo(x, 56, x, 8, r); c.arcTo(x, 8, x + tw, 8, r); c.fill();
+      c.fillStyle = '#' + ('000000' + (col >>> 0).toString(16)).slice(-6); c.beginPath(); c.arc(x + 20, 32, 8, 0, 6.3); c.fill();
+      c.fillStyle = '#fff'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(text, w / 2 + 8, 33, tw - 40);
+    });
+    var sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: tex, transparent: true, depthWrite: false, depthTest: false }));
+    sp.scale.set(1.2, 0.3, 1); sp.renderOrder = 10; return sp;
+  }
   function clearGhosts() { S.ghosts.forEach(disposeObject); S.ghosts = []; }
   function showGuide(pts, end) {
     for (var i = 0; i < S.guide.length; i++) { var d = S.guide[i]; if (i < pts.length) { d.visible = true; d.position.set(pts[i][0], pts[i][1], pts[i][2]); d.scale.setScalar(1 - i / pts.length * 0.6); } else d.visible = false; }
@@ -2601,7 +2676,7 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
     S.sparks.forEach(function (m) { var u = m.userData, a = u.a + t * u.s; m.position.set(Math.cos(a) * u.r, u.y + Math.sin(t * 1.3 + u.a) * 0.25, Math.sin(a) * u.r); m.rotation.y = t * 2; m.rotation.x = t; });
     S.stageRing.material.opacity = 0.4 + Math.sin(t * 2.2) * 0.2;
   }
-  G.Scene = { mesh: mesh, canvasTex: canvasTex, shared: shared, disposeObject: disposeObject, menuStage: menuStage, menuStageTick: menuStageTick, S: S, init: init, resize: resize, render: render, buildHole: buildHole, clearCourse: clearCourse, makeBall: makeBall, ghostBall: ghostBall, clearGhosts: clearGhosts, showGuide: showGuide, hideGuide: hideGuide,
+  G.Scene = { mesh: mesh, canvasTex: canvasTex, shared: shared, disposeObject: disposeObject, menuStage: menuStage, menuStageTick: menuStageTick, S: S, init: init, resize: resize, render: render, buildHole: buildHole, clearCourse: clearCourse, makeBall: makeBall, ghostBall: ghostBall, nameTag: nameTag, clearGhosts: clearGhosts, showGuide: showGuide, hideGuide: hideGuide,
     trailPush: trailPush, trailClear: trailClear, burst: burst, tickFx: tickFx, makeKid: makeKid, capOn: capOn, pose: pose, low: low, mat: mat };
 })(window);
 
@@ -2713,13 +2788,13 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
       inHand(bat, hand, ws.x);
     }
     // caps and helmets from the shop: the same shapes as the built-in characters, fitted to this head
-    var capHolder = null;
-    if (head && o.cap && o.cap !== 'none' && G.Scene && G.Scene.capOn) {
+    var capHolder = null, capId = o.cap && o.cap !== 'none' ? o.cap : c && c.sig;   // two cricketers share a model with another: their own headwear tells them apart
+    if (head && capId && G.Scene && G.Scene.capOn) {
       var headMesh = null; body.traverse(function (n) { if (n.isMesh && /_Head/.test(n.name)) headMesh = n; });
       body.updateMatrixWorld(true);
       var hb = new THREE.Box3().setFromObject(headMesh || head), hc = new THREE.Vector3(), hs = new THREE.Vector3(); hb.getCenter(hc); hb.getSize(hs);
       var hws = new THREE.Vector3(), hq = new THREE.Quaternion(); head.getWorldScale(hws); head.getWorldQuaternion(hq);
-      capHolder = new THREE.Group(); G.Scene.capOn(capHolder, o.cap);
+      capHolder = new THREE.Group(); G.Scene.capOn(capHolder, capId);
       capHolder.position.copy(head.worldToLocal(hc.clone().add(new THREE.Vector3(0, hs.y * 0.08, 0))));
       capHolder.quaternion.copy(hq.invert());
       capHolder.scale.setScalar((Math.max(hs.x, hs.z) / 0.46) / Math.max(1e-3, hws.x));
@@ -3169,6 +3244,21 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
       { id: 'boardwalk-5', name: 'Beach Boardwalk', fee: 400 }
     ]
   };
+  // Player names: two words from these lists and a number (no free text, so nothing to moderate). Kids: the Squad ids.
+  rules.nameA = ['Swift', 'Lucky', 'Brave', 'Sunny', 'Rapid', 'Clever', 'Mighty', 'Happy', 'Jolly', 'Cool', 'Bold', 'Quick', 'Super', 'Turbo', 'Golden', 'Royal', 'Speedy', 'Sharp', 'Merry', 'Noble'];
+  rules.nameB = ['Tiger', 'Falcon', 'Panda', 'Comet', 'Rocket', 'Eagle', 'Dolphin', 'Cheetah', 'Lion', 'Hawk', 'Fox', 'Bear', 'Wolf', 'Star', 'Storm', 'Arrow', 'Thunder', 'Phoenix', 'Koala', 'Otter'];
+  rules.kids = ['munna', 'pinky', 'chotu', 'guddu', 'sweety', 'bunty', 'chanda'];
+  rules.randomName = function (rnd) {
+    rnd = rnd || Math.random;
+    return rules.nameA[Math.floor(rnd() * rules.nameA.length)] + ' ' + rules.nameB[Math.floor(rnd() * rules.nameB.length)] + ' ' + (1 + Math.floor(rnd() * 99));
+  };
+  // a profile the server accepts, or null: {name: 'Swift Tiger 42', kid: 'munna'}
+  rules.cleanProfile = function (x) {
+    if (!x || typeof x !== 'object' || typeof x.name !== 'string' || typeof x.kid !== 'string') return null;
+    var m = /^([A-Za-z]+) ([A-Za-z]+) ([1-9][0-9]?)$/.exec(x.name);
+    if (!m || rules.nameA.indexOf(m[1]) < 0 || rules.nameB.indexOf(m[2]) < 0 || rules.kids.indexOf(x.kid) < 0) return null;
+    return { name: x.name, kid: x.kid };
+  };
   if (typeof module === 'object' && module.exports) module.exports = rules;
   else root.G.PvpRules = rules;
 })(typeof window !== 'undefined' ? window : globalThis);
@@ -3542,7 +3632,7 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
     if (M.onlineReplay && (b.stopped || b.t >= 16)) {
       M.onlineReplay = false;
       M.phase = 'onlineWait';
-      onlineBall(M.online.balls[M.online.turn]);
+      onlineBall(M.online.balls[M.online.turn], M.online.turn);
       onlineState(M.online);
     } else if (b.stopped) endShot(b.ev);
   }
@@ -3591,6 +3681,7 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
     }
   }
   function tickOnline(dt, tt) {
+    tickDuo(tt);
     if (M.phase === 'onlineWait' || M.phase === 'onlineArm' || M.phase === 'onlineHit') {
       SC.pose(M.batter, 'stance', 0, tt); camFollow(dt, false);
       var toss = M.online.toss;
@@ -3603,7 +3694,52 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
     var seconds = Math.max(0, Math.ceil((M.online.deadline - G.PvP.serverNow()) / 1000));
     if (seconds !== M.onlineSeconds) { M.onlineSeconds = seconds; G.UI.hud(M); }
   }
-  function onlineBall(point) {
+  /* Live 1v1: both players on the course. The player whose turn it is stands at their ball (the opponent's own
+     cricketer on their turn); the other waits beside their ball, which shows in their colour with their name. */
+  var DUO_COL = [0x37b6ff, 0xff4a6e];
+  function setupDuo(match) {
+    var seat = match.seat, other = 1 - seat, prof = (match.profiles || [])[other] || null;
+    var oppKid = G.KIDS[prof && prof.kid] || G.KIDS[G.SAVE.g.eq.kid === 'pinky' ? 'chotu' : 'pinky'];
+    var kids = []; kids[seat] = M.batter;
+    kids[other] = SC.makeKid(oppKid, { bat: 'gali', cap: 'none' }); SC.S.scene.add(kids[other]);
+    var names = []; names[seat] = G.t('You'); names[other] = prof ? prof.name : G.t('Opponent');
+    M.duo = { kids: kids, names: names, seat: seat, active: match.turn, balls: [], tags: [] };
+    for (var i = 0; i < 2; i++) {
+      var b = SC.ghostBall(DUO_COL[i === seat ? 0 : 1]); b.visible = false; M.duo.balls[i] = b;
+      var tag = SC.nameTag(names[i], DUO_COL[i === seat ? 0 : 1]); tag.position.y = 1.75; kids[i].add(tag); M.duo.tags[i] = tag;
+    }
+    var mineId = G.SAVE.g.eq.kid, oppId = prof && G.KIDS[prof.kid] ? prof.kid : (mineId === 'pinky' ? 'chotu' : 'pinky');
+    if (G.UI.duelIntro) G.UI.duelIntro(match, names, seat === 0 ? [mineId, oppId] : [oppId, mineId]);
+  }
+  // stand the waiting player beside their own ball, side-on like the batter
+  function placeWaiting(kid, point) {
+    var a = Math.atan2(M.h.target.x - point.x, M.h.target.z - point.z), sx = Math.cos(a), sz = -Math.sin(a), fx = Math.sin(a), fz = Math.cos(a);
+    kid.position.set(point.x - sx * 0.5 - fx * 0.12, point.y || 0, point.z - sz * 0.5 - fz * 0.12); kid.rotation.y = a + Math.PI / 2;
+  }
+  function duoTurn(seat) {
+    var D = M.duo; if (!D) return;
+    D.active = seat; M.batter = D.kids[seat];
+    var other = 1 - seat, pt = M.online && M.online.balls[other];
+    D.kids[seat].visible = true;
+    if (pt) {
+      placeWaiting(D.kids[other], pt); D.balls[other].position.set(pt.x, (pt.y || 0) + P.R, pt.z); D.balls[other].visible = true;
+      // both balls on the same spot (the start): the waiting player steps back and aside to watch
+      var cur = M.online.balls[seat];
+      if (cur && Math.hypot(cur.x - pt.x, cur.z - pt.z) < 0.8) {
+        // on the far side of the ball from the batter (never between the camera and the shot), turned to watch it
+        var a = Math.atan2(M.h.target.x - pt.x, M.h.target.z - pt.z), sx = Math.cos(a), sz = -Math.sin(a), fx = Math.sin(a), fz = Math.cos(a);
+        var wx = pt.x + sx * 1.5 + fx * 0.2, wz = pt.z + sz * 1.5 + fz * 0.2;
+        D.kids[other].position.set(wx, pt.y || 0, wz); D.kids[other].rotation.y = Math.atan2(pt.x - wx, pt.z - wz);
+      }
+    }
+    D.balls[seat].visible = false;
+  }
+  function tickDuo(tt) {
+    var D = M.duo; if (!D) return;
+    var w = D.kids[1 - D.active]; if (w) SC.pose(w, 'idle', 0, tt);
+  }
+  function onlineBall(point, seat) {
+    if (seat != null) duoTurn(seat);
     M.ball = P.newBall(point.x, point.z, point.y);
     M.strokes = point.shots;
     M.power = 0;
@@ -3620,6 +3756,7 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
       if (match.last && match.seq > 0) M.onlineSeen--;
       cam.pos.set(0, 5, -6); cam.look.set(0, 0, 4);
       M.phase = 'onlineWait';
+      setupDuo(match);
     }
     var previous = M.online;
     M.online = match;
@@ -3627,7 +3764,7 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
     if (match.last && match.seq > M.onlineSeen) {
       M.onlineSeen = match.seq;
       var replay = match.last;
-      onlineBall(replay.from);
+      onlineBall(replay.from, replay.seat);
       M.aim = replay.shot.ang;
       M.power = replay.shot.power;
       placeKids();
@@ -3651,10 +3788,10 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
       M.phase = 'aim';
     }
     if (!myTurn || (match.toss && M.phase !== 'toss' && M.phase !== 'onlineHit')) {
-      if ((previous.seq !== match.seq || !M.onlineReady) && M.phase !== 'toss') onlineBall(match.balls[match.turn]);
+      if ((previous.seq !== match.seq || !M.onlineReady) && M.phase !== 'toss') onlineBall(match.balls[match.turn], match.turn);
       M.phase = 'onlineWait';
     } else if (!match.toss && (M.phase !== 'aim' || !M.onlineReady)) {
-      onlineBall(match.balls[match.turn]);
+      onlineBall(match.balls[match.turn], match.turn);
       M.phase = 'aim';
     }
     M.onlineReady = true;
@@ -3850,7 +3987,7 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
     }
     if (round.onEnd) round.onEnd({ results: round.results });
   }
-  function clearKids() { if (!M) return; [M.batter].concat(M.bots.map(function (bot) { return bot.avatar; })).forEach(function (k) { if (k) SC.disposeObject(k); }); }
+  function clearKids() { if (!M) return; (M.duo ? M.duo.kids : [M.batter]).concat(M.bots.map(function (bot) { return bot.avatar; })).forEach(function (k) { if (k) SC.disposeObject(k); }); }
   function quit() { if (!M) return; G.track('round_quit', { mode: M.mode, hole: M.h && M.h.id }); clearKids(); SC.clearGhosts(); SC.hideGuide(); M = null; }
   function active() { return !!M; }
   function mode() { return M && M.mode; }
@@ -3950,6 +4087,7 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
     busy = true; clearTimer();
     identity().then(function (token) {
       var began = performance.now();
+      if (action === 'queue') payload = Object.assign({ profile: { name: G.playerName ? G.playerName() : R.randomName(), kid: G.SAVE.g.eq.kid } }, payload || {});
       return callJson(config.endpoint, { data: Object.assign({ version: R.version, action: action }, payload || {}) }, token)
         .then(function (reply) {
           var ended = performance.now();
@@ -3962,7 +4100,7 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
       if (!active) return;
       state = next;
       if (next.match) {
-        clearTimer(); selected = '';
+        clearTimer(); selected = ''; stopTick(); searchFrom = 0;
         if (screen !== 'match') G.UI.closeOverlay();
         screen = 'match';
         G.Play.onlineState(next.match);
@@ -4019,18 +4157,37 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
     }
   }
 
+  var searchFrom = 0, searchTick = null;
+  function clock(ms) { var x = Math.floor(ms / 1000); return Math.floor(x / 60) + ':' + ('0' + x % 60).slice(-2); }
+  function stopTick() { if (searchTick) clearInterval(searchTick); searchTick = null; }
+  function startTick(long) {
+    stopTick();
+    searchTick = setInterval(function () {
+      var el = document.getElementById('srchT'); if (!el || !selected) { stopTick(); return; }
+      var waited = Date.now() - searchFrom; el.textContent = clock(waited);
+      if (!long && waited > 30000) renderLobby('');
+    }, 1000);
+  }
   function renderLobby(message) {
     if (screen !== 'lobby') return;
     var title = '<h2>Live 1v1</h2><p>Take turns. First to hit the tin wins.</p>';
     var rival = '<button class="btn ghost" id="realShot">Beat a real shot · Free</button>';
     var findReplay = function () { send('replay'); };
     if (selected) {
-      G.UI.overlay(title + '<p role="status">' + (message || 'Searching for a real player…') + '</p>' +
-        '<small>Entry is charged when both players connect.</small>' + rival +
-        '<button class="btn ghost" id="x">Cancel search</button>',
-      { realShot: findReplay, x: function () { selected = ''; clearTimer(); if (!send('cancel')) scheduleCancel(); } });
+      if (!searchFrom) searchFrom = Date.now();
+      var waited = Date.now() - searchFrom, long = waited > 30000;
+      // after 30 s with nobody online, offer the computer race instead: clearly a computer, never shown as a person
+      G.UI.overlay('<h2>Live 1v1</h2><div class="radar"><i></i><i></i><span class="me-av">' + G.UI.kidFace(G.SAVE.g.eq.kid) + '</span></div>' +
+        '<p role="status"><b>' + (message || 'Looking for a real player…') + '</b></p><p class="srch-t" id="srchT">' + clock(waited) + '</p>' +
+        '<small>Entry is charged when both players connect.</small>' +
+        (long ? '<p class="small">Few players are online right now. Keep waiting, or race the computer (practice, no Arena Coins).</p><button class="btn" id="cpuRace">🤖 Race the computer</button>' : '') +
+        rival + '<button class="btn ghost" id="x">Cancel search</button>',
+      { realShot: findReplay, cpuRace: function () { selected = ''; clearTimer(); stopTick(); send('cancel'); finishWatch(); G.UI.closeOverlay(); G.UI.race(); },
+        x: function () { selected = ''; stopTick(); clearTimer(); if (!send('cancel')) scheduleCancel(); } });
+      startTick(long);
       return;
     }
+    searchFrom = 0; stopTick();
     G.UI.overlay(title + '<p>Arena Coins: <b>' + (state ? state.coins : '…') + '</b></p>' +
       '<p class="small">400 each · 800 to the winner. The match picks one of four courses.</p>' +
       (message ? '<p role="status">' + message + '</p>' : '') +
@@ -4122,8 +4279,91 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
       state = null; return 'deleted';
     });
   }
-  G.PvP = { deleteData: deleteData, hasArenaData: hasArenaData, open: open, openLink: openLink, available: available, active: participation, serverNow: serverNow, transit: function () { return transit; },
+  // Weekly Cup leaderboard (on the same server; a score is sent once the cup's three holes are finished)
+  function cup(action, payload) {
+    if (!available()) return Promise.reject(new Error('offline'));
+    return identity().then(function (token) {
+      return callJson(config.endpoint, { data: Object.assign({ version: R.version, action: action }, payload) }, token);
+    }).then(function (reply) { if (!reply.result || !reply.result.board) throw new Error('no board'); return reply.result; });
+  }
+  function cupScore(week, score) { return cup('cupScore', { week: week, score: score, profile: { name: G.playerName(), kid: G.SAVE.g.eq.kid } }); }
+  function cupBoard(week) { return cup('cupBoard', { week: week }); }
+  G.PvP = { cupScore: cupScore, cupBoard: cupBoard, deleteData: deleteData, hasArenaData: hasArenaData, open: open, openLink: openLink, available: available, active: participation, serverNow: serverNow, transit: function () { return transit; },
     arm: arm, armPending: function () { return !!queuedArm; }, hit: hit, leave: leave, result: result };
+})(window);
+
+</script>
+<script>
+/* Bat & Tin: daily missions and lifetime stats. Three missions a day (local midnight), coins for each, a marble for
+   all three. Progress comes from the game's own events (G.track), so no game code needs to know about missions.
+   ES2018 only. */
+(function (root) {
+  'use strict';
+  var G = root.G;
+  var POOL = [
+    { id: 'perfect', n: 3, coins: 100, txt: 'Hit {n} PERFECT shots' },
+    { id: 'holes', n: 3, coins: 80, txt: 'Finish {n} Journey holes' },
+    { id: 'stars', n: 5, coins: 100, txt: 'Earn {n} stars' },
+    { id: 'under', n: 1, coins: 120, txt: 'Finish a hole under par' },
+    { id: 'race', n: 1, coins: 80, txt: 'Play a Race vs Computer' },
+    { id: 'daily', n: 1, coins: 80, txt: 'Play Today\'s Hole' },
+    { id: 'shots', n: 15, coins: 60, txt: 'Take {n} shots' },
+    { id: 'live', n: 1, coins: 150, txt: 'Play a Live 1v1 match', online: true }
+  ];
+  function dayKey() { var d = new Date(); return d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate(); }
+  function seeded(seed) { return function () { seed = (seed * 1103515245 + 12345) % 2147483648; return seed / 2147483648; }; }
+  function liveOk() { return !!(G.PvP && G.PvP.available && G.PvP.available() && !G.isChild()); }
+  function stats() { var g = G.SAVE.g; g.stats = g.stats || {}; return g.stats; }
+  function today() {
+    var g = G.SAVE.g, k = dayKey();
+    if (!g.missions || g.missions.day !== k) {
+      var rnd = seeded(k), pool = POOL.filter(function (m) { return !m.online || liveOk(); }), pick = [];
+      while (pick.length < 3 && pool.length) pick.push(pool.splice(Math.floor(rnd() * pool.length), 1)[0].id);
+      g.missions = { day: k, list: pick.map(function (id) { return { id: id, p: 0, claimed: false }; }), bonus: false };
+      G.save();
+    }
+    return g.missions;
+  }
+  function def(id) { for (var i = 0; i < POOL.length; i++) if (POOL[i].id === id) return POOL[i]; return null; }
+  function bump(id, by) {
+    var M = today(), changed = false;
+    M.list.forEach(function (m) { var d = def(m.id); if (m.id === id && d && m.p < d.n) { m.p = Math.min(d.n, m.p + (by || 1)); changed = true; if (m.p >= d.n && G.toast) G.toast('✅ ' + G.t('Mission done') + ': ' + text(m), 1800); } });
+    if (changed) G.save();
+  }
+  function text(m) { var d = def(m.id); return G.t(d.txt).replace('{n}', d.n); }
+  function on(name, p) {
+    p = p || {};
+    var s = stats();
+    if (name === 'shot') { s.shots = (s.shots || 0) + 1; bump('shots'); if (p.res === 'perfect') { s.perfect = (s.perfect || 0) + 1; bump('perfect'); } }
+    else if (name === 'hole_end' && p.made) {
+      s.holes = (s.holes || 0) + 1; if (p.strokes === 1) s.hio = (s.hio || 0) + 1;
+      if (p.mode === 'safar') bump('holes');
+      if (p.stars) bump('stars', p.stars);
+      var h = G.holeById && G.holeById(p.hole); if (h && p.strokes < h.par) bump('under');
+      if (p.mode === 'daily') bump('daily');
+    }
+    else if (name === 'race_end') { s.races = (s.races || 0) + 1; if (p.place === 1) s.raceWins = (s.raceWins || 0) + 1; bump('race'); }
+    else if (name === 'duel_result') { s.duels = (s.duels || 0) + 1; if (p.result === 'win') s.duelWins = (s.duelWins || 0) + 1; bump('live'); }
+    else return;
+    G.save();
+  }
+  // claim one mission's coins (and the marble when all three are claimed)
+  function claim(i) {
+    var M = today(), m = M.list[i], d = m && def(m.id);
+    if (!d || m.claimed || m.p < d.n) return 0;
+    m.claimed = true; G.SAVE.coins += d.coins;
+    var bonus = !M.bonus && M.list.every(function (x) { return x.claimed; });
+    if (bonus) { M.bonus = true; G.SAVE.kanche = (G.SAVE.kanche || 0) + 1; }
+    G.save(); G.sfx('coin'); G.vib(20);
+    G.track('mission_claim', { id: m.id, coins: d.coins, bonus: bonus });
+    return d.coins;
+  }
+  function list() { return today().list.map(function (m) { var d = def(m.id); return { id: m.id, text: text(m), p: m.p, n: d.n, coins: d.coins, claimed: m.claimed, done: m.p >= d.n }; }); }
+  function ready() { return list().filter(function (m) { return m.done && !m.claimed; }).length; }
+
+  var orig = G.track;
+  G.track = function (name, params) { try { on(name, params); } catch (e) {} return orig.apply(this, arguments); };
+  G.Missions = { list: list, claim: claim, ready: ready, stats: stats, bonusTaken: function () { return today().bonus; } };
 })(window);
 
 </script>
@@ -4134,6 +4374,9 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
   var G = root.G = root.G || {};
   var t = function (s) { return G.t(s); };
   function $(id) { return document.getElementById(id); }
+  // the player's own name (word-list names only, shown to Live 1v1 opponents); made once, changed with a dice roll in Settings
+  function playerName() { if (!G.SAVE.name || !G.PvpRules.cleanProfile({ name: G.SAVE.name, kid: 'munna' })) { G.SAVE.name = G.PvpRules.randomName(); G.save(); } return G.SAVE.name; }
+  G.playerName = playerName;
   var COIN = '<img class="coin" src="art/coin.webp" alt="">';   // a picture: the coin emoji is missing on older Android
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
   function shots(n) { return n + (n === 1 ? ' shot' : ' shots'); }
@@ -4198,7 +4441,7 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
   function topbar(back) {
     var S = G.SAVE, lv = G.xpLevel(S.g.xp), k = G.KIDS[S.g.eq.kid] || G.KIDS.munna;
     var left = back ? '<button class="rnd" id="back" aria-label="' + t('Back') + '">' + ic('back') + '</button>'
-      : '<button class="prof" id="lvl" aria-label="' + t('Level') + ' ' + lv + '"><span class="av" style="background:' + hex(k.shirt) + '">' + (k.model ? '<img src="art/av-' + k.model + '.webp" alt="">' : '🧒') + '</span><span class="pinfo"><b>' + esc(k.name) + '</b><span class="lvbar"><i style="width:' + Math.round(G.xpFrac(S.g.xp) * 100) + '%"></i></span></span><span class="lvn">' + lv + '</span></button>';
+      : '<button class="prof" id="lvl" aria-label="' + t('Level') + ' ' + lv + '"><span class="av" style="background:' + hex(k.shirt) + '">' + kidFace(S.g.eq.kid) + '</span><span class="pinfo"><b>' + esc(playerName()) + '</b><span class="lvbar"><i style="width:' + Math.round(G.xpFrac(S.g.xp) * 100) + '%"></i></span></span><span class="lvn">' + lv + '</span></button>';
     return '<div class="top' + (back ? '' : ' top-menu') + '">' + left + '<div class="chips">' + chip('' + COIN + '', fmt(S.coins), root.__gccWebPlay ? null : 'cc', !root.__gccWebPlay, t('Coins')) + chip('🔮', fmt(S.kanche), null, false, t('Marbles')) + '</div>' + (back ? '<span class="sp"></span>' : '<button class="rnd" id="set" aria-label="' + t('Settings') + '">' + ic('gear') + '</button>') + '</div>';
   }
   function tabs(on) {
@@ -4287,7 +4530,7 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
       '</div>' +
       (live ? '<button class="bigplay" id="livePlay"><span class="wb">⚡</span><span class="pl"><span class="pt">LIVE 1v1</span><small>Find a player · 400 Arena Coins</small></span></button>' : '') +
       '<button class="' + (live ? 'btn journey-secondary' : 'bigplay') + '" id="play"><span class="wb">' + (live ? w.icon : '<img src="art/t-play.webp" alt=""><i>' + w.icon + '</i>') + '</span><span class="pl"><span class="pt">' + ic('play') + (live ? 'Practice Journey' : t('PLAY')) + '</span><small>' + esc(t(w.name)) + ' · ' + t('Hole') + ' ' + (nh.n + 1) + ' · ★ ' + st + '/27</small>' + allowance() + '</span></button>' +
-      tabs('home'), 'home', withTabs({ livePlay: G.PvP.open, play: function () { playHole(nh.id); }, h_challenge: challengeMenu, h_daily: daily, h_tiffin: tiffin, r_cup: challengeMenu, r_gift: giftInfo, r_squad: kids, r_shop: function () { shop(); }, set: settings, lvl: kids }));
+      tabs('home'), 'home', withTabs({ livePlay: G.PvP.open, play: function () { playHole(nh.id); }, h_challenge: challengeMenu, h_daily: daily, h_tiffin: tiffin, r_cup: challengeMenu, r_gift: giftInfo, r_squad: kids, r_shop: function () { shop(); }, r_miss: missions, set: settings, lvl: profile }));
     fitRails();
   }
   // the side icons need the free space above the cards: smaller icons on a short screen, none when there is no room
@@ -4301,14 +4544,37 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
   function midnight() { var d = new Date(); d.setHours(24, 0, 0, 0); return d.getTime(); }
   function rails() {
     var now = Date.now(), S = G.SAVE, cup = G.Challenge.week(now), next = Object.keys(G.KIDS).filter(function (id) { return S.g.owned.kid.indexOf(id) < 0; })
-      .map(function (id) { return G.KIDS[id]; }).sort(function (a, b) { return (a.price || 0) - (b.price || 0); })[0];
+      .sort(function (a, b) { return (G.KIDS[a].price || 0) - (G.KIDS[b].price || 0); })[0], nextId = next; next = next && G.KIDS[next];
     var canBuy = next && (next.price || 0) <= S.coins;
     function r(id, art, label, sub, badge) { return '<button class="rail" id="' + id + '"><span class="ri">' + art + (badge ? '<em class="badge">' + badge + '</em>' : '') + '</span><b>' + label + '</b>' + (sub ? '<small>' + sub + '</small>' : '') + '</button>'; }
     return '<div class="rails l">' + r('r_cup', '<img src="art/t-cup.webp" alt="">', t('Weekly Cup'), left(cup.ends - now)) + r('r_gift', '<img src="art/t-coins.webp" alt="">', t('Daily gift'), left(midnight() - now)) + '</div>' +
-      '<div class="rails r">' + r('r_squad', next && next.model ? '<img src="art/av-' + next.model + '.webp" alt="">' : ic('kids'), t('Squad'), next ? (canBuy ? t('Unlock!') : fmt(next.price || 0) + ' ' + COIN + '') : '', canBuy ? '!' : '') +
-      r('r_shop', ic('shop'), t('Shop'), '') + '</div>';
+      '<div class="rails r">' + (G.Missions ? r('r_miss', '<img src="art/t-daily.webp" alt="">', t('Missions'), G.Missions.list().filter(function (m) { return m.claimed; }).length + '/3', G.Missions.ready() ? '!' : '') : r('r_shop', ic('shop'), t('Shop'), '')) + r('r_squad', next ? kidFace(nextId) : ic('kids'), t('Squad'), next ? (canBuy ? t('Unlock!') : fmt(next.price || 0) + ' ' + COIN + '') : '', canBuy ? '!' : '') + '</div>';
   }
   root.addEventListener('resize', function () { if (view === 'home') fitRails(); });
+  /* daily missions: three a day, coins for each, a marble for all three */
+  function missions() {
+    var L = G.Missions.list(), all = L.every(function (m) { return m.claimed; });
+    var rows = L.map(function (m, i) {
+      var pct = Math.round(Math.min(1, m.p / m.n) * 100);
+      return '<div class="mrow' + (m.claimed ? ' got' : m.done ? ' done' : '') + '"><div class="mtx"><b>' + esc(m.text) + '</b><span class="mbar"><i style="width:' + pct + '%"></i></span><small>' + Math.min(m.p, m.n) + ' / ' + m.n + '</small></div>' +
+        (m.claimed ? '<span class="mok">✓</span>' : '<button class="btn sm' + (m.done ? '' : ' ghost') + '" id="mc' + i + '"' + (m.done ? '' : ' disabled') + '>' + COIN + ' ' + m.coins + '</button>') + '</div>';
+    }).join('');
+    var map = { x: function () { closeOverlay(); home(); } };
+    L.forEach(function (m, i) { map['mc' + i] = function () { var c = G.Missions.claim(i); if (c) { toast(COIN + ' +' + c, 1400); if (G.Missions.bonusTaken() && G.Missions.list().every(function (x) { return x.claimed; })) setTimeout(function () { toast('🔮 +1 ' + t('Marble') + ' · ' + t('all missions done!'), 2200); }, 900); } missions(); }; });
+    overlay('<div class="miss"><img class="boxart big" src="art/t-daily.webp" alt=""><h2>' + t('Daily missions') + '</h2><p class="small">' + t('New missions every day') + ' · ' + t('Finish all three for a marble') + ' 🔮</p>' + rows +
+      '<p class="small">' + (all ? t('All done for today. Come back tomorrow!') : t('New missions in') + ' ' + left(midnight() - Date.now())) + '</p><button class="btn ghost" id="x">' + t('Close') + '</button></div>', map);
+  }
+  /* the player's profile: name, cricketer, level and lifetime stats */
+  function profile() {
+    var S = G.SAVE, st = (G.Missions && G.Missions.stats()) || {}, lv = G.xpLevel(S.g.xp), k = G.KIDS[S.g.eq.kid] || G.KIDS.munna;
+    var stars = Object.keys(S.g.stars || {}).reduce(function (a, id) { return a + (S.g.stars[id] || 0); }, 0);
+    var cell = function (v, l) { return '<div class="pcell"><b>' + fmt(v || 0) + '</b><small>' + t(l) + '</small></div>'; };
+    overlay('<div class="pfl"><span class="pfl-av" style="background:' + hex(k.shirt) + '">' + kidFace(S.g.eq.kid) + '</span><h2>' + esc(playerName()) + '</h2>' +
+      '<p class="small">' + esc(k.name) + ' · ' + t('Level') + ' ' + lv + '</p><span class="lvbar wide"><i style="width:' + Math.round(G.xpFrac(S.g.xp) * 100) + '%"></i></span>' +
+      '<div class="pgrid">' + cell(stars, 'Stars') + cell(st.holes, 'Holes finished') + cell(st.hio, 'Holes in one') + cell(st.perfect, 'Perfect hits') + cell(st.raceWins, 'Races won') + cell(st.duelWins, 'Live 1v1 wins') + '</div>' +
+      '<button class="btn" id="pName">🎲 ' + t('New name') + '</button><button class="btn" id="pKid">' + t('Change cricketer') + '</button><button class="btn ghost" id="x">' + t('Close') + '</button></div>',
+      { x: closeOverlay, pKid: function () { closeOverlay(); kids(); }, pName: function () { S.name = G.PvpRules.randomName(); G.save(); profile(); if (view === 'home') home(); } });
+  }
   function giftInfo() { toast(t('Next daily gift in') + ' ' + left(midnight() - Date.now()), 1800); }
 
   /* ---------- journey (safar) ---------- */
@@ -4405,10 +4671,11 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
     $('hPar').textContent = M.online ? ((M.onlineSeconds || 0) + 's') : h.par;
     $('hShots').textContent = M.strokes;
     if (M.online) {
-      var mine = M.online.turn === M.online.seat;
+      var mine = M.online.turn === M.online.seat, nm = M.duo ? M.duo.names : ['', ''], opp = nm[1 - M.online.seat] || 'Opponent';
+      var shooter = M.online.last ? M.online.last.seat : -1;
       $('hHole').textContent = M.online.ended ? 'Live 1v1 · Finished' :
-        !M.online.started ? 'Live 1v1 · Connecting players' : M.onlineReplay ? 'Live 1v1 · Replay' : mine ? 'Live 1v1 · Your turn' : 'Live 1v1 · Opponent’s turn';
-      $('hName').textContent = h.name + ' · ' + M.online.fee * 2 + ' coin pot';
+        !M.online.started ? 'Live 1v1 · Connecting players' : M.onlineReplay ? (shooter === M.online.seat ? 'Your shot' : opp + ' · shot') : mine ? 'Your turn' : opp + ' is aiming…';
+      $('hName').textContent = h.name + ' · ' + M.online.fee * 2 + ' Arena Coins pot';
     }
     $('hShotsBox').className = 'pill' + (M.strokes > h.par ? ' over' : '');
     $('types').textContent = shotLabel(M.type) + ' only';
@@ -4476,7 +4743,7 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
       body = '<div class="rstars" id="rst">' + [0, 1, 2].map(function (i) { return '<i class="st' + (i < res.stars ? ' drop' : '') + '" style="animation-delay:' + (0.25 + i * 0.25) + 's">★</i>'; }).join('') + '</div>' +
         '<div class="hcrow"><div><small>' + t('Shots') + '</small><b>' + res.strokes + '</b></div><div><small>' + t('Par') + '</small><b>' + h.par + '</b></div><div><small>' + t('Coins') + '</small><b id="rc">0</b></div></div>' +
         (res.newBest ? '<p class="nb">🏅 ' + t('New best!') + '</p>' : '') + (res.kanche ? '<p class="nb">🔮 +1 ' + t('marble (use it to take back a shot)') + '</p>' : '') +
-        '<div class="tifbar"><span>🍱</span><i><em style="width:' + Math.round(G.SAVE.g.tiffin.p / G.TIFFIN_STARS * 100) + '%"></em></i><small>' + G.SAVE.g.tiffin.p + '/' + G.TIFFIN_STARS + '</small></div>';
+        '<div class="tifbar"><span><img class="boxart" src="art/t-box.webp" alt=""></span><i><em style="width:' + Math.round(G.SAVE.g.tiffin.p / G.TIFFIN_STARS * 100) + '%"></em></i><small>' + G.SAVE.g.tiffin.p + '/' + G.TIFFIN_STARS + '</small></div>';
     }
     var last = M.hi >= M.holes.length - 1, rookieHole = h.world === 0 && h.n < 3;
     var canDouble = res.coins > 0 && G.Ads.ready() && (M.mode !== 'tut' && (M.mode !== 'safar' || !rookieHole));
@@ -4513,14 +4780,14 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
   function tiffin() {
     var T = G.SAVE.g.tiffin;
     if (!T.ready) {
-      overlay('<div class="hcard"><h2>🍱 ' + t('Prize Box') + '</h2><p>' + t('Earn 9 stars to open a box of coins and marbles.') + ' (' + T.p + '/' + G.TIFFIN_STARS +
+      overlay('<div class="hcard"><img class="boxart big" src="art/t-box.webp" alt=""><h2>' + t('Prize Box') + '</h2><p>' + t('Earn 9 stars to open a box of coins and marbles.') + ' (' + T.p + '/' + G.TIFFIN_STARS +
         ')</p><p class="small">' + t('You also earn a marble the first time you get 3 stars on a hole. Spend a marble to undo a Journey shot.') +
         '</p><button class="btn ghost" id="x">' + t('Close') + '</button></div>', { x: closeOverlay });
       return;
     }
     T.ready--; var r = G.tiffinOpen(); G.sfx('open'); G.vib(40); G.track('tiffin_open', {});
     var item = r.item ? '<div class="titem">🎁 ' + esc(t(G.CATS[r.item[0]][r.item[1]].name)) + '</div>' : '';
-    overlay('<div class="tif"><div class="tbox"><i>🍱</i></div><h2>' + t('Prize box opened!') + '</h2><div class="tget"><span>' + COIN + ' +' + r.coins + ' ' + t('Coins') + '</span><span>🔮 +' + r.kanche + ' ' + t('Marbles') + '</span></div>' + item + '<button class="btn big" id="ok">' + t('Great!') + '</button></div>', { ok: function () { closeOverlay(); home(); } });
+    overlay('<div class="tif"><div class="tbox"><i><img class="boxart big" src="art/t-box.webp" alt=""></i></div><h2>' + t('Prize box opened!') + '</h2><div class="tget"><span>' + COIN + ' +' + r.coins + ' ' + t('Coins') + '</span><span>🔮 +' + r.kanche + ' ' + t('Marbles') + '</span></div>' + item + '<button class="btn big" id="ok">' + t('Great!') + '</button></div>', { ok: function () { closeOverlay(); home(); } });
   }
 
   /* ---------- shop ---------- */
@@ -4563,7 +4830,7 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
     Array.prototype.forEach.call(ui.querySelectorAll('[data-eq]'), function (b) { b.addEventListener('click', function (e) { e.stopPropagation(); G.sfx('tap'); S.g.eq[tab] = b.dataset.eq; G.save(); refreshKid(); shop(tab); }); });
     Array.prototype.forEach.call(ui.querySelectorAll('[data-iap]'), function (b) { b.addEventListener('click', function (e) { e.stopPropagation(); var p = G.PRODUCTS.filter(function (x) { return x.id === b.dataset.iap; })[0]; G.IAP.buy(p, function () { refreshKid(); shop('coins'); }); }); });
   }
-  function shopIcon(cat, id) { if (cat === 'bat') return '🏏'; if (cat === 'cap') return id === 'none' ? '🙂' : { topi: '🤍', cap: '🧢', pagdi: '👳', helmet: '⛑️', crown: '👑' }[id]; if (cat === 'trail') return id === 'none' ? '⚪' : { dhool: '💨', sitare: '⭐', rang: '🌈', aag: '🔥', patang: '🪁' }[id]; return { jump: '🦘', ghoom: '🌀', bhangra: '🕺', salaam: '🙇', daud: '🏃' }[id] || '💃'; }
+  function shopIcon(cat, id) { if (cat === 'bat') return '<img class="shop-art" src="art/bat-' + id + '.webp" alt="">'; if (cat === 'cap' && id !== 'none') return '<img class="shop-art" src="art/cap-' + id + '.webp" alt="">'; if (cat === 'cap') return id === 'none' ? '🙂' : { topi: '🤍', cap: '🧢', pagdi: '👳', helmet: '⛑️', crown: '👑' }[id]; if (cat === 'trail') return id === 'none' ? '⚪' : { dhool: '💨', sitare: '⭐', rang: '🌈', aag: '🔥', patang: '🪁' }[id]; return { jump: '🦘', ghoom: '🌀', bhangra: '🕺', salaam: '🙇', daud: '🏃' }[id] || '💃'; }
   function buyItem(cat, id) {
     var S = G.SAVE, it = G.CATS[cat][id];
     if (S.coins < it.price) { toast(t('Not enough coins') + ' ' + COIN + '', 1600); return; }
@@ -4578,7 +4845,7 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
     var list = Object.keys(K).map(function (id) {
       var k = K[id], own = S.g.owned.kid.indexOf(id) >= 0, eq = S.g.eq.kid === id;
       var btn = eq ? '<button class="btn sm ghost" disabled>' + t('Playing') + '</button>' : own ? '<button class="btn sm" data-eq="' + id + '">' + t('Pick') + '</button>' : '<button class="btn sm buy' + (S.coins < k.price ? ' poor' : '') + '" data-buy="' + id + '">' + COIN + ' ' + fmt(k.price) + '</button>';
-      return '<div class="item kid' + (eq ? ' eq' : '') + '"><button class="ic" data-preview="' + id + '" aria-label="Preview ' + esc(k.name) + '" style="--shirt:' + hex(k.shirt) + ';--skin:' + hex(k.skin) + ';--hair:' + hex(k.hair) + ';--trim:' + hex(k.stripe) + '"><span aria-hidden="true" class="kid-portrait hair-' + k.style + (k.beard ? ' portrait-beard' : '') + '"><i></i><b>' + k.num + '</b></span></button><div class="nm"><b>' + esc(k.name) + '</b><small>' + esc(t(k.perkTxt)) + '</small></div>' + btn + '</div>';
+      return '<div class="item kid' + (eq ? ' eq' : '') + '"><button class="ic" data-preview="' + id + '" aria-label="Preview ' + esc(k.name) + '" style="--shirt:' + hex(k.shirt) + ';--skin:' + hex(k.skin) + ';--hair:' + hex(k.hair) + ';--trim:' + hex(k.stripe) + '"><span aria-hidden="true" class="kid-face">' + kidFace(id) + '<b>' + k.num + '</b></span></button><div class="nm"><b>' + esc(k.name) + '</b><small>' + esc(t(k.perkTxt)) + '</small></div>' + btn + '</div>';
     }).join('');
     show(topbar() + '<div class="sheet low"><h2 class="sh">' + t('Squad') + '</h2><div class="list">' + list + '</div></div>' + tabs('kids'), 'kids', withTabs({ set: settings }));
     bindPreviews('kid', kids);
@@ -4635,9 +4902,9 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
       '<div class="challenge-panel"><h3>' + esc(entry.name) + '</h3><p>' + esc(title) + ' · ' + (best ? 'Best ' + shots(best.score) : 'Set your first score') + '</p>' +
       '<button class="btn big" id="shotPlay">Play challenge</button></div>' +
       '<div class="challenge-panel cup-panel"><h3>Weekly Cup</h3><p>' + w.courses.map(function (c) { return esc(c.name); }).join(' · ') + '</p>' +
-      '<p>' + (record ? esc(record.medal) + ' · Best ' + record.score + ' shots' : 'Three holes · Fewest shots') + '</p><button class="btn" id="cupPlay">Enter cup</button></div>' +
+      '<p>' + (record ? esc(record.medal) + ' · Best ' + record.score + ' shots' : 'Three holes · Fewest shots') + '</p><button class="btn" id="cupPlay">Enter cup</button>' + (G.PvP.available() && !G.isChild() ? '<button class="btn ghost" id="cupBoard">🏆 ' + t('Leaderboard') + '</button>' : '') + '</div>' +
       (pins || medals ? '<p class="small">Trick pins ' + pins + '/3 · Cup medals ' + medals + '</p>' : '') + '</div>', 'challenge',
-      { back: home, shotPlay: function () { challengeCard({ course: entry }); }, cupPlay: function () { startCup(w); } });
+      { back: home, shotPlay: function () { challengeCard({ course: entry }); }, cupPlay: function () { startCup(w); }, cupBoard: function () { cupBoard(w); } });
   }
 
   function openChallengeLink() {
@@ -4675,11 +4942,25 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
     startGame({ mode: 'challenge', holes: [entry.course.id], challenge: entry, onEnd: challengeMenu });
   }
 
+  function cupBoard(w) {
+    overlay('<h2>🏆 ' + t('Weekly Cup') + '</h2><p class="small">' + t('Loading') + '…</p><button class="btn ghost" id="x">' + t('Close') + '</button>', { x: closeOverlay });
+    G.PvP.cupBoard(w.key).then(function (b) {
+      var rows = b.board.length ? b.board.map(function (e, i) {
+        return '<div class="lbrow' + (e.me ? ' me' : '') + '"><em>' + (i + 1) + '</em><span class="lbav">' + kidFace(e.kid) + '</span><b>' + esc(e.name) + (e.me ? ' (' + t('you') + ')' : '') + '</b><i>' + e.score + '</i></div>';
+      }).join('') : '<p>' + t('No scores yet this week. Be the first!') + '</p>';
+      overlay('<h2>🏆 ' + t('Weekly Cup') + '</h2><p class="small">' + t('Fewest shots across three holes') + ' · ' + t('ends in') + ' ' + left(w.ends - Date.now()) + '</p><div class="lb">' + rows + '</div>' +
+        (b.me && b.me.rank > 20 ? '<p class="small">' + t('Your rank') + ': #' + b.me.rank + ' · ' + b.me.score + '</p>' : '') +
+        '<button class="btn" id="cupPlay">' + t('Enter cup') + '</button><button class="btn ghost" id="x">' + t('Close') + '</button>', { x: closeOverlay, cupPlay: function () { closeOverlay(); startCup(w); } });
+    }, function () {
+      overlay('<h2>🏆 ' + t('Weekly Cup') + '</h2><p>' + t('The leaderboard could not be reached. Try again later.') + '</p><button class="btn ghost" id="x">' + t('Close') + '</button>', { x: closeOverlay });
+    });
+  }
   function startCup(w) {
     startGame({ mode: 'cup', cup: w, holes: w.courses.map(function (c) { return c.id; }), onEnd: function (round) {
       hudOff();
       var result = G.Challenge.recordCup(w.key, round.results), title = result ? result.medal + ' medal' : 'Cup incomplete';
       G.track('weekly_cup_result', { finished: !!result, strokes: result ? result.score : 0 });
+      if (result && G.PvP.available() && !G.isChild()) G.PvP.cupScore(w.key, result.score).then(function (b) { if (b.me) toast('🏆 ' + t('Weekly Cup rank') + ' #' + b.me.rank, 2200); }, function () {});
       overlay('<h2>' + title + '</h2><p>' + (result ? result.score + ' shots across three holes' : 'Finish all three holes to record a score.') + '</p>' +
         '<button class="btn big" id="cupAgain">Rematch</button><button class="btn ghost" id="ok">Challenge desk</button>',
         { cupAgain: function () { startCup(G.Challenge.week(Date.now())); }, ok: challengeMenu });
@@ -4760,6 +5041,18 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
   }
 
   /* ---------- pause ---------- */
+  // the VS screen when a live match starts: both players' names and cricketers, then the course
+  function kidFace(id) { return '<img src="art/av-' + (G.KIDS[id] ? id : 'munna') + '.webp" alt="">'; }
+  function duelIntro(match, names, kids) {
+    var old = $('vs'); if (old) old.parentNode.removeChild(old);
+    var el = document.createElement('div'); el.id = 'vs';
+    var side = function (i) { var k = G.KIDS[kids[i]] || {}; return '<div class="vs-p p' + i + (i === match.seat ? ' me' : '') + '"><span class="vs-av" style="background:' + hex(k.shirt || 0x777777) + '">' +
+      kidFace(kids[i]) + '</span><b>' + esc(names[i]) + '</b><small>' + esc(k.name || '') + '</small></div>'; };
+    el.innerHTML = '<div class="vs-band">' + side(0) + '<div class="vs-mid">VS</div>' + side(1) + '</div><div class="vs-sub">' + esc(t(G.holeById(match.course).name)) + ' · ' + (match.fee * 2) + ' Arena Coins to the winner</div>';
+    document.getElementById('wrap').appendChild(el);
+    setTimeout(function () { el.className = 'out'; }, 2400);
+    setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, 2900);
+  }
   function prepareDuel() {
     showcase(false); hideUI(); closeOverlay(); $('c').focus(); hudOn();
     view = 'pvp';
@@ -4787,13 +5080,14 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
     var row = function (id, ic, txt, val) { return '<button class="srow" id="' + id + '"><i>' + ic + '</i><span>' + txt + '</span><b>' + val + '</b></button>'; };
     show(topbar(true) + '<div class="sheet"><h2 class="sh">' + t('Settings') + '</h2><div class="list">' +
       (!root.__gccWebPlay && (!G.NATIVE || G.pwTestBuild()) ? row('s_fps', '⏱️', 'FPS check (test build)', '') : '') +
+      row('s_name', '🎲', t('Your name'), esc(playerName())) +
       row('s_snd', '🔊', t('Sound'), S.sound ? t('ON') : t('OFF')) + row('s_mus', '🎵', t('Music'), S.music !== false ? t('ON') : t('OFF')) + row('s_vib', '📳', t('Vibration'), S.vib ? t('ON') : t('OFF')) +
       row('s_gfx', '🎨', t('Graphics'), G.activeGraphics === 'low' ? t('LOW (faster)') : t('HIGH')) + row('s_mot', '🌀', t('Low motion'), S.lowMotion ? t('ON') : t('OFF')) +
       row('s_sens', '👆', t('Aim speed'), Math.round((S.sens || 1) * 100) + '%') +
       row('s_tut', '🎓', t('How to play'), '') + row('s_priv', '🔒', t('Privacy policy'), '') + (G.PvP && G.PvP.available() && G.PvP.hasArenaData() ? row('s_arenaDel', '🗑️', t('Delete my Arena data'), '') : '') +
       (G.adsPrivacyRequired() ? row('s_ads', '📺', t('Ad privacy choices'), '') : '') +
       '</div><div class="ver" id="ver">Bat &amp; Tin: Cricket Golf · <span id="verTxt">' + esc((root.__gccAppInfo && root.__gccAppInfo.version) || 'web') + '</span></div><button class="btn" id="done">' + t('Done') + '</button></div>', 'settings',
-      { back: home, done: home, s_snd: function () { S.sound = !S.sound; G.save(); settings(); }, s_mus: function () { S.music = S.music === false; G.save(); G.ensureAudio(); settings(); }, s_vib: function () { S.vib = !S.vib; G.save(); settings(); },
+      { back: home, done: home, s_name: function () { G.SAVE.name = G.PvpRules.randomName(); G.save(); settings(); toast(t('Tap again for another name'), 1400); }, s_snd: function () { S.sound = !S.sound; G.save(); settings(); }, s_mus: function () { S.music = S.music === false; G.save(); G.ensureAudio(); settings(); }, s_vib: function () { S.vib = !S.vib; G.save(); settings(); },
         s_gfx: function () {
           var next = G.activeGraphics === 'low' ? 'high' : 'low';
           overlay('<h2>' + t('Change graphics?') + '</h2><p>' + t('Switch to') + ' ' + (next === 'low' ? t('LOW (faster)') : t('HIGH')) +
@@ -4853,7 +5147,7 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
     }
     var bands = [['u8', '7 or under'], ['c8', '8 to 12'], ['t13', '13 to 15'], ['t16', '16 or 17'], ['a18', '18 or older']], m = {};
     bands.forEach(function (b) { m['age_' + b[0]] = function () { G.setAge(b[0]); if (!G.underMinimumAge()) closeOverlay(); ageGate(next); }; });
-    overlay('<div class="login age"><h2>' + t('How old are you?') + '</h2><p class="small">' + t('This keeps the game right for your age.') + '</p><div class="ages">' +
+    overlay('<div class="login age"><img class="age-cast" src="art/cast.webp" alt=""><h2>' + t('How old are you?') + '</h2><p class="small">' + t('This keeps the game right for your age.') + '</p><div class="ages">' +
       bands.map(function (b) { return '<button class="btn" id="age_' + b[0] + '">' + t(b[1]) + '</button>'; }).join('') + '</div></div>', m);
   }
 
@@ -4901,7 +5195,7 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
     return false;
   }
 
-  G.UI = { refreshKid: refreshKid, loadScreen: loadScreen, init: init, showArenaReplay: showArenaReplay, quickStart: quickStart, openChallengeLink: openChallengeLink, ageGate: ageGate, party: party, startParty: startParty, show: show, overlay: overlay, closeOverlay: closeOverlay, blocking: blocking, toast: toast, home: home, safar: safar, shop: shop, kids: kids, race: race, daily: daily, settings: settings, tutorial: tutorial,
+  G.UI = { missions: missions, profile: profile, refreshKid: refreshKid, loadScreen: loadScreen, duelIntro: duelIntro, kidFace: kidFace, init: init, showArenaReplay: showArenaReplay, quickStart: quickStart, openChallengeLink: openChallengeLink, ageGate: ageGate, party: party, startParty: startParty, show: show, overlay: overlay, closeOverlay: closeOverlay, blocking: blocking, toast: toast, home: home, safar: safar, shop: shop, kids: kids, race: race, daily: daily, settings: settings, tutorial: tutorial,
     prepareDuel: prepareDuel, hud: hud, power: power, meter: meter, meterImpact: meterImpact, clearFeedback: clearFeedback, pop: pop, hint: hint, holeIntro: holeIntro, raceBar: raceBar, holeResult: holeResult, fpsResult: fpsResult, pause: pause, resume: resume, isPaused: isPaused,
     loginReward: loginReward, welcome: welcome, showcaseTick: showcaseTick, back: back, hudOff: hudOff, playHole: playHole, worldOpen: worldOpen, holeOpen: holeOpen, paywall: paywall, view: function () { return view; } };
 })(window);
