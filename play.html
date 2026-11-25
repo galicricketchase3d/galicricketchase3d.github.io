@@ -493,6 +493,9 @@ button:focus-visible,a:focus-visible{outline:3px solid #7146e1;outline-offset:3p
 @-webkit-keyframes artBob{50%{-webkit-transform:translateY(-4px)}}@keyframes artBob{50%{transform:translateY(-4px)}}
 @media (max-height:660px){.homecards{margin-top:18px}#ui.home .homecards .mcard{padding-top:28px}.mcard .art{width:54px;height:46px;margin-left:-27px;top:-20px}.rail{width:58px}.rail .ri{width:46px;height:46px}}
 @media (prefers-reduced-motion:reduce){.mcard .art,.rail .ri,#ui.home:after{-webkit-animation:none!important;animation:none!important}}
+.homegrow.tight .rail{width:48px;margin-bottom:6px}.homegrow.tight .rail .ri{width:40px;height:40px;border-radius:13px}.homegrow.tight .rail .ri img{max-width:34px;max-height:34px}.homegrow.tight .rail b{display:none}.homegrow.tight .rail small{font-size:9.5px;padding:0 4px}
+.homegrow.norails .rails{display:none}
+.homegrow.tight .rail:nth-child(n+2){display:none}
 
 </style>
 <style>
@@ -4274,15 +4277,21 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
     var live = G.PvP.available() && !G.isChild();
     show(topbar() +
       '<div class="title"><div class="t1">' + t('Bat &amp; Tin') + '</div><div class="t2">' + t('CRICKET GOLF') + '</div></div>' +
-      '<div class="homegrow">' + rails() + '</div>' +
+      '<div class="homegrow" id="hgrow">' + rails() + '</div>' +
       '<div class="homecards">' +
         '<button class="mcard race" id="h_challenge"><img class="art" src="art/t-challenge.webp" alt=""><b>Beat My Shot</b><small>Challenge a friend</small></button>' +
         '<button class="mcard daily" id="h_daily"><img class="art" src="art/t-daily.webp" alt="">' + (dailyDone ? '' : '<em class="badge">' + t('NEW') + '</em>') + '<b>' + t('Today\'s Hole') + '</b><small>' + (dailyDone ? t('Best') + ': ' + D.best + ' ' + t('shots') : t('New every day')) + '</small></button>' +
         '<button class="mcard tiffin' + (T.ready ? ' ready' : '') + '" id="h_tiffin"><img class="art" src="art/t-box.webp" alt="">' + (T.ready ? '<em class="badge">×' + T.ready + '</em>' : '') + '<b>' + t('Prize Box') + '</b><small>' + (T.ready ? t('Tap to open!') : '<span class="mini"><i style="width:' + Math.round(T.p / G.TIFFIN_STARS * 100) + '%"></i></span>') + '</small></button>' +
       '</div>' +
       (live ? '<button class="bigplay" id="livePlay"><span class="wb">⚡</span><span class="pl"><span class="pt">LIVE 1v1</span><small>Find a player · 400 Arena Coins</small></span></button>' : '') +
-      '<button class="' + (live ? 'btn journey-secondary' : 'bigplay') + '" id="play"><span class="wb"><img src="art/t-play.webp" alt=""><i>' + w.icon + '</i></span><span class="pl"><span class="pt">' + ic('play') + (live ? 'Practice Journey' : t('PLAY')) + '</span><small>' + esc(t(w.name)) + ' · ' + t('Hole') + ' ' + (nh.n + 1) + ' · ★ ' + st + '/27</small>' + allowance() + '</span></button>' +
+      '<button class="' + (live ? 'btn journey-secondary' : 'bigplay') + '" id="play"><span class="wb">' + (live ? w.icon : '<img src="art/t-play.webp" alt=""><i>' + w.icon + '</i>') + '</span><span class="pl"><span class="pt">' + ic('play') + (live ? 'Practice Journey' : t('PLAY')) + '</span><small>' + esc(t(w.name)) + ' · ' + t('Hole') + ' ' + (nh.n + 1) + ' · ★ ' + st + '/27</small>' + allowance() + '</span></button>' +
       tabs('home'), 'home', withTabs({ livePlay: G.PvP.open, play: function () { playHole(nh.id); }, h_challenge: challengeMenu, h_daily: daily, h_tiffin: tiffin, r_cup: challengeMenu, r_gift: giftInfo, r_squad: kids, r_shop: function () { shop(); }, set: settings, lvl: kids }));
+    fitRails();
+  }
+  // the side icons need the free space above the cards: smaller icons on a short screen, none when there is no room
+  function fitRails() {
+    var g = $('hgrow'); if (!g) return;
+    var h = g.offsetHeight; g.className = 'homegrow' + (h < 96 ? ' norails' : h < 220 ? ' tight' : '');   // the card art reaches about 30 px up into this space
   }
 
   /* side icons on the home screen: live things with a timer or a badge (Weekly Cup, next daily reward, Squad, Shop) */
@@ -4297,6 +4306,7 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
       '<div class="rails r">' + r('r_squad', next && next.model ? '<img src="art/av-' + next.model + '.webp" alt="">' : ic('kids'), t('Squad'), next ? (canBuy ? t('Unlock!') : fmt(next.price || 0) + ' 🪙') : '', canBuy ? '!' : '') +
       r('r_shop', ic('shop'), t('Shop'), '') + '</div>';
   }
+  root.addEventListener('resize', function () { if (view === 'home') fitRails(); });
   function giftInfo() { toast(t('Next daily gift in') + ' ' + left(midnight() - Date.now()), 1800); }
 
   /* ---------- journey (safar) ---------- */
