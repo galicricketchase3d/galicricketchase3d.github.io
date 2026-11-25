@@ -2634,11 +2634,12 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
     });
     var mixer = new THREE.AnimationMixer(body), actions = {};
     M.clips.forEach(function (cl) { actions[cl.name] = mixer.clipAction(cl); });
-    var bat = null;
+    var bat = null, batSize = 1;
     if (o.bat && hand) {
       bat = makeBat(G.BATS[o.bat] || G.BATS.gali);
       body.updateMatrixWorld(true); var ws = new THREE.Vector3(); hand.getWorldScale(ws);
-      bat.scale.setScalar(1.55 / Math.max(1e-3, ws.x)); bat.rotation.set(0, 0, -Math.PI / 2); hand.add(bat);   // a full-size bat, about 0.75 m on a 1.3 m player
+      batSize = 1.55;   // the bat's scale in the character's own space (the same size as in the hand)
+      inHand(bat, hand, ws.x);
     }
     // caps and helmets from the shop: the same shapes as the built-in characters, fitted to this head
     var capHolder = null;
@@ -2655,34 +2656,149 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
     }
     // the same hand handles the game uses on the built-in characters: grip[1].fist holds the ball for the self-toss
     var grip = [{ fist: hand || body }, { fist: handL || hand || body }];
-    k.userData = { model: true, mixer: mixer, actions: actions, bat: bat, body: body, headBone: head, cap: capHolder, grip: grip, height: M.H, cur: null, lastT: 0 };
+    var bones = {};
+    body.traverse(function (n) { if (n.isBone) bones[n.name] = n; });
+    // the rest pose: restored before every frame, so the code-made turns of the swing never add up
+    var rest = Object.keys(bones).map(function (b) { return [bones[b], bones[b].quaternion.clone(), bones[b].position.clone()]; });
+    k.userData = { model: true, mixer: mixer, actions: actions, bat: bat, batSize: batSize, hand: hand, body: body, bodyY: body.position.y, bones: bones, rest: rest, headBone: head, cap: capHolder, grip: grip, height: M.H, cur: null, lastT: 0, shot: 'drive' };
     actions.Idle && actions.Idle.play(); mixer.update(0);
     return k;
   }
 
-  // poses (the same names the built-in characters use) as animation clips; swing phases scrub the slice clip
-  var LOOP = { idle: 'Idle', stance: '2H_Melee_Idle', ready: '2H_Melee_Idle', run: 'Running_A', catch: 'Cheer', sad: 'Hit_B', walk: 'Walking_A' };
+  // the bat in the right hand (running, tossing, dancing) or held in both hands by the cricket swing (see cricket())
+  function inHand(bat, hand, handScale) {
+    hand.add(bat); bat.position.set(0, 0, 0);
+    bat.scale.setScalar(1.55 / Math.max(1e-3, handScale)); bat.rotation.set(0, 0, Math.PI / 2);   // blade up, resting back over the arm (pointing down it went through the floor)
+  }
+
+  /* ---------- the cricket swing: both hands on the handle, made in code (the pack has no cricket animation) ----------
+     The batter faces the ball (+z); the target is on the batter's right (-x). A swing is an angle th along a tilted
+     plane: th < 0 is the backlift, 0 is the bat at the ball, th > 0 the follow-through. The bat and the hands follow
+     that arc, the arms reach the handle by two-bone IK, the chest coils and unwinds, the knees bend for the sweep. */
+  var V = function (x, y, z) { return new THREE.Vector3(x || 0, y || 0, z || 0); };
+  var tq = new THREE.Quaternion(), tq2 = new THREE.Quaternion(), tm = new THREE.Matrix4();
+  var BALL = V(-0.12, 0.07, 0.5), TARGET = V(-1, 0, 0), UP = V(0, 1, 0);
+  // hands angle, bat angle (adds the wrist cock), chest coil, knee bend, plane flatness, per shot and phase
+  var SWING = {
+    drive: { stance: [-0.10, -0.12], back: [-1.45, -2.55], hit: [0.35, 0.45], end: [1.85, 2.85], knee: 0.28, flat: 0.0 },
+    loft:  { stance: [-0.10, -0.18], back: [-1.6, -2.75], hit: [0.45, 0.7], end: [2.2, 3.3], knee: 0.34, flat: -0.08 },
+    sweep: { stance: [-0.05, -0.1], back: [-1.2, -2.1], hit: [0.4, 0.5], end: [1.45, 2.1], knee: 1.15, flat: 0.55 }
+  };
+  function ease(k) { return k < 0 ? 0 : k > 1 ? 1 : k * k * (3 - 2 * k); }
+  function mix(a, b, k) { return [a[0] + (b[0] - a[0]) * k, a[1] + (b[1] - a[1]) * k]; }
+  // turn a bone about an axis given in world space
+  function turn(bone, axisW, ang) {
+    if (!bone || !ang) return;
+    bone.parent.getWorldQuaternion(tq2); tq.setFromAxisAngle(axisW, ang);
+    bone.quaternion.premultiply(tq2.clone().invert().multiply(tq).multiply(tq2));
+    bone.updateMatrixWorld(true);
+  }
+  function turnQ(bone, qW) {
+    bone.parent.getWorldQuaternion(tq2);
+    bone.quaternion.premultiply(tq2.clone().invert().multiply(qW).multiply(tq2));
+    bone.updateMatrixWorld(true);
+  }
+  function wpos(b) { return b.getWorldPosition(V()); }
+  // two-bone IK: upper arm, forearm, hand; the elbow turns towards `pole` (all world space)
+  function reach(up, low, end, target, pole) {
+    var s = wpos(up), e = wpos(low), h = wpos(end), a = e.distanceTo(s), b = h.distanceTo(e);
+    var d = Math.min(a + b - 1e-3, Math.max(Math.abs(a - b) + 1e-3, target.distanceTo(s)));
+    var want = Math.acos(Math.min(1, Math.max(-1, (a * a + b * b - d * d) / (2 * a * b))));
+    var se = s.clone().sub(e), he = h.clone().sub(e), now = se.angleTo(he);
+    var n = e.clone().sub(s).cross(he);
+    if (n.lengthSq() < 1e-10) n = e.clone().sub(s).cross(pole.clone().sub(s));
+    if (n.lengthSq() > 1e-10) turn(low, n.normalize(), now - want);
+    h = wpos(end);
+    turnQ(up, tq.setFromUnitVectors(h.sub(s).normalize(), target.clone().sub(s).normalize()).clone());
+    var ax = target.clone().sub(s).normalize(), pe = wpos(low).sub(s), pp = pole.clone().sub(s);
+    pe.sub(ax.clone().multiplyScalar(pe.dot(ax))); pp.sub(ax.clone().multiplyScalar(pp.dot(ax)));
+    if (pe.lengthSq() > 1e-8 && pp.lengthSq() > 1e-8) { var ang = pe.angleTo(pp); if (ax.dot(pe.clone().cross(pp)) < 0) ang = -ang; turn(up, ax, ang); }
+  }
+  function cricket(kid, phase, k, t) {
+    var u = kid.userData, B = u.bones, body = u.body;
+    var S = SWING[u.shot] || SWING.drive, a;
+    if (phase === 'stance') a = mix(S.stance, S.stance, 0);
+    else if (phase === 'back') a = S.back;
+    else if (phase === 'swing') a = mix(S.back, S.hit, k * k);   // speeds up into the ball
+    else a = mix(S.hit, S.end, 1 - (1 - k) * (1 - k));             // slows down into the finish
+    var th = a[0], ph = a[1];
+    if (phase === 'stance') ph += Math.sin(t * 3.1) * 0.05;          // tapping the bat while waiting
+    var coil = phase === 'stance' ? 0 : Math.max(-0.75, Math.min(0.6, -th * 0.32));
+    var knee = S.knee * (phase === 'stance' ? 0.75 : 1) + (phase === 'swing' ? 0.06 : 0);
+    kid.updateMatrixWorld(true);
+    var toW = function (v) { return kid.localToWorld(v.clone()); }, dirW = function (v) { return v.clone().transformDirection(kid.matrixWorld); };
+    // knees: thighs forward, shins back, feet level; then the body drops so the feet stay on the ground
+    var feet0 = Math.min(wpos(B.footl).y, wpos(B.footr).y), side = dirW(V(1, 0, 0));
+    ['l', 'r'].forEach(function (sd) { turn(B['upperleg' + sd], side, -knee); turn(B['lowerleg' + sd], side, knee * 1.9); turn(B['foot' + sd], side, -knee * 0.9); });
+    var drop = Math.min(wpos(B.footl).y, wpos(B.footr).y) - feet0;
+    body.position.y -= drop / kid.matrixWorld.getMaxScaleOnAxis(); body.updateMatrixWorld(true);
+    // weight back in the backlift, forward through the shot; chest and hips coil, the head stays on the ball
+    body.position.x += (th < 0 ? -th * 0.02 : -th * 0.025); body.updateMatrixWorld(true);
+    turn(B.hips, dirW(UP), coil * 0.35); turn(B.chest, dirW(UP), coil * 0.6);
+    turn(B.spine, dirW(V(0, 0, 1)), -0.12 - knee * 0.1);
+    turn(B.chest, dirW(V(1, 0, 0)), 0.18 + knee * 0.25);             // lean over the ball
+    if (B.head) { var look = phase === 'follow' ? -0.7 * ease(k * 1.4) : 0; turn(B.head, dirW(UP), -coil * 0.8 + look); }
+    // the swing plane: from the shoulders down to the ball, tilted flatter for the sweep
+    var C = kid.worldToLocal(wpos(B.upperarml).add(wpos(B.upperarmr)).multiplyScalar(0.5));
+    var down = BALL.clone().sub(C); down.x = 0; down.normalize();
+    down.y += S.flat; down.normalize();
+    var arm = wpos(B.upperarmr).distanceTo(wpos(B.lowerarmr)) + wpos(B.lowerarmr).distanceTo(wpos(B.handr));
+    arm /= kid.matrixWorld.getMaxScaleOnAxis();
+    var L = u.batSize * 0.67, reachTo = BALL.distanceTo(C) - L, r = Math.max(arm * 0.45, Math.min(arm * 0.95, reachTo));
+    var dir = function (ang) { return down.clone().multiplyScalar(Math.cos(ang)).add(TARGET.clone().multiplyScalar(Math.sin(ang))); };
+    var hands = C.clone().add(dir(th).multiplyScalar(r)), Db = dir(ph).normalize();
+    if (hands.y < 0.12) hands.y = 0.12;
+    // never through the floor: a bat that would reach below the ball is laid flatter
+    var full = 0.67 * u.batSize, minY = (0.05 - hands.y) / full;
+    if (Db.y < minY) { var hz = Math.sqrt(Math.max(1e-6, 1 - minY * minY)), hl = Math.sqrt(Db.x * Db.x + Db.z * Db.z) || 1; Db.set(Db.x / hl * hz, minY, Db.z / hl * hz); }
+    // the bat: handle in the hands, blade face towards the target
+    var bat = u.bat;
+    if (bat.parent !== kid) kid.add(bat);
+    var y = Db, z = TARGET.clone().sub(y.clone().multiplyScalar(TARGET.dot(y)));
+    if (z.lengthSq() < 1e-6) z = down.clone();
+    z.normalize(); var x = y.clone().cross(z).normalize();
+    bat.quaternion.setFromRotationMatrix(tm.makeBasis(x, y, z));
+    bat.scale.setScalar(u.batSize);
+    bat.position.copy(hands).add(Db.clone().multiplyScalar(0.05 * u.batSize));
+    // the arms: right hand at the top of the handle, left hand below it; elbows down and out
+    var top = toW(hands), bottom = toW(hands.clone().add(Db.clone().multiplyScalar(0.12 * u.batSize)));
+    reach(B.upperarmr, B.lowerarmr, B.handr, top, toW(C.clone().add(V(-0.35, -0.45, 0.05))));
+    reach(B.upperarml, B.lowerarml, B.handl, bottom, toW(C.clone().add(V(0.35, -0.45, 0.05))));
+  }
+
+  // poses (the same names the built-in characters use): animation clips, and the code-made cricket swing
+  var LOOP = { idle: 'Idle', ready: '2H_Melee_Idle', run: 'Running_A', catch: 'Cheer', walk: 'Walking_A' };
+  var DANCE = { jump: 'Jump_Full_Short', ghoom: '2H_Melee_Attack_Spin', bhangra: 'Cheer', salaam: 'PickUp', daud: 'Jump_Full_Long' };
+  var ONCE = { Sit_Floor_Down: 1, PickUp: 1, Hit_A: 1 };
   function pose(kid, name, k, t, dt) {
     var u = kid.userData, now = performance.now() / 1000, d = dt != null ? dt : (u.lastT ? Math.min(0.1, now - u.lastT) : 0);
     u.lastT = now; k = k || 0;
+    var swing = u.bat && u.bones.handr && (name === 'stance' || name === 'back' || name === 'swing' || name === 'follow');
     var clip, at = null;
-    if (name === 'back' || name === 'swing' || name === 'follow') {
-      clip = '2H_Melee_Attack_Slice';
-      at = name === 'back' ? 0.30 : name === 'swing' ? 0.30 + 0.10 * k : 0.40 + 0.30 * k;   // wind-up at 30 %, the bat sweeps through 30-40 %, follow-through to 70 % (measured on the clip)
-    } else if (name === 'selfToss' || name === 'toss') { clip = 'Throw'; at = 0.2 + 0.45 * k; }
-    else if (name.indexOf('dance-') === 0) clip = name === 'dance-jump' ? 'Jump_Full_Short' : 'Cheer';
+    if (swing) clip = '2H_Melee_Idle';                                  // legs and breathing; the arms are set by cricket()
+    else if (name === 'back' || name === 'swing' || name === 'follow') { clip = '2H_Melee_Attack_Slice'; at = name === 'back' ? 0.30 : name === 'swing' ? 0.30 + 0.10 * k : 0.40 + 0.30 * k; }
+    else if (name === 'selfToss' || name === 'toss') { clip = 'Throw'; at = 0.2 + 0.45 * k; }
+    else if (name.indexOf('dance-') === 0) clip = DANCE[name.slice(6)] || 'Cheer';
+    else if (name === 'sad') clip = u.sadClip || 'Sit_Floor_Down';
+    else if (name === 'stance') clip = 'Idle';
     else clip = LOOP[name] || 'Idle';
-    if (!u.bat && clip === '2H_Melee_Idle' && name !== 'ready') clip = 'Idle';
+    if (!u.actions[clip]) clip = name === 'sad' ? 'Hit_B' : name.indexOf('dance-') === 0 ? 'Cheer' : 'Idle';
     var a = u.actions[clip]; if (!a) return;
     if (u.cur !== clip) {
       var prev = u.cur && u.actions[u.cur];
-      a.reset(); a.setEffectiveWeight(1); a.play();
+      a.reset(); a.setEffectiveWeight(1);
+      if (ONCE[clip]) { a.setLoop(THREE.LoopOnce, 1); a.clampWhenFinished = true; } else a.setLoop(THREE.LoopRepeat, Infinity);
+      a.play();
       if (prev) a.crossFadeFrom(prev, at != null && u.cur === '2H_Melee_Attack_Slice' ? 0.05 : 0.18, false);
       u.cur = clip;
     }
     if (at != null) { a.paused = true; a.time = at * a.getClip().duration; }
     else a.paused = false;
+    u.body.position.set(0, u.bodyY, 0);
+    if (u.coded) { u.rest.forEach(function (r) { r[0].quaternion.copy(r[1]); r[0].position.copy(r[2]); }); u.coded = false; }
     u.mixer.update(G.SAVE && G.SAVE.set && G.SAVE.set.lowMotion ? d * 0.6 : d);
+    if (swing) { u.coded = true; cricket(kid, name, k, t || now); }
+    else if (u.bat && u.bat.parent !== u.hand) inHand(u.bat, u.hand, u.hand.getWorldScale(V()).x / kid.getWorldScale(V()).x);
   }
 
   function prop(name) { var p = M.props[name]; if (!p) return null; var c = p.clone(true); c.traverse(function (o) { if (o.isMesh) { o.castShadow = !low(); o.receiveShadow = !low(); } }); return c; }
@@ -3078,6 +3194,7 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
     var p = ballPos(), a = M.aim, fx = Math.sin(a), fz = Math.cos(a), sx = Math.cos(a), sz = -Math.sin(a), y = p.y - P.R;
     // Batter stands side-on, facing the ball.
     M.batter.position.set(p.x - sx * 0.5 - fx * 0.12, y, p.z - sz * 0.5 - fz * 0.12); M.batter.rotation.y = a + Math.PI / 2;
+    M.batter.userData.shot = M.type;   // the 3D batter swings this shot (drive, loft or sweep)
   }
 
   /* ---------- input ---------- */
@@ -3208,6 +3325,7 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
     }
     if (M.route) { M.route.length = 0; M.route.push([p.x, p.y, p.z]); M.sampleStep = 0; M.bank = false; M.railHits = M.ball.railHits || 0; }
     M.prev = { x: p.x, z: p.z, y: p.y - P.R }; M.undo = { x: p.x, z: p.z, y: p.y - P.R, strokes: M.strokes, aim: M.aim };
+    M.batter.userData.shot = M.type;
     M.ball.p.y = p.y; var res = P.launch(M.ball, shotFor(q));
     M.strokes++; M.phase = 'flight'; M.flightT = 0; M.flightClock = M.clock; M.res = res; M.swingT = 0; M.lastQ = q;
     G.UI.meterImpact(q); G.UI.hint(''); G.UI.hud(M);
@@ -3359,6 +3477,7 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
   }
   function endShot(ev) {
     var b = M.ball, p = b.p; M.phase = 'settle'; M.t = 0; M.ev = ev;
+    M.batter.userData.sadClip = ev === 'caught' ? 'Hit_A' : 'Sit_Floor_Down';   // caught: a flinch; off the course: sits down
     if (ev === 'goal') {
       var T = M.h.target;
       if (T.t === 'matka') { G.sfx('matka'); SC.burst(T.x, 0.5, T.z, [0xb5562a, 0x8a3f1c, 0xf2d19a], 30, 4); if (SC.S.target) SC.S.target.visible = false; }
@@ -4039,8 +4158,11 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
     var distance = compact ? 7.2 : 5.4;
     SC.S.cam.position.set(Math.sin(a) * distance, 2.0, 6 + Math.cos(a) * distance);
     SC.S.cam.lookAt(0, compact ? 0.25 : 0.45, 6);
-    var mv = SH.preview ? (SH.preview.dance ? 'dance-' + SH.preview.dance : SH.preview.bat ? 'swing' : 'idle') : 'idle';
-    SC.pose(SH.kid, mv, SH.preview && SH.preview.bat ? Math.min(1, SH.t % 2) : 0, SH.t); SH.kid.rotation.y = -0.24 + Math.sin(SH.t * 0.4) * 0.34; SC.menuStageTick(SH.t);
+    // a practice shot now and then (and on a loop when a bat is previewed): backlift, swing, follow-through
+    var cyc = SH.preview && SH.preview.bat ? SH.t % 2.4 : SH.t % 9 - 6.6, mv = 'idle', mk = 0;
+    if (SH.preview && SH.preview.dance) mv = 'dance-' + SH.preview.dance;
+    else if (cyc >= 0) { if (cyc < 0.6) { mv = 'back'; } else if (cyc < 0.85) { mv = 'swing'; mk = (cyc - 0.6) / 0.25; } else if (cyc < 1.6) { mv = 'follow'; mk = Math.min(1, (cyc - 0.85) / 0.5); } else mv = 'stance'; }
+    SC.pose(SH.kid, mv, mk, SH.t); SH.kid.rotation.y = -0.24 + Math.sin(SH.t * 0.4) * 0.34; SC.menuStageTick(SH.t);
     if (SH.preview && SH.preview.trail && G.TRAILS[SH.preview.trail].col != null) {
       SC.trailPush(0.9 * Math.cos(SH.t * 4), 0.32, 6 + 0.9 * Math.sin(SH.t * 4), G.TRAILS[SH.preview.trail].col);
     }
