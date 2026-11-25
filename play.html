@@ -496,6 +496,7 @@ button:focus-visible,a:focus-visible{outline:3px solid #7146e1;outline-offset:3p
 .homegrow.tight .rail{width:48px;margin-bottom:6px}.homegrow.tight .rail .ri{width:40px;height:40px;border-radius:13px}.homegrow.tight .rail .ri img{max-width:34px;max-height:34px}.homegrow.tight .rail b{display:none}.homegrow.tight .rail small{font-size:9.5px;padding:0 4px}
 .homegrow.norails .rails{display:none}
 .homegrow.tight .rail:nth-child(n+2){display:none}
+.coin{display:inline-block;width:1.15em;height:1.15em;vertical-align:-0.2em;object-fit:contain}.chip i .coin{width:22px;height:22px;vertical-align:middle}
 
 </style>
 <style>
@@ -4133,6 +4134,7 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
   var G = root.G = root.G || {};
   var t = function (s) { return G.t(s); };
   function $(id) { return document.getElementById(id); }
+  var COIN = '<img class="coin" src="art/coin.webp" alt="">';   // a picture: the coin emoji is missing on older Android
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
   function shots(n) { return n + (n === 1 ? ' shot' : ' shots'); }
   function fmt(n) { return Math.round(n).toLocaleString('en-US'); }
@@ -4197,7 +4199,7 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
     var S = G.SAVE, lv = G.xpLevel(S.g.xp), k = G.KIDS[S.g.eq.kid] || G.KIDS.munna;
     var left = back ? '<button class="rnd" id="back" aria-label="' + t('Back') + '">' + ic('back') + '</button>'
       : '<button class="prof" id="lvl" aria-label="' + t('Level') + ' ' + lv + '"><span class="av" style="background:' + hex(k.shirt) + '">' + (k.model ? '<img src="art/av-' + k.model + '.webp" alt="">' : '🧒') + '</span><span class="pinfo"><b>' + esc(k.name) + '</b><span class="lvbar"><i style="width:' + Math.round(G.xpFrac(S.g.xp) * 100) + '%"></i></span></span><span class="lvn">' + lv + '</span></button>';
-    return '<div class="top' + (back ? '' : ' top-menu') + '">' + left + '<div class="chips">' + chip('🪙', fmt(S.coins), root.__gccWebPlay ? null : 'cc', !root.__gccWebPlay, t('Coins')) + chip('🔮', fmt(S.kanche), null, false, t('Marbles')) + '</div>' + (back ? '<span class="sp"></span>' : '<button class="rnd" id="set" aria-label="' + t('Settings') + '">' + ic('gear') + '</button>') + '</div>';
+    return '<div class="top' + (back ? '' : ' top-menu') + '">' + left + '<div class="chips">' + chip('' + COIN + '', fmt(S.coins), root.__gccWebPlay ? null : 'cc', !root.__gccWebPlay, t('Coins')) + chip('🔮', fmt(S.kanche), null, false, t('Marbles')) + '</div>' + (back ? '<span class="sp"></span>' : '<button class="rnd" id="set" aria-label="' + t('Settings') + '">' + ic('gear') + '</button>') + '</div>';
   }
   function tabs(on) {
     var T = [['shop', 'shop', 'Shop'], ['kids', 'kids', 'Squad'], ['home', 'play', 'PLAY'], ['safar', 'map', 'Journey'], ['race', 'race', 'Race']];
@@ -4303,7 +4305,7 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
     var canBuy = next && (next.price || 0) <= S.coins;
     function r(id, art, label, sub, badge) { return '<button class="rail" id="' + id + '"><span class="ri">' + art + (badge ? '<em class="badge">' + badge + '</em>' : '') + '</span><b>' + label + '</b>' + (sub ? '<small>' + sub + '</small>' : '') + '</button>'; }
     return '<div class="rails l">' + r('r_cup', '<img src="art/t-cup.webp" alt="">', t('Weekly Cup'), left(cup.ends - now)) + r('r_gift', '<img src="art/t-coins.webp" alt="">', t('Daily gift'), left(midnight() - now)) + '</div>' +
-      '<div class="rails r">' + r('r_squad', next && next.model ? '<img src="art/av-' + next.model + '.webp" alt="">' : ic('kids'), t('Squad'), next ? (canBuy ? t('Unlock!') : fmt(next.price || 0) + ' 🪙') : '', canBuy ? '!' : '') +
+      '<div class="rails r">' + r('r_squad', next && next.model ? '<img src="art/av-' + next.model + '.webp" alt="">' : ic('kids'), t('Squad'), next ? (canBuy ? t('Unlock!') : fmt(next.price || 0) + ' ' + COIN + '') : '', canBuy ? '!' : '') +
       r('r_shop', ic('shop'), t('Shop'), '') + '</div>';
   }
   root.addEventListener('resize', function () { if (view === 'home') fitRails(); });
@@ -4482,7 +4484,7 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
     if (nextJourney && (!holeOpen(nextJourney) || G.pwBlocked())) nextJourney = null;
     var map = { nx: function () { closeOverlay(); next(); } };
     if (M.firstTutorial && !res.made) map.nx = function () { closeOverlay(); G.Play.quit(); startTutorial(true); };
-    if (canDouble) map.dbl = function () { G.Ads.rewarded(function () { G.SAVE.coins += res.coins; G.save(); toast('🪙 +' + res.coins, 1400); var b = $('dbl'); if (b) b.remove(); }, null, 'double_coins'); };
+    if (canDouble) map.dbl = function () { G.Ads.rewarded(function () { G.SAVE.coins += res.coins; G.save(); toast('' + COIN + ' +' + res.coins, 1400); var b = $('dbl'); if (b) b.remove(); }, null, 'double_coins'); };
     if (nextJourney) {
       map.nx = function () {
         closeOverlay(); G.Play.quit();
@@ -4518,11 +4520,11 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
     }
     T.ready--; var r = G.tiffinOpen(); G.sfx('open'); G.vib(40); G.track('tiffin_open', {});
     var item = r.item ? '<div class="titem">🎁 ' + esc(t(G.CATS[r.item[0]][r.item[1]].name)) + '</div>' : '';
-    overlay('<div class="tif"><div class="tbox"><i>🍱</i></div><h2>' + t('Prize box opened!') + '</h2><div class="tget"><span>🪙 +' + r.coins + ' ' + t('Coins') + '</span><span>🔮 +' + r.kanche + ' ' + t('Marbles') + '</span></div>' + item + '<button class="btn big" id="ok">' + t('Great!') + '</button></div>', { ok: function () { closeOverlay(); home(); } });
+    overlay('<div class="tif"><div class="tbox"><i>🍱</i></div><h2>' + t('Prize box opened!') + '</h2><div class="tget"><span>' + COIN + ' +' + r.coins + ' ' + t('Coins') + '</span><span>🔮 +' + r.kanche + ' ' + t('Marbles') + '</span></div>' + item + '<button class="btn big" id="ok">' + t('Great!') + '</button></div>', { ok: function () { closeOverlay(); home(); } });
   }
 
   /* ---------- shop ---------- */
-  var SHOP_TABS = [['bat', '🏏', 'Bats'], ['cap', '🧢', 'Caps'], ['trail', '✨', 'Trails'], ['dance', '💃', 'Dances'], ['coins', '🪙', 'Coins']];
+  var SHOP_TABS = [['bat', '🏏', 'Bats'], ['cap', '🧢', 'Caps'], ['trail', '✨', 'Trails'], ['dance', '💃', 'Dances'], ['coins', '' + COIN + '', 'Coins']];
   function previewItem(category, id, name, back) {
     var chosen = {}; chosen[category] = id;
     view = 'preview'; SH.enter = null; showcase(true, chosen);
@@ -4542,20 +4544,20 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
     var S = G.SAVE, list = '';
     if (tab === 'coins') {
       list = G.PRODUCTS.filter(function (p) { return !p.hidden && !(p.id === 'first_pack' && S.purchases.first_pack) && !((p.id === 'starter' || p.id === 'no_ads') && S.purchases[p.id]) && !(p.id === 'coin_doubler' && S.doubler); }).map(function (p) {
-        var ic = { starter: '🎁', no_ads: '🚫', first_pack: '🏏', coins_s: '💰', coins_l: '🪙', coin_doubler: '✖️2' }[p.id];
+        var ic = { starter: '🎁', no_ads: '🚫', first_pack: '🏏', coins_s: '💰', coins_l: '' + COIN + '', coin_doubler: '✖️2' }[p.id];
         return '<div class="item' + (p.id === 'starter' ? ' hot' : '') + '"><i class="ic">' + ic + '</i><div class="nm"><b>' + esc(t(p.name)) + '</b><small>' + esc(t(p.desc)) + '</small></div><button class="btn sm buy" data-iap="' + p.id + '">' + G.priceOf(p) + '</button></div>';
-      }).join('') + (G.Ads.ready() ? '<div class="item"><i class="ic">📺</i><div class="nm"><b>' + t('Free coins') + '</b><small>' + t('Watch a short video') + ' · +200 🪙</small></div><button class="btn sm ad" id="freec">' + t('Watch') + '</button></div>' : '');
+      }).join('') + (G.Ads.ready() ? '<div class="item"><i class="ic">📺</i><div class="nm"><b>' + t('Free coins') + '</b><small>' + t('Watch a short video') + ' · +200 ' + COIN + '</small></div><button class="btn sm ad" id="freec">' + t('Watch') + '</button></div>' : '');
     } else {
       var C = G.CATS[tab];
       list = '<div class="grid">' + Object.keys(C).filter(function (id) { return C[id].price >= 0 || S.g.owned[tab].indexOf(id) >= 0; }).map(function (id) {
         var it = C[id], own = S.g.owned[tab].indexOf(id) >= 0, eq = S.g.eq[tab] === id, extra = '', tier = it.price === 0 ? 't0' : it.price < 2000 ? 't1' : it.price < 5000 ? 't2' : it.price < 10000 ? 't3' : 't4';
         if (tab === 'bat') extra = '<span class="bst"><i>⚡ ' + Math.round(it.pow * 100) + '</i><i>🎯 ' + Math.round(it.ctl * 100) + '</i><i>🌀 ' + Math.round(it.spin * 100) + '</i>' + (it.rev ? '<i>↩️</i>' : '') + '</span>';
-        var btn = eq ? '<button class="btn sm ghost" disabled>✓ ' + t('Using') + '</button>' : own ? '<button class="btn sm" data-eq="' + id + '">' + t('Use') + '</button>' : '<button class="btn sm buy' + (S.coins < it.price ? ' poor' : '') + '" data-buy="' + id + '">🪙 ' + fmt(it.price) + '</button>';
+        var btn = eq ? '<button class="btn sm ghost" disabled>✓ ' + t('Using') + '</button>' : own ? '<button class="btn sm" data-eq="' + id + '">' + t('Use') + '</button>' : '<button class="btn sm buy' + (S.coins < it.price ? ' poor' : '') + '" data-buy="' + id + '">' + COIN + ' ' + fmt(it.price) + '</button>';
         return '<div class="gcard ' + tier + (eq ? ' eq' : '') + '"><button type="button" class="art" data-preview="' + id + '" aria-label="Preview ' + esc(it.name) + '">' + shopIcon(tab, id) + '</button><b>' + esc(t(it.name)) + '</b>' + extra + btn + '</div>';
       }).join('') + '</div>';
     }
     show(topbar() + '<div class="sheet"><div class="stabs">' + SHOP_TABS.filter(function (x) { return !root.__gccWebPlay || x[0] !== 'coins'; }).map(function (x) { return '<button id="st_' + x[0] + '" class="' + (x[0] === tab ? 'on' : '') + '">' + x[1] + '<span>' + t(x[2]) + '</span></button>'; }).join('') + '</div><div class="list">' + list + '</div></div>' + tabs('shop'), 'shop',
-      withTabs((function () { var m = { set: settings, freec: function () { G.Ads.rewarded(function () { G.SAVE.coins += 200; G.save(); toast('🪙 +200', 1400); shop('coins'); }, null, 'free_coins'); } }; SHOP_TABS.forEach(function (x) { m['st_' + x[0]] = function () { shop(x[0]); }; }); return m; })()));
+      withTabs((function () { var m = { set: settings, freec: function () { G.Ads.rewarded(function () { G.SAVE.coins += 200; G.save(); toast('' + COIN + ' +200', 1400); shop('coins'); }, null, 'free_coins'); } }; SHOP_TABS.forEach(function (x) { m['st_' + x[0]] = function () { shop(x[0]); }; }); return m; })()));
     bindPreviews(tab, function () { shop(tab); });
     Array.prototype.forEach.call(ui.querySelectorAll('[data-buy]'), function (b) { b.addEventListener('click', function (e) { e.stopPropagation(); buyItem(tab, b.dataset.buy); }); });
     Array.prototype.forEach.call(ui.querySelectorAll('[data-eq]'), function (b) { b.addEventListener('click', function (e) { e.stopPropagation(); G.sfx('tap'); S.g.eq[tab] = b.dataset.eq; G.save(); refreshKid(); shop(tab); }); });
@@ -4564,7 +4566,7 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
   function shopIcon(cat, id) { if (cat === 'bat') return '🏏'; if (cat === 'cap') return id === 'none' ? '🙂' : { topi: '🤍', cap: '🧢', pagdi: '👳', helmet: '⛑️', crown: '👑' }[id]; if (cat === 'trail') return id === 'none' ? '⚪' : { dhool: '💨', sitare: '⭐', rang: '🌈', aag: '🔥', patang: '🪁' }[id]; return { jump: '🦘', ghoom: '🌀', bhangra: '🕺', salaam: '🙇', daud: '🏃' }[id] || '💃'; }
   function buyItem(cat, id) {
     var S = G.SAVE, it = G.CATS[cat][id];
-    if (S.coins < it.price) { toast(t('Not enough coins') + ' 🪙', 1600); return; }
+    if (S.coins < it.price) { toast(t('Not enough coins') + ' ' + COIN + '', 1600); return; }
     S.coins -= it.price; S.g.owned[cat].push(id); S.g.eq[cat] = id; G.save(); G.sfx('coin'); G.vib(20); G.track('spend_virtual_currency', { item_name: cat + ':' + id, value: it.price, virtual_currency_name: 'coins' });
     toast('✅ ' + t(it.name), 1400); refreshKid(); if (cat === 'kid') kids(); else shop(cat);
   }
@@ -4575,7 +4577,7 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
     var S = G.SAVE, K = G.KIDS;
     var list = Object.keys(K).map(function (id) {
       var k = K[id], own = S.g.owned.kid.indexOf(id) >= 0, eq = S.g.eq.kid === id;
-      var btn = eq ? '<button class="btn sm ghost" disabled>' + t('Playing') + '</button>' : own ? '<button class="btn sm" data-eq="' + id + '">' + t('Pick') + '</button>' : '<button class="btn sm buy' + (S.coins < k.price ? ' poor' : '') + '" data-buy="' + id + '">🪙 ' + fmt(k.price) + '</button>';
+      var btn = eq ? '<button class="btn sm ghost" disabled>' + t('Playing') + '</button>' : own ? '<button class="btn sm" data-eq="' + id + '">' + t('Pick') + '</button>' : '<button class="btn sm buy' + (S.coins < k.price ? ' poor' : '') + '" data-buy="' + id + '">' + COIN + ' ' + fmt(k.price) + '</button>';
       return '<div class="item kid' + (eq ? ' eq' : '') + '"><button class="ic" data-preview="' + id + '" aria-label="Preview ' + esc(k.name) + '" style="--shirt:' + hex(k.shirt) + ';--skin:' + hex(k.skin) + ';--hair:' + hex(k.hair) + ';--trim:' + hex(k.stripe) + '"><span aria-hidden="true" class="kid-portrait hair-' + k.style + (k.beard ? ' portrait-beard' : '') + '"><i></i><b>' + k.num + '</b></span></button><div class="nm"><b>' + esc(k.name) + '</b><small>' + esc(t(k.perkTxt)) + '</small></div>' + btn + '</div>';
     }).join('');
     show(topbar() + '<div class="sheet low"><h2 class="sh">' + t('Squad') + '</h2><div class="list">' + list + '</div></div>' + tabs('kids'), 'kids', withTabs({ set: settings }));
@@ -4588,7 +4590,7 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
   function race() {
     view = 'race'; showcase(true);
     if (!G.SAVE.tutDone) { tutorial(); return; }
-    var cards = G.WORLDS.map(function (w, wi) { var open = worldOpen(wi); return '<button class="wcard w' + wi + (open ? '' : ' lock') + '" id="r' + wi + '"><i>' + w.icon + '</i><b>' + esc(t(w.name)) + '</b><small>' + (open ? t('3 holes · win up to') + ' 150 🪙' : '🔒') + '</small></button>'; }).join('');
+    var cards = G.WORLDS.map(function (w, wi) { var open = worldOpen(wi); return '<button class="wcard w' + wi + (open ? '' : ' lock') + '" id="r' + wi + '"><i>' + w.icon + '</i><b>' + esc(t(w.name)) + '</b><small>' + (open ? t('3 holes · win up to') + ' 150 ' + COIN + '' : '🔒') + '</small></button>'; }).join('');
     var map = { set: settings }; G.WORLDS.forEach(function (w, wi) { map['r' + wi] = function () { if (!worldOpen(wi)) { toast('🔒', 1000); return; } startRace(wi); }; });
     map.party = party;
     show(topbar() + '<h2 class="sh">🏁 ' + t('Race vs Computer') + '</h2><p class="lead">' + t('Race three computer opponents across the same holes. First to the target earns the most points.') + '</p><div class="wlist">' + cards + '</div><button class="btn big party" id="party">👥 ' + t('Pass & Play') + '<small>' + t('2-4 friends, one phone') + '</small></button><p class="small">' + t('Wins') + ': ' + G.SAVE.g.raceWins + '</p>' + tabs('race'), 'race', withTabs(map));
@@ -4733,7 +4735,7 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
     var left = 3 - D.tries;
     overlay('<div class="hcard"><div class="hc1">📅 ' + t('Today\'s Hole') + '</div><h2>' + esc(t(h.name)) + '</h2><div class="rsub">' + G.WORLDS[h.world].icon + ' ' + esc(t(G.WORLDS[h.world].name)) + '</div>' +
       '<div class="hcrow"><div><small>' + t('Par') + '</small><b>' + h.par + '</b></div><div><small>' + t('Your best') + '</small><b>' + (D.best || '–') + '</b></div><div><small>' + t('Tries left') + '</small><b>' + Math.max(0, left) + '</b></div></div>' +
-      '<p class="small">' + t('An attempt starts when you hit the ball.') + '</p><p class="small">' + t('First finish today') + ': +100 🪙</p>' +
+      '<p class="small">' + t('An attempt starts when you hit the ball.') + '</p><p class="small">' + t('First finish today') + ': +100 ' + COIN + '</p>' +
       (left > 0 ? '<button class="btn big" id="go">▶ ' + t('PLAY') + '</button>' : '<p>' + t('Come back tomorrow for a new hole!') + '</p>') + '<button class="btn ghost" id="x">' + t('Close') + '</button></div>',
       { go: function () {
         if (dayKey() !== dk) { daily(); return; }
@@ -4747,7 +4749,7 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
   /* ---------- Journey unlock ---------- */
   function paywall(next) {
     G.track('paywall_shown', { n: G.pwState().n });
-    var ids = ['starter', 'first_pack', 'coins_l'], packs = ids.map(function (id) { return G.PRODUCTS.filter(function (p) { return p.id === id; })[0]; }), ICON = { starter: '🎁', first_pack: '🏏', coins_l: '🪙' };
+    var ids = ['starter', 'first_pack', 'coins_l'], packs = ids.map(function (id) { return G.PRODUCTS.filter(function (p) { return p.id === id; })[0]; }), ICON = { starter: '🎁', first_pack: '🏏', coins_l: '' + COIN + '' };
     var noBilling = !G.NATIVE || packs.every(function (p) { return !p.live; });
     overlay('<div class="pw"><h2>' + t('Unlock every hole') + '</h2><p>' + t('You have used your 30 free Journey finishes. Choose a pack to open every world and hole. Daily and Race are still free.') + '</p>' +
       packs.map(function (p) { return '<button class="pwcard" data-iap="' + p.id + '"><i>' + ICON[p.id] + '</i><span><b>' + esc(t(p.name)) + '</b><small>' + esc(t(p.desc)) + '</small></span><em>' + G.priceOf(p) + '</em></button>'; }).join('') +
@@ -4831,6 +4833,7 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
     (function tick() {
       if (!el.parentNode) return;
       var now = performance.now(), p = G.Models.progress(), done = G.Models.has() || G.Models.failed() || now - t0 > 9000;
+      p = Math.max(p, Math.min(0.85, (now - t0) / 9000));   // some phones report no download progress: keep the bar moving
       shown += (Math.max(shown, p) - shown) * 0.25;   // the bar eases towards the real progress
       if (done) shown = 1;
       var pct = done ? 100 : Math.min(99, Math.round(shown * 100));
@@ -4861,14 +4864,14 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
     L.streak = L.day === dayKey(-1) ? Math.min(L.streak + 1, 7) : 1; L.day = dk;
     var c = LOGIN[L.streak - 1]; G.SAVE.coins += c; G.save(); G.track('login_reward', { day: L.streak });
     if (silent) { next(); toast('Daily reward +' + c + ' coins'); return; }
-    overlay('<div class="login"><h2>' + t('Daily reward') + '</h2><div class="days">' + LOGIN.map(function (v, i) { return '<div class="' + (i < L.streak ? 'got' : '') + (i === L.streak - 1 ? ' now' : '') + '"><small>' + t('Day') + ' ' + (i + 1) + '</small><b>' + v + '</b></div>'; }).join('') + '</div><button class="btn big" id="ok">' + t('Collect') + ' +' + c + ' 🪙</button>' +
+    overlay('<div class="login"><h2>' + t('Daily reward') + '</h2><div class="days">' + LOGIN.map(function (v, i) { return '<div class="' + (i < L.streak ? 'got' : '') + (i === L.streak - 1 ? ' now' : '') + '"><small>' + t('Day') + ' ' + (i + 1) + '</small><b>' + v + '</b></div>'; }).join('') + '</div><button class="btn big" id="ok">' + t('Collect') + ' +' + c + ' ' + COIN + '</button>' +
       (G.Ads.ready() ? '<button class="btn ad" id="x2">📺 ' + t('Collect ×2') + '</button>' : '') + '</div>',
       { ok: function () { closeOverlay(); G.sfx('coin'); next(); }, x2: function () { G.Ads.rewarded(function () { G.SAVE.coins += c; G.save(); closeOverlay(); G.sfx('coin'); next(); }, function () { closeOverlay(); next(); }, 'login_x2'); } });
   }
   function welcome(next) {
     if (!G.SAVE.g.moved || G.SAVE.g.seenIntro) return next();
     G.SAVE.g.seenIntro = true; G.save();
-    overlay('<div class="login"><h2>' + t('A whole new game!') + '</h2><p>' + t('Take on oversized obstacle courses in a new kind of cricket.') + '</p><p class="small">' + t('Your coins and purchases are safe.') + ' 🪙 ' + fmt(G.SAVE.coins) + '</p><button class="btn big" id="ok">' + t('Let\'s play!') + '</button></div>', { ok: function () { closeOverlay(); next(); } });
+    overlay('<div class="login"><h2>' + t('A whole new game!') + '</h2><p>' + t('Take on oversized obstacle courses in a new kind of cricket.') + '</p><p class="small">' + t('Your coins and purchases are safe.') + ' ' + COIN + ' ' + fmt(G.SAVE.coins) + '</p><button class="btn big" id="ok">' + t('Let\'s play!') + '</button></div>', { ok: function () { closeOverlay(); next(); } });
   }
 
   function init() {
