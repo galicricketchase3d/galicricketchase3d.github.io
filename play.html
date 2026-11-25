@@ -437,6 +437,62 @@ button:focus-visible,a:focus-visible{outline:3px solid #7146e1;outline-offset:3p
 .journey-secondary { display: flex; align-items: center; justify-content: center; gap: .65rem; min-height: 44px; }
 .journey-secondary .pl { display: grid; gap: .15rem; text-align: left; }
 .journey-secondary .pt { display: flex; gap: .35rem; align-items: center; }
+/* loading screen (first start, while the 3D models load): a stage with curtains, string lights, the cast, a progress bar and tips */
+#loadScreen{position:absolute;top:0;left:0;right:0;bottom:0;z-index:30;overflow:hidden;display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column;-webkit-align-items:center;align-items:center;background:radial-gradient(120% 70% at 50% 42%,#7a3fd0 0%,#4a1f8f 45%,#22104a 100%);padding:calc(18px + env(safe-area-inset-top,0px)) 16px calc(18px + env(safe-area-inset-bottom,0px));box-sizing:border-box;-webkit-transition:opacity .35s;transition:opacity .35s;touch-action:none}
+#loadScreen.out{opacity:0;pointer-events:none}
+#loadScreen .ls-bulbs{position:absolute;left:-5%;right:-5%;top:calc(26px + env(safe-area-inset-top,0px));height:40px;border-top:2px solid rgba(255,255,255,.25);border-radius:50% 50% 0 0/24px 24px 0 0;background:radial-gradient(circle at 10px 6px,#ffe9a3 0 3.5px,rgba(255,210,63,.55) 4.5px,transparent 9px) 0 0/34px 20px repeat-x;-webkit-animation:lsTw 1.6s steps(2) infinite;animation:lsTw 1.6s steps(2) infinite}
+#loadScreen .ls-curt{position:absolute;top:0;bottom:0;width:12%;background:repeating-linear-gradient(90deg,#c2185b 0 14px,#8e0f45 14px 26px);box-shadow:inset -18px 0 30px rgba(0,0,0,.45);opacity:.9}
+#loadScreen .ls-curt.l{left:0;border-radius:0 0 60% 0/0 0 30% 0}
+#loadScreen .ls-curt.r{right:0;border-radius:0 0 0 60%/0 0 0 30%;box-shadow:inset 18px 0 30px rgba(0,0,0,.45)}
+#loadScreen .ls-conf i{position:absolute;top:-20px;width:9px;height:14px;border-radius:2px;opacity:.9;-webkit-animation:lsFall 2.6s linear infinite;animation:lsFall 2.6s linear infinite}
+#loadScreen .ls-logo{position:relative;margin-top:9vh;z-index:2}
+#loadScreen .ls-logo .t2{font-size:56px}
+#loadScreen .ls-stage{position:relative;z-index:2;width:100%;max-width:520px;margin-top:1vh;-webkit-flex:1;flex:1;display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;-webkit-justify-content:center;justify-content:center}
+#loadScreen .ls-star{position:absolute;left:50%;top:50%;width:330px;height:330px;margin:-190px 0 0 -165px;background:radial-gradient(circle,rgba(255,236,150,.85) 0,rgba(255,170,60,.35) 38%,transparent 66%);border-radius:50%;-webkit-animation:lsPulse 2.4s ease-in-out infinite;animation:lsPulse 2.4s ease-in-out infinite}
+#loadScreen .ls-stage img{position:relative;z-index:1;width:112%;max-width:600px;height:auto;-webkit-animation:lsBob 2.8s ease-in-out infinite;animation:lsBob 2.8s ease-in-out infinite;-webkit-filter:drop-shadow(0 10px 14px rgba(20,6,50,.5));filter:drop-shadow(0 10px 14px rgba(20,6,50,.5))}
+#loadScreen .ls-floor{position:absolute;left:4%;right:4%;bottom:26%;height:46px;border-radius:50%;background:radial-gradient(closest-side,rgba(255,210,63,.5),rgba(255,210,63,0))}
+#loadScreen .ls-foot{position:relative;z-index:2;width:100%;max-width:400px;text-align:center;color:#fff}
+#loadScreen .ls-foot b{display:block;font:800 22px "GCC Head",system-ui;font-style:italic;text-shadow:0 2px 0 rgba(0,0,0,.35);margin-bottom:8px}
+#loadScreen .ls-bar{position:relative;height:26px;border-radius:14px;background:rgba(20,6,50,.55);border:2px solid rgba(255,255,255,.35);overflow:hidden;box-shadow:inset 0 2px 4px rgba(0,0,0,.4)}
+#loadScreen .ls-bar i{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:12px;background:repeating-linear-gradient(-45deg,#3be37a 0 10px,#22c25e 10px 20px);background-size:28px 28px;box-shadow:inset 0 3px 0 rgba(255,255,255,.35);-webkit-animation:lsStripe .6s linear infinite;animation:lsStripe .6s linear infinite}
+#loadScreen .ls-bar span{position:relative;font:800 14px/22px "GCC Head",system-ui;text-shadow:0 1px 2px rgba(0,0,0,.6)}
+#loadScreen .ls-foot p{min-height:2.6em;margin:12px 6px 0;font-weight:800;font-size:14px;opacity:.92}
+@-webkit-keyframes lsFall{0%{-webkit-transform:translateY(0) rotate(0)}100%{-webkit-transform:translateY(110vh) rotate(540deg)}}
+@keyframes lsFall{0%{transform:translateY(0) rotate(0)}100%{transform:translateY(110vh) rotate(540deg)}}
+@-webkit-keyframes lsPulse{50%{-webkit-transform:scale(1.08);opacity:.8}}@keyframes lsPulse{50%{transform:scale(1.08);opacity:.8}}
+@-webkit-keyframes lsBob{50%{-webkit-transform:translateY(-6px)}}@keyframes lsBob{50%{transform:translateY(-6px)}}
+@-webkit-keyframes lsStripe{to{background-position:28px 0}}@keyframes lsStripe{to{background-position:28px 0}}
+@-webkit-keyframes lsTw{50%{-webkit-filter:brightness(1.35)}}@keyframes lsTw{50%{filter:brightness(1.35)}}
+@media (max-height:660px){#loadScreen .ls-logo{margin-top:3vh}#loadScreen .ls-logo .t2{font-size:44px}}
+@media (prefers-reduced-motion:reduce){#loadScreen *{-webkit-animation:none!important;animation:none!important}}
+/* home: 3D art on the mode cards, the player's face, side icons with timers, a deeper stage behind the menu */
+.homecards{margin-top:26px}
+.mcard{overflow:visible;padding-top:44px}
+.mcard .art{position:absolute;left:50%;top:-30px;width:82px;height:70px;margin-left:-41px;object-fit:contain;-webkit-filter:drop-shadow(0 5px 4px rgba(20,6,50,.45));filter:drop-shadow(0 5px 4px rgba(20,6,50,.45));-webkit-animation:artBob 3s ease-in-out infinite;animation:artBob 3s ease-in-out infinite;pointer-events:none}
+.mcard.daily .art{-webkit-animation-delay:-1s;animation-delay:-1s}.mcard.tiffin .art{-webkit-animation-delay:-2s;animation-delay:-2s}
+.bigplay .wb{position:relative;background:radial-gradient(circle at 50% 40%,#fff 0,rgba(255,255,255,.55) 70%)}
+.bigplay .wb img{width:52px;height:52px;object-fit:contain}
+.bigplay .wb i{position:absolute;right:-6px;bottom:-6px;font-style:normal;font-size:20px;width:28px;height:28px;border-radius:10px;background:#fff;display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;-webkit-justify-content:center;justify-content:center;box-shadow:0 2px 0 rgba(0,0,0,.2)}
+.prof .av{overflow:hidden;border:2px solid #fff;box-sizing:border-box}
+.prof .av img{width:116%;height:116%;margin-top:14%;object-fit:cover;object-position:50% 0}
+.prof .lvn{position:relative;background:radial-gradient(circle at 50% 35%,#ffe680,#ffb21f);color:var(--ink);-webkit-clip-path:polygon(50% 0,61% 32%,98% 35%,70% 57%,80% 95%,50% 74%,20% 95%,30% 57%,2% 35%,39% 32%);clip-path:polygon(50% 0,61% 32%,98% 35%,70% 57%,80% 95%,50% 74%,20% 95%,30% 57%,2% 35%,39% 32%);width:34px;height:34px;line-height:38px;font-size:13px;box-shadow:none}
+.homegrow{position:relative;-webkit-align-self:stretch;align-self:stretch;width:100%}
+.rails{position:absolute;top:4px;display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column;z-index:2}
+.rails.l{left:0}.rails.r{right:0}
+.rail{position:relative;width:66px;border:0;background:none;padding:0;margin-bottom:10px;color:#fff;text-align:center}
+.rail .ri{position:relative;display:-webkit-flex;display:flex;width:54px;height:54px;margin:0 auto;border-radius:18px;background:linear-gradient(180deg,rgba(255,255,255,.32),rgba(255,255,255,.1));border:2px solid rgba(255,255,255,.55);box-shadow:0 4px 0 rgba(20,6,50,.35),inset 0 -4px 0 rgba(0,0,0,.12);-webkit-align-items:center;align-items:center;-webkit-justify-content:center;justify-content:center;-webkit-animation:artBob 3.4s ease-in-out infinite;animation:artBob 3.4s ease-in-out infinite}
+.rails.r .rail .ri{-webkit-animation-delay:-1.7s;animation-delay:-1.7s}
+.rail .ri img{max-width:46px;max-height:46px;object-fit:contain}
+.rail .ri .svg{width:30px;height:30px}
+.rail .badge{top:-6px;right:-6px}
+.rail b{display:block;font:800 12px/1.1 "GCC Head",system-ui;font-style:italic;margin-top:4px;text-shadow:0 2px 0 rgba(20,6,50,.55)}
+.rail small{display:inline-block;margin-top:2px;font-size:10.5px;font-weight:900;background:rgba(20,6,50,.6);border-radius:8px;padding:1px 6px;white-space:nowrap}
+.rail:active .ri{-webkit-transform:translateY(3px);transform:translateY(3px)}
+#ui.home:before{content:"";position:absolute;left:0;right:0;top:0;bottom:0;pointer-events:none;background:radial-gradient(120% 80% at 50% 45%,rgba(0,0,0,0) 55%,rgba(30,10,60,.5) 100%)}
+#ui.home:after{content:"";position:absolute;left:-5%;right:-5%;top:calc(4px + env(safe-area-inset-top,0px));height:22px;pointer-events:none;border-top:2px solid rgba(255,255,255,.18);border-radius:50% 50% 0 0/14px 14px 0 0;background:radial-gradient(circle at 10px 5px,#ffe9a3 0 3px,rgba(255,210,63,.5) 4px,transparent 8px) 0 0/34px 16px repeat-x;opacity:.85;-webkit-animation:lsTw 1.6s steps(2) infinite;animation:lsTw 1.6s steps(2) infinite}
+@-webkit-keyframes artBob{50%{-webkit-transform:translateY(-4px)}}@keyframes artBob{50%{transform:translateY(-4px)}}
+@media (max-height:660px){.homecards{margin-top:18px}#ui.home .homecards .mcard{padding-top:28px}.mcard .art{width:54px;height:46px;margin-left:-27px;top:-20px}.rail{width:58px}.rail .ri{width:46px;height:46px}}
+@media (prefers-reduced-motion:reduce){.mcard .art,.rail .ri,#ui.home:after{-webkit-animation:none!important;animation:none!important}}
 
 </style>
 <style>
@@ -1687,7 +1743,7 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
     var key = Math.floor((now - WEEK_ORIGIN) / WEEK_MS);
     var slot = (key - FIRST_CUP) * 13; // Traverse all 35 combinations before returning to the first cup.
     var rotation = weeks[(slot % weeks.length + weeks.length) % weeks.length];
-    return { key: key, courses: rotation.map(function (i) { return course(spotlight[i][0]); }) };
+    return { key: key, ends: WEEK_ORIGIN + (key + 1) * WEEK_MS, courses: rotation.map(function (i) { return course(spotlight[i][0]); }) };
   }
   function current(now) {
     var day = Math.floor(now / 86400000);
@@ -2557,7 +2613,18 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
   var BASES = ['rogue', 'knight', 'barbarian', 'mage', 'rogue_hooded'];
   var M = { ready: false, failed: false, chars: {}, clips: [], props: {}, H: 1.3, loading: null };
 
-  function loadGLB(url) { return new Promise(function (res, rej) { new THREE.GLTFLoader().load(url, res, undefined, rej); }); }
+  // each file's share of the loading (0..1), for the loading screen's progress bar
+  var parts = {};
+  function loadGLB(url) {
+    parts[url] = 0;
+    return new Promise(function (res, rej) {
+      new THREE.GLTFLoader().load(url, function (g) { parts[url] = 1; res(g); }, function (e) { if (e && e.total) parts[url] = Math.min(0.95, e.loaded / e.total); }, rej);
+    });
+  }
+  function progress() {
+    var k = Object.keys(parts); if (M.ready || M.failed) return 1; if (!k.length) return 0;
+    return k.reduce(function (s, u) { return s + parts[u]; }, 0) / k.length;
+  }
   function log(kind, msg) { try { if (root.__gccLogAdd) root.__gccLogAdd(kind, msg); } catch (e) {} }
 
   function load() {
@@ -2803,7 +2870,7 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
 
   function prop(name) { var p = M.props[name]; if (!p) return null; var c = p.clone(true); c.traverse(function (o) { if (o.isMesh) { o.castShadow = !low(); o.receiveShadow = !low(); } }); return c; }
 
-  G.Models = { load: load, hero: hero, pose: pose, prop: prop, sized: sized, has: function () { return M.ready; }, propNames: function () { return Object.keys(M.props); }, M: M };
+  G.Models = { load: load, progress: progress, failed: function () { return M.failed; }, hero: hero, pose: pose, prop: prop, sized: sized, has: function () { return M.ready; }, propNames: function () { return Object.keys(M.props); }, M: M };
 })(window);
 
 </script>
@@ -4126,7 +4193,7 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
   function topbar(back) {
     var S = G.SAVE, lv = G.xpLevel(S.g.xp), k = G.KIDS[S.g.eq.kid] || G.KIDS.munna;
     var left = back ? '<button class="rnd" id="back" aria-label="' + t('Back') + '">' + ic('back') + '</button>'
-      : '<button class="prof" id="lvl" aria-label="' + t('Level') + ' ' + lv + '"><span class="av" style="background:' + hex(k.shirt) + '">🧒</span><span class="pinfo"><b>' + esc(k.name) + '</b><span class="lvbar"><i style="width:' + Math.round(G.xpFrac(S.g.xp) * 100) + '%"></i></span></span><span class="lvn">' + lv + '</span></button>';
+      : '<button class="prof" id="lvl" aria-label="' + t('Level') + ' ' + lv + '"><span class="av" style="background:' + hex(k.shirt) + '">' + (k.model ? '<img src="art/av-' + k.model + '.webp" alt="">' : '🧒') + '</span><span class="pinfo"><b>' + esc(k.name) + '</b><span class="lvbar"><i style="width:' + Math.round(G.xpFrac(S.g.xp) * 100) + '%"></i></span></span><span class="lvn">' + lv + '</span></button>';
     return '<div class="top' + (back ? '' : ' top-menu') + '">' + left + '<div class="chips">' + chip('🪙', fmt(S.coins), root.__gccWebPlay ? null : 'cc', !root.__gccWebPlay, t('Coins')) + chip('🔮', fmt(S.kanche), null, false, t('Marbles')) + '</div>' + (back ? '<span class="sp"></span>' : '<button class="rnd" id="set" aria-label="' + t('Settings') + '">' + ic('gear') + '</button>') + '</div>';
   }
   function tabs(on) {
@@ -4207,16 +4274,30 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
     var live = G.PvP.available() && !G.isChild();
     show(topbar() +
       '<div class="title"><div class="t1">' + t('Bat &amp; Tin') + '</div><div class="t2">' + t('CRICKET GOLF') + '</div></div>' +
-      '<div class="homegrow"></div>' +
+      '<div class="homegrow">' + rails() + '</div>' +
       '<div class="homecards">' +
-        '<button class="mcard race" id="h_challenge"><span class="bub">' + ic('race') + '</span><b>Beat My Shot</b><small>Challenge a friend</small></button>' +
-        '<button class="mcard daily" id="h_daily"><span class="bub">' + ic('cal') + '</span>' + (dailyDone ? '' : '<em class="badge">' + t('NEW') + '</em>') + '<b>' + t('Today\'s Hole') + '</b><small>' + (dailyDone ? t('Best') + ': ' + D.best + ' ' + t('shots') : t('New every day')) + '</small></button>' +
-        '<button class="mcard tiffin' + (T.ready ? ' ready' : '') + '" id="h_tiffin"><span class="bub">' + ic('box') + '</span>' + (T.ready ? '<em class="badge">×' + T.ready + '</em>' : '') + '<b>' + t('Prize Box') + '</b><small>' + (T.ready ? t('Tap to open!') : '<span class="mini"><i style="width:' + Math.round(T.p / G.TIFFIN_STARS * 100) + '%"></i></span>') + '</small></button>' +
+        '<button class="mcard race" id="h_challenge"><img class="art" src="art/t-challenge.webp" alt=""><b>Beat My Shot</b><small>Challenge a friend</small></button>' +
+        '<button class="mcard daily" id="h_daily"><img class="art" src="art/t-daily.webp" alt="">' + (dailyDone ? '' : '<em class="badge">' + t('NEW') + '</em>') + '<b>' + t('Today\'s Hole') + '</b><small>' + (dailyDone ? t('Best') + ': ' + D.best + ' ' + t('shots') : t('New every day')) + '</small></button>' +
+        '<button class="mcard tiffin' + (T.ready ? ' ready' : '') + '" id="h_tiffin"><img class="art" src="art/t-box.webp" alt="">' + (T.ready ? '<em class="badge">×' + T.ready + '</em>' : '') + '<b>' + t('Prize Box') + '</b><small>' + (T.ready ? t('Tap to open!') : '<span class="mini"><i style="width:' + Math.round(T.p / G.TIFFIN_STARS * 100) + '%"></i></span>') + '</small></button>' +
       '</div>' +
       (live ? '<button class="bigplay" id="livePlay"><span class="wb">⚡</span><span class="pl"><span class="pt">LIVE 1v1</span><small>Find a player · 400 Arena Coins</small></span></button>' : '') +
-      '<button class="' + (live ? 'btn journey-secondary' : 'bigplay') + '" id="play"><span class="wb">' + w.icon + '</span><span class="pl"><span class="pt">' + ic('play') + (live ? 'Practice Journey' : t('PLAY')) + '</span><small>' + esc(t(w.name)) + ' · ' + t('Hole') + ' ' + (nh.n + 1) + ' · ★ ' + st + '/27</small>' + allowance() + '</span></button>' +
-      tabs('home'), 'home', withTabs({ livePlay: G.PvP.open, play: function () { playHole(nh.id); }, h_challenge: challengeMenu, h_daily: daily, h_tiffin: tiffin, set: settings, lvl: kids }));
+      '<button class="' + (live ? 'btn journey-secondary' : 'bigplay') + '" id="play"><span class="wb"><img src="art/t-play.webp" alt=""><i>' + w.icon + '</i></span><span class="pl"><span class="pt">' + ic('play') + (live ? 'Practice Journey' : t('PLAY')) + '</span><small>' + esc(t(w.name)) + ' · ' + t('Hole') + ' ' + (nh.n + 1) + ' · ★ ' + st + '/27</small>' + allowance() + '</span></button>' +
+      tabs('home'), 'home', withTabs({ livePlay: G.PvP.open, play: function () { playHole(nh.id); }, h_challenge: challengeMenu, h_daily: daily, h_tiffin: tiffin, r_cup: challengeMenu, r_gift: giftInfo, r_squad: kids, r_shop: function () { shop(); }, set: settings, lvl: kids }));
   }
+
+  /* side icons on the home screen: live things with a timer or a badge (Weekly Cup, next daily reward, Squad, Shop) */
+  function left(ms) { ms = Math.max(0, ms); var h = Math.floor(ms / 3600000), d = Math.floor(h / 24); return d ? d + 'd ' + (h % 24) + 'h' : h ? h + 'h ' + Math.floor(ms / 60000) % 60 + 'm' : Math.max(1, Math.floor(ms / 60000)) + 'm'; }
+  function midnight() { var d = new Date(); d.setHours(24, 0, 0, 0); return d.getTime(); }
+  function rails() {
+    var now = Date.now(), S = G.SAVE, cup = G.Challenge.week(now), next = Object.keys(G.KIDS).filter(function (id) { return S.g.owned.kid.indexOf(id) < 0; })
+      .map(function (id) { return G.KIDS[id]; }).sort(function (a, b) { return (a.price || 0) - (b.price || 0); })[0];
+    var canBuy = next && (next.price || 0) <= S.coins;
+    function r(id, art, label, sub, badge) { return '<button class="rail" id="' + id + '"><span class="ri">' + art + (badge ? '<em class="badge">' + badge + '</em>' : '') + '</span><b>' + label + '</b>' + (sub ? '<small>' + sub + '</small>' : '') + '</button>'; }
+    return '<div class="rails l">' + r('r_cup', '<img src="art/t-cup.webp" alt="">', t('Weekly Cup'), left(cup.ends - now)) + r('r_gift', '<img src="art/t-coins.webp" alt="">', t('Daily gift'), left(midnight() - now)) + '</div>' +
+      '<div class="rails r">' + r('r_squad', next && next.model ? '<img src="art/av-' + next.model + '.webp" alt="">' : ic('kids'), t('Squad'), next ? (canBuy ? t('Unlock!') : fmt(next.price || 0) + ' 🪙') : '', canBuy ? '!' : '') +
+      r('r_shop', ic('shop'), t('Shop'), '') + '</div>';
+  }
+  function giftInfo() { toast(t('Next daily gift in') + ' ' + left(midnight() - Date.now()), 1800); }
 
   /* ---------- journey (safar) ---------- */
   function safar() {
@@ -4723,6 +4804,33 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
   }
   function fpsResult(line) { hudOff(); show('<div class="sheet"><h2 class="sh">FPS check</h2><p id="fpsres" dir="ltr" class="small">' + esc(line) + '</p><button class="btn" id="back">' + t('Back') + '</button></div>', 'settings', { back: home }); }
 
+  /* ---------- loading screen: shown while the 3D models load (a few seconds on the first start) ---------- */
+  var TIPS = ['Tap when the needle is in the green for a PERFECT hit', 'Loft goes over walls, Sweep goes round corners', 'Finish under par for three stars',
+    'Hot pans stop the ball dead', 'Fill the Prize Box with stars to open it', 'A marble takes back a bad shot', 'Every world ends with a boss hole: hit the stumps!',
+    'Beat My Shot: send a friend a link to the same hole'];
+  function loadScreen() {
+    if (document.getElementById('loadScreen') || !G.Models) return;
+    var el = document.createElement('div'); el.id = 'loadScreen'; el.setAttribute('role', 'progressbar'); el.setAttribute('aria-label', t('Loading'));
+    var bits = ''; for (var i = 0; i < 14; i++) bits += '<i style="left:' + (4 + i * 7) + '%;animation-delay:' + (i * 0.37 % 2.6).toFixed(2) + 's;background:' + ['#ffd23f', '#ff4a6e', '#37b6ff', '#2ee59d'][i % 4] + '"></i>';
+    el.innerHTML = '<div class="ls-bulbs"></div><div class="ls-curt l"></div><div class="ls-curt r"></div><div class="ls-conf">' + bits + '</div>' +
+      '<div class="ls-logo title"><div class="t1">' + t('Bat &amp; Tin') + '</div><div class="t2">' + t('CRICKET GOLF') + '</div></div>' +
+      '<div class="ls-stage"><div class="ls-star"></div><img src="art/cast.webp" alt="" width="720" height="288"><div class="ls-floor"></div></div>' +
+      '<div class="ls-foot"><b>' + t('Loading') + '…</b><div class="ls-bar"><i id="lsFill"></i><span id="lsPct">0%</span></div><p id="lsTip"></p></div>';
+    document.getElementById('wrap').appendChild(el);
+    var t0 = performance.now(), tipN = Math.floor(Math.random() * TIPS.length), tipAt = 0, shown = 0;
+    (function tick() {
+      if (!el.parentNode) return;
+      var now = performance.now(), p = G.Models.progress(), done = G.Models.has() || G.Models.failed() || now - t0 > 9000;
+      shown += (Math.max(shown, p) - shown) * 0.25;   // the bar eases towards the real progress
+      if (done) shown = 1;
+      var pct = done ? 100 : Math.min(99, Math.round(shown * 100));
+      $('lsFill').style.width = pct + '%'; $('lsPct').textContent = pct + '%';
+      if (now - tipAt > 2600) { tipAt = now; $('lsTip').textContent = t(TIPS[tipN++ % TIPS.length]); }
+      if (done) { el.className = 'out'; setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, 380); return; }
+      requestAnimationFrame(tick);
+    })();
+  }
+
   /* ---------- the age screen (first launch): neutral, no answer is pre-picked or hinted ---------- */
   function ageGate(next) {
     if (G.SAVE.age) {
@@ -4780,7 +4888,7 @@ var capacitorExports=function(e){"use strict";var t;e.ExceptionCode=void 0,(t=e.
     return false;
   }
 
-  G.UI = { refreshKid: refreshKid, init: init, showArenaReplay: showArenaReplay, quickStart: quickStart, openChallengeLink: openChallengeLink, ageGate: ageGate, party: party, startParty: startParty, show: show, overlay: overlay, closeOverlay: closeOverlay, blocking: blocking, toast: toast, home: home, safar: safar, shop: shop, kids: kids, race: race, daily: daily, settings: settings, tutorial: tutorial,
+  G.UI = { refreshKid: refreshKid, loadScreen: loadScreen, init: init, showArenaReplay: showArenaReplay, quickStart: quickStart, openChallengeLink: openChallengeLink, ageGate: ageGate, party: party, startParty: startParty, show: show, overlay: overlay, closeOverlay: closeOverlay, blocking: blocking, toast: toast, home: home, safar: safar, shop: shop, kids: kids, race: race, daily: daily, settings: settings, tutorial: tutorial,
     prepareDuel: prepareDuel, hud: hud, power: power, meter: meter, meterImpact: meterImpact, clearFeedback: clearFeedback, pop: pop, hint: hint, holeIntro: holeIntro, raceBar: raceBar, holeResult: holeResult, fpsResult: fpsResult, pause: pause, resume: resume, isPaused: isPaused,
     loginReward: loginReward, welcome: welcome, showcaseTick: showcaseTick, back: back, hudOff: hudOff, playHole: playHole, worldOpen: worldOpen, holeOpen: holeOpen, paywall: paywall, view: function () { return view; } };
 })(window);
@@ -4805,6 +4913,7 @@ window.__gccGame = function () {
   G.Play.init(); G.UI.init();
   G.onModelsReady = function () { if (!G.Play.active() && G.UI.refreshKid) G.UI.refreshKid(true); };
   if (G.Models) G.Models.load();   // real 3D models load in the background; the built-in shapes are used until then
+  if (G.Models && !G.Models.has() && !G.Models.failed()) G.UI.loadScreen();   // stage, cast, progress bar and tips until they are in
   document.documentElement.lang = G.lang() === 'roman' ? 'ur-Latn' : G.lang();
 
   // lost graphics: a tap reloads (progress is saved)
